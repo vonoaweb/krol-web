@@ -112,8 +112,32 @@ const ioPour = new IntersectionObserver(es => es.forEach(e => {
 }), { threshold: .22 });
 $$('.pour').forEach(el => ioPour.observe(el));
 
-/* 7 · (libre) — el isotipo trazado se sustituyó por el bloque 3D de Nosotros,
-   que es puro CSS y no necesita JS. */
+/* ─────────────────────────────────────────────
+   7 · Volumetría 3D de Nosotros
+   El parallax ASIGNA el ángulo, no lo suma: mover el mouse inclina el conjunto
+   y regresa al soltarlo. (Sumarlo, como venía en el original, cambia la
+   velocidad de giro de forma permanente.)
+   ───────────────────────────────────────────── */
+const ciudad = $('#ciudad');
+if (ciudad) {
+  if (HOVER && !CALMA) {
+    ciudad.addEventListener('pointermove', e => {
+      const r = ciudad.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width  - .5;
+      const y = (e.clientY - r.top)  / r.height - .5;
+      ciudad.style.setProperty('--ty', ( x * 18).toFixed(1) + 'deg');
+      ciudad.style.setProperty('--tx', (-y * 11).toFixed(1) + 'deg');
+    });
+    ciudad.addEventListener('pointerleave', () => {
+      ciudad.style.setProperty('--ty', '0deg');
+      ciudad.style.setProperty('--tx', '0deg');
+    });
+  }
+  // Fuera de pantalla no tiene caso seguir girando
+  new IntersectionObserver(es => es.forEach(e => {
+    ciudad.classList.toggle('quieta', !e.isIntersecting);
+  }), { threshold: .05 }).observe(ciudad);
+}
 
 /* ─────────────────────────────────────────────
    8 · Proceso — scroll horizontal fijado

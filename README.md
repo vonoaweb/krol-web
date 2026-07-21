@@ -16,7 +16,7 @@ El isotipo de KROL ya es un dibujo técnico, así que ese es el hilo de todo el 
 | Momento | Qué pasa |
 |---|---|
 | Hero | **Video de fondo** con acercamiento lento a una casa de concreto aparente, en ciclo de ida y vuelta para que no dé el salto seco al repetir. Encima aparece un plano: retícula, ejes y **cotas acotadas con datos reales** (13 años, 7 estados). El titular entra por palabras enmascaradas. |
-| Nosotros | **Bloque 3D girando** con una foto real de obra por cara, en secuencia: cimentación → armado → cimbra y colado → entrega. Es un prisma de verdad en CSS (`preserve-3d`), sin librerías. Se pausa al pasar el cursor. |
+| Nosotros | **Volumetría 3D girando**: cinco bloques de concreto que evocan el isotipo, con plataforma de plano. Geometría real en CSS (`preserve-3d`), sin librerías. El cursor inclina el conjunto y se detiene fuera de pantalla. |
 | Servicios | **Carrusel deslizable** con foto real de obra por servicio: 3 tarjetas en escritorio, 2 en tablet, 1 con asomo en celular. Flechas, contador, riel de avance, arrastre con mouse y deslizado con el dedo. |
 | Proceso | **Scroll horizontal fijado (pin)**: las 4 etapas se recorren en horizontal mientras la sección queda clavada. En móvil pasa a carrusel con el dedo. |
 | Fotos | Reveal **“colado”**: la imagen se llena de abajo hacia arriba, como concreto, con una línea naranja de remate. |
@@ -108,10 +108,39 @@ Todos salen del material del cliente, recortados y recomprimidos para web:
 | `escalera.mp4` | proyectos | escalera de concreto terminada en una agencia |
 | `hero.mp4` | inicio | fondo del hero: acercamiento a la casa de concreto |
 
-Todos van `muted loop playsinline` con `preload="none"`: no descargan nada hasta
-que la sección entra en pantalla, y se pausan al salir.
+Todos van `muted loop playsinline` con `preload="none"` (el del hero, `metadata`):
+no descargan nada hasta que la sección entra en pantalla, y se pausan al salir.
 
-Peso total ≈ 12 MB repartido entre cinco páginas — ninguna carga más de ~4 MB.
+### Peso
+
+Se hizo una pasada de optimización que bajó **40% lo que descarga el navegador**,
+sin tocar la calidad visible:
+
+| Página | Antes | Ahora |
+|---|---|---|
+| Inicio | 5,080 KB | 3,081 KB |
+| Nosotros | 7,280 KB | 4,555 KB |
+| Servicios | 4,537 KB | 2,448 KB |
+| Proyectos | 5,565 KB | 3,369 KB |
+| Contacto | 785 KB | 658 KB |
+
+Qué se hizo, en orden de impacto:
+
+1. **Se quitó el video de fondo del CTA.** Iba detrás de una capa al 97% de
+   opacidad que a su vez es 80-90% opaca: no se veía. Eran 1.7 MB en cuatro de
+   las cinco páginas. La sección se ve idéntica. *(Si se quiere que ese video sí
+   se vea, hay que bajarle la opacidad a `.cta__bg span` y volver a ponerlo.)*
+2. **`camion.mp4` y `pickup.mp4` reencodeados** a 760px, que es su tamaño real en
+   pantalla: −49% y −39%. Comparados cuadro a cuadro, indistinguibles.
+3. **AVIF con respaldo JPEG** vía `<picture>`, sólo en los archivos donde AVIF
+   gana al menos 10% (en las fotos de varilla, con mucho detalle fino, AVIF pesa
+   *más*, así que ésas se quedaron en JPEG). El navegador baja un formato u otro,
+   nunca los dos. `picture{display:contents}` para que la envoltura no altere el
+   layout.
+
+Se probaron y **descartaron** dos rutas: WebP (sólo 9% global, y peor que JPEG en
+las fotos con mucho grano) y WebM/VP9 (6% *peor* que los MP4 actuales, que ya
+estaban bien codificados).
 
 ---
 
