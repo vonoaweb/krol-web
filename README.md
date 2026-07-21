@@ -15,7 +15,7 @@ El isotipo de KROL ya es un dibujo técnico, así que ese es el hilo de todo el 
 
 | Momento | Qué pasa |
 |---|---|
-| Hero | Sobre la foto real aparece un plano: retícula, ejes y **cotas acotadas con datos reales** (13 años, 7 estados). El titular entra por palabras enmascaradas. |
+| Hero | **Video de fondo** con acercamiento lento a una casa de concreto aparente, en ciclo de ida y vuelta para que no dé el salto seco al repetir. Encima aparece un plano: retícula, ejes y **cotas acotadas con datos reales** (13 años, 7 estados). El titular entra por palabras enmascaradas. |
 | Nosotros | El isotipo **se dibuja solo** al entrar en pantalla, como plóter: ejes, copa y torres en ~1.3s. (Antes iba amarrado al scroll y quedaba a medias si te parabas ahí.) |
 | Servicios | **Carrusel deslizable** con foto real de obra por servicio: 3 tarjetas en escritorio, 2 en tablet, 1 con asomo en celular. Flechas, contador, riel de avance, arrastre con mouse y deslizado con el dedo. |
 | Proceso | **Scroll horizontal fijado (pin)**: las 4 etapas se recorren en horizontal mientras la sección queda clavada. En móvil pasa a carrusel con el dedo. |
@@ -106,6 +106,7 @@ Todos salen del material del cliente, recortados y recomprimidos para web:
 | `pickup.mp4` | nosotros | pickup rotulada en carretera |
 | `camion.mp4` | nosotros + CTA | camión de material |
 | `escalera.mp4` | proyectos | escalera de concreto terminada en una agencia |
+| `hero.mp4` | inicio | fondo del hero: acercamiento a la casa de concreto |
 
 Todos van `muted loop playsinline` con `preload="none"`: no descargan nada hasta
 que la sección entra en pantalla, y se pausan al salir.

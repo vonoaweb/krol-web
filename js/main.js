@@ -51,7 +51,9 @@ function heroIntro() {
     .from('[data-hero="4"]', { y: 20, autoAlpha: 0, duration: .8 }, '-=.5')
     .from('.hero__cue',      { autoAlpha: 0, duration: .6 }, '-=.4');
 
-  gsap.fromTo('.hero__media img', { scale: 1.18 }, { scale: 1.06, duration: 2.6, ease: 'power2.out' });
+  // Sólo cuando el fondo es foto fija: el video del inicio ya se acerca solo.
+  const fondo = $('.hero__media img');
+  if (fondo) gsap.fromTo(fondo, { scale: 1.18 }, { scale: 1.06, duration: 2.6, ease: 'power2.out' });
 }
 function gsapless(el) { el.style.opacity = 1; el.style.transform = 'none'; }
 
@@ -328,12 +330,15 @@ addEventListener('keydown', e => { if (e.key === 'Escape' && lb.classList.contai
 /* ─────────────────────────────────────────────
    14 · Video sólo cuando se ve
    ───────────────────────────────────────────── */
-const ioVid = new IntersectionObserver(es => es.forEach(e => {
-  const v = e.target;
-  if (e.isIntersecting) { v.preload = 'auto'; v.play?.().catch(() => {}); }
-  else v.pause?.();
-}), { threshold: .25 });
-$$('video').forEach(v => ioVid.observe(v));
+// Con movimiento reducido no se reproduce nada: se queda el póster.
+if (!CALMA) {
+  const ioVid = new IntersectionObserver(es => es.forEach(e => {
+    const v = e.target;
+    if (e.isIntersecting) { v.preload = 'auto'; v.play?.().catch(() => {}); }
+    else v.pause?.();
+  }), { threshold: .25 });
+  $$('video').forEach(v => ioVid.observe(v));
+}
 
 /* ─────────────────────────────────────────────
    15 · Formulario (demo)
