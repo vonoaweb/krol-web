@@ -54,42 +54,6 @@
 </head>
 <body>
 
-<!-- ══════════════ PRELOADER · EL TRAZO ══════════════ -->
-<div class="preloader" id="preloader">
-  <div class="preloader__inner">
-    <svg class="iso iso--pre" viewBox="0 0 400 340" aria-hidden="true">
-      <g class="iso__guides">
-        <line x1="200" y1="0" x2="200" y2="336" /><line x1="16" y1="262" x2="384" y2="262" />
-        <circle cx="200" cy="262" r="6" />
-      </g>
-      <g class="iso__cup">
-        <path d="M28 150 C36 258 112 306 200 306 C288 306 364 258 372 150" />
-        <path d="M58 152 C66 246 126 288 200 288 C274 288 334 246 342 152" />
-        <path d="M200 302 Q118 258 34 152" /><path d="M200 302 Q142 252 74 152" />
-        <path d="M200 302 Q170 246 122 154" /><path d="M200 302 Q195 244 172 156" />
-        <path d="M200 302 Q228 244 250 156" /><path d="M200 302 Q262 252 326 152" />
-        <path d="M200 302 Q284 258 366 152" />
-      </g>
-      <g class="iso__towers">
-        <path d="M70 262 V196 H104 V262" />
-        <path d="M106 262 V150 H146 V262" />
-        <path d="M150 262 V62 L176 38 L202 62 V262" />
-        <path d="M176 38 V8" />
-        <path d="M206 262 V96 H244 V262" />
-        <path d="M248 262 V120 L292 148 V262" />
-        <path d="M118 170 h16 M118 192 h16 M216 118 h16 M216 142 h16 M258 152 h18 M258 176 h18" />
-      </g>
-    </svg>
-    <div class="preloader__meta">
-      <span class="preloader__word">KROL</span>
-      <span class="preloader__sub">Edificación Estructural</span>
-    </div>
-    <div class="preloader__bar"><span id="preFill"></span></div>
-    <div class="preloader__pct"><span id="prePct">0</span>%</div>
-  </div>
-  <div class="preloader__wipe"></div>
-</div>
-
 <div class="scroll-progress" id="scrollProgress"></div>
 
 <!-- ══════════════ HEADER ══════════════ -->
@@ -264,64 +228,75 @@
       <p class="head__desc" data-reveal>Desde la excavación hasta el colado final. Ejecutamos con cuadrillas propias, equipo propio y supervisión permanente en sitio.</p>
     </div>
 
-    <div class="idx" id="idx">
-      <div class="idx__peek" id="idxPeek" aria-hidden="true"><img id="idxPeekImg" src="" alt="" /></div>
+    <div class="carru" id="carru">
+      <div class="carru__barra">
+        <div class="carru__cuenta"><b id="carruAct">01</b><span>/ 08</span></div>
+        <div class="carru__riel"><span id="carruRiel"></span></div>
+        <div class="carru__btns">
+          <button class="carru__b" id="carruPrev" aria-label="Servicio anterior" aria-controls="carruPista">←</button>
+          <button class="carru__b" id="carruNext" aria-label="Servicio siguiente" aria-controls="carruPista">→</button>
+        </div>
+      </div>
 
-      <a class="idx__row" data-reveal data-img="img/cimentacion.jpg" href="#contacto">
-        <span class="idx__n">01</span>
-        <h3 class="idx__t">Cimentaciones</h3>
-        <p class="idx__d">Zapatas aisladas y corridas, losas de cimentación, dados y preparación de anclajes para estructura metálica.</p>
-        <span class="idx__go" aria-hidden="true">↗</span>
-      </a>
+      <div class="carru__pista" id="carruPista" tabindex="0" role="region" aria-label="Servicios de KROL, desliza para ver más">
 
-      <a class="idx__row" data-reveal data-img="img/patio-concreto.jpg" href="#contacto">
-        <span class="idx__n">02</span>
-        <h3 class="idx__t">Estructuras de concreto</h3>
-        <p class="idx__d">Trabes, columnas, losas y entrepisos. Cimbra, armado y colado con control de calidad en cada etapa.</p>
-        <span class="idx__go" aria-hidden="true">↗</span>
-      </a>
+        <article class="serv">
+          <div class="serv__img pour"><img src="img/cimentacion.jpg" alt="Armado de zapata y dado de cimentación en obra industrial" loading="lazy" /><span class="serv__n">01</span></div>
+          <h3>Cimentaciones</h3>
+          <p>Zapatas aisladas y corridas, losas de cimentación, dados y preparación de anclajes para estructura metálica.</p>
+          <a href="#contacto" class="serv__cta">Cotizar <i aria-hidden="true">↗</i></a>
+        </article>
 
-      <a class="idx__row" data-reveal data-img="img/muro-contencion.jpg" href="#contacto">
-        <span class="idx__n">03</span>
-        <h3 class="idx__t">Muros de contención</h3>
-        <p class="idx__d">Diseño y ejecución de muros de contención para desniveles, taludes y excavaciones profundas.</p>
-        <span class="idx__go" aria-hidden="true">↗</span>
-      </a>
+        <article class="serv">
+          <div class="serv__img pour"><img src="img/armado-vertical.jpg" alt="Armado vertical de columnas de concreto" loading="lazy" /><span class="serv__n">02</span></div>
+          <h3>Estructuras de concreto</h3>
+          <p>Trabes, columnas, losas y entrepisos. Cimbra, armado y colado con control de calidad en cada etapa.</p>
+          <a href="#contacto" class="serv__cta">Cotizar <i aria-hidden="true">↗</i></a>
+        </article>
 
-      <a class="idx__row" data-reveal data-img="img/cocina-concreto.jpg" href="#contacto">
-        <span class="idx__n">04</span>
-        <h3 class="idx__t">Concreto aparente</h3>
-        <p class="idx__d">Muros y elementos aparentes con cimbra de precisión: acabado limpio, sin repellado, listo para entregar.</p>
-        <span class="idx__go" aria-hidden="true">↗</span>
-      </a>
+        <article class="serv">
+          <div class="serv__img pour"><img src="img/muro-contencion.jpg" alt="Muro de contención armado junto a un talud excavado" loading="lazy" /><span class="serv__n">03</span></div>
+          <h3>Muros de contención</h3>
+          <p>Diseño y ejecución de muros de contención para desniveles, taludes y excavaciones profundas.</p>
+          <a href="#contacto" class="serv__cta">Cotizar <i aria-hidden="true">↗</i></a>
+        </article>
 
-      <a class="idx__row" data-reveal data-img="img/armado-losa.jpg" href="#contacto">
-        <span class="idx__n">05</span>
-        <h3 class="idx__t">Pisos de concreto industriales</h3>
-        <p class="idx__d">Firmes y pisos de alta resistencia para naves, bodegas y centros de distribución. Acabado pulido o escobillado.</p>
-        <span class="idx__go" aria-hidden="true">↗</span>
-      </a>
+        <article class="serv">
+          <div class="serv__img pour"><img src="img/patio-concreto.jpg" alt="Patio interior con muros de concreto aparente" loading="lazy" /><span class="serv__n">04</span></div>
+          <h3>Concreto aparente</h3>
+          <p>Muros y elementos aparentes con cimbra de precisión: acabado limpio, sin repellado, listo para entregar.</p>
+          <a href="#contacto" class="serv__cta">Cotizar <i aria-hidden="true">↗</i></a>
+        </article>
 
-      <a class="idx__row" data-reveal data-img="img/armado-detalle.jpg" href="#contacto">
-        <span class="idx__n">06</span>
-        <h3 class="idx__t">Habilitado de varilla</h3>
-        <p class="idx__d">Corte y doblado con equipo propio. Habilitamos en taller y llegamos a obra con el acero listo para armar.</p>
-        <span class="idx__go" aria-hidden="true">↗</span>
-      </a>
+        <article class="serv">
+          <div class="serv__img pour"><img src="img/armado-losa.jpg" alt="Armado de losa de piso previo al colado" loading="lazy" /><span class="serv__n">05</span></div>
+          <h3>Pisos de concreto industriales</h3>
+          <p>Firmes y pisos de alta resistencia para naves, bodegas y centros de distribución. Acabado pulido o escobillado.</p>
+          <a href="#contacto" class="serv__cta">Cotizar <i aria-hidden="true">↗</i></a>
+        </article>
 
-      <a class="idx__row" data-reveal data-img="img/casa-reserva.jpg" href="#contacto">
-        <span class="idx__n">07</span>
-        <h3 class="idx__t">Ejecución especializada</h3>
-        <p class="idx__d">Proyectos que se ajustan a la necesidad: diseño, trazo, cimbrado, armado y colado. Geometrías complejas incluidas.</p>
-        <span class="idx__go" aria-hidden="true">↗</span>
-      </a>
+        <article class="serv">
+          <div class="serv__img pour"><img src="img/armado-detalle.jpg" alt="Detalle de varilla habilitada y amarrada en obra" loading="lazy" /><span class="serv__n">06</span></div>
+          <h3>Habilitado de varilla</h3>
+          <p>Corte y doblado con equipo propio. Habilitamos en taller y llegamos a obra con el acero listo para armar.</p>
+          <a href="#contacto" class="serv__cta">Cotizar <i aria-hidden="true">↗</i></a>
+        </article>
 
-      <a class="idx__row" data-reveal data-img="img/cimbra-muro.jpg" href="#contacto">
-        <span class="idx__n">08</span>
-        <h3 class="idx__t">Obra civil y excavación</h3>
-        <p class="idx__d">Terracerías, excavación, urbanización, concreto lanzado y limpieza final de obra.</p>
-        <span class="idx__go" aria-hidden="true">↗</span>
-      </a>
+        <article class="serv">
+          <div class="serv__img pour"><img src="img/casa-reserva.jpg" alt="Vivienda de concreto aparente de ejecución especializada" loading="lazy" /><span class="serv__n">07</span></div>
+          <h3>Ejecución especializada</h3>
+          <p>Proyectos que se ajustan a la necesidad: diseño, trazo, cimbrado, armado y colado. Geometrías complejas incluidas.</p>
+          <a href="#contacto" class="serv__cta">Cotizar <i aria-hidden="true">↗</i></a>
+        </article>
+
+        <article class="serv">
+          <div class="serv__img pour"><img src="img/cimbra-muro.jpg" alt="Cimbra de madera montada para colado de muro" loading="lazy" /><span class="serv__n">08</span></div>
+          <h3>Obra civil y excavación</h3>
+          <p>Terracerías, excavación, urbanización, concreto lanzado y limpieza final de obra.</p>
+          <a href="#contacto" class="serv__cta">Cotizar <i aria-hidden="true">↗</i></a>
+        </article>
+
+      </div>
     </div>
   </div>
 </section>

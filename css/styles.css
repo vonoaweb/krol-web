@@ -97,42 +97,6 @@ ul{list-style:none}
 .btn--lg{padding:18px 38px;font-size:.98rem}
 .btn--full{width:100%;justify-content:center;margin-top:8px}
 
-/* ══════════════ PRELOADER ══════════════ */
-.preloader{
-  position:fixed;inset:0;z-index:2000;background:var(--fondo);
-  display:grid;place-items:center;
-}
-.preloader__inner{display:flex;flex-direction:column;align-items:center;gap:20px;transition:opacity .4s ease}
-.iso--pre{width:min(190px,42vw);height:auto}
-.preloader__meta{text-align:center;overflow:hidden}
-.preloader__word{
-  display:block;font-family:var(--cond);font-weight:800;font-size:1.9rem;
-  letter-spacing:.42em;text-indent:.42em;color:var(--papel);line-height:1;
-  opacity:0;transform:translateY(110%);transition:all .9s .35s var(--ease);
-}
-.preloader__sub{
-  display:block;font-family:var(--tecno);font-size:8.5px;letter-spacing:.3em;
-  color:var(--acero);margin-top:9px;text-transform:uppercase;
-  opacity:0;transition:opacity .7s .7s ease;
-}
-.preloader.lit .preloader__word{opacity:1;transform:translateY(0)}
-.preloader.lit .preloader__sub{opacity:1}
-.preloader__bar{width:min(230px,52vw);height:2px;background:rgba(233,229,222,.12);overflow:hidden}
-.preloader__bar span{display:block;height:100%;width:0;background:var(--naranja);transition:width .25s linear}
-.preloader__pct{font-family:var(--disp);font-size:11px;color:var(--acero);letter-spacing:.1em}
-.preloader__wipe{
-  position:absolute;inset:0;background:var(--tinta);
-  transform:scaleY(0);transform-origin:bottom;
-  transition:transform .62s var(--ease);
-}
-/* Franja de obra en el filo del barrido */
-.preloader__wipe::before{
-  content:'';position:absolute;left:0;right:0;top:0;height:12px;background:var(--franja);
-}
-.preloader.out .preloader__inner{opacity:0}
-.preloader.out .preloader__wipe{transform:scaleY(1)}
-.preloader.gone{transform:translateY(-101%);transition:transform .7s .1s var(--ease)}
-
 /* ─── Isotipo trazado ─── */
 .iso{overflow:visible}
 .iso g{fill:none;stroke-linecap:round;stroke-linejoin:round}
@@ -266,38 +230,72 @@ ul{list-style:none}
 .servicios .eyebrow__mark{background:var(--naranja-osc)}
 .servicios .eyebrow__mark::after{background:var(--naranja-osc)}
 
-.idx{position:relative;border-top:1px solid rgba(23,21,18,.16)}
-.idx__row{
-  display:grid;grid-template-columns:62px 1.05fr 1.35fr 40px;
-  gap:clamp(14px,2.4vw,40px);align-items:center;
-  padding:clamp(20px,2.4vw,30px) 0;
+/* ─── Carrusel de servicios ─── */
+.carru{position:relative}
+.carru__barra{
+  display:flex;align-items:center;gap:clamp(16px,3vw,34px);
+  padding-bottom:22px;margin-bottom:clamp(24px,3vw,36px);
   border-bottom:1px solid rgba(23,21,18,.16);
-  position:relative;transition:padding-left .5s var(--ease);
 }
-.idx__row::before{content:'';position:absolute;inset:0;background:var(--tinta);transform:scaleY(0);transform-origin:bottom;transition:transform .45s var(--ease);z-index:0}
-.idx__row > *{position:relative;z-index:1;transition:color .35s ease}
-.idx__n{font-family:var(--disp);font-size:.95rem;color:var(--acero)}
-.idx__t{font-family:var(--cond);font-weight:700;text-transform:uppercase;font-size:clamp(1.25rem,2.6vw,2rem);line-height:1.05;letter-spacing:.005em}
-.idx__d{font-size:.93em;color:var(--acero);max-width:48ch}
-.idx__go{font-size:1.15rem;color:var(--acero);justify-self:end;transition:transform .45s var(--ease),color .35s}
-@media (hover:hover){
-  .idx__row:hover{padding-left:26px}
-  .idx__row:hover::before{transform:scaleY(1)}
-  .idx__row:hover .idx__t{color:var(--papel)}
-  .idx__row:hover .idx__n{color:var(--naranja)}
-  .idx__row:hover .idx__d{color:var(--cimbra)}
-  .idx__row:hover .idx__go{color:var(--naranja);transform:translate(5px,-5px)}
+.carru__cuenta{display:flex;align-items:baseline;gap:6px;flex:none}
+.carru__cuenta b{font-family:var(--disp);font-size:1.35rem;color:var(--tinta);line-height:1}
+.carru__cuenta span{font-family:var(--cond);font-weight:600;font-size:.9rem;color:var(--acero);letter-spacing:.06em}
+.carru__riel{flex:1;height:2px;background:rgba(23,21,18,.16);position:relative;overflow:hidden}
+.carru__riel span{
+  position:absolute;top:0;left:0;height:100%;width:12%;
+  background:var(--naranja-osc);transition:transform .45s var(--ease),width .45s var(--ease);
 }
-.idx__peek{
-  position:absolute;top:0;left:0;width:270px;height:200px;z-index:5;
-  pointer-events:none;opacity:0;overflow:hidden;
-  transform:translate(-50%,-50%) scale(.9);
-  transition:opacity .4s ease,transform .5s var(--ease);
-  border:1px solid rgba(255,117,31,.5);
+.carru__btns{display:flex;gap:8px;flex:none}
+.carru__b{
+  width:48px;height:48px;display:grid;place-items:center;font-size:1.05rem;
+  border:1px solid rgba(23,21,18,.24);color:var(--tinta);
+  transition:background .3s ease,color .3s ease,border-color .3s ease,opacity .3s;
 }
-.idx__peek.on{opacity:1;transform:translate(-50%,-50%) scale(1)}
-.idx__peek img{width:100%;height:100%;object-fit:cover}
-@media (hover:none){.idx__peek{display:none}}
+.carru__b:hover:not(:disabled){background:var(--tinta);border-color:var(--tinta);color:var(--papel)}
+.carru__b:disabled{opacity:.28;cursor:default}
+.carru__b:focus-visible{outline:2px solid var(--naranja-osc);outline-offset:3px}
+
+.carru__pista{
+  display:flex;gap:clamp(14px,1.8vw,26px);
+  overflow-x:auto;overscroll-behavior-x:contain;
+  scroll-snap-type:x mandatory;scroll-behavior:smooth;
+  scrollbar-width:none;-ms-overflow-style:none;
+  padding-bottom:6px;cursor:grab;
+}
+.carru__pista::-webkit-scrollbar{display:none}
+.carru__pista.arrastrando{cursor:grabbing;scroll-behavior:auto;scroll-snap-type:none}
+.carru__pista.arrastrando .serv{pointer-events:none}
+.carru__pista:focus-visible{outline:2px solid var(--naranja-osc);outline-offset:6px}
+
+.serv{
+  flex:0 0 calc((100% - 2*clamp(14px,1.8vw,26px)) / 3);
+  scroll-snap-align:start;min-width:0;
+}
+.serv__img{position:relative;aspect-ratio:4/3;overflow:hidden;margin-bottom:18px}
+.serv__img img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s var(--ease),clip-path 1.15s var(--ease)}
+.serv:hover .serv__img img{transform:scale(1.06)}
+.serv__n{
+  position:absolute;top:0;left:0;z-index:2;
+  font-family:var(--disp);font-size:.95rem;color:var(--tinta);
+  background:var(--naranja);padding:9px 14px;
+}
+.serv h3{
+  font-family:var(--cond);font-weight:700;text-transform:uppercase;
+  font-size:clamp(1.15rem,1.75vw,1.5rem);line-height:1.1;letter-spacing:.01em;
+  color:var(--tinta);margin-bottom:10px;
+}
+.serv p{font-size:.92em;color:var(--acero);margin-bottom:16px}
+.serv__cta{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--cond);font-weight:700;text-transform:uppercase;
+  font-size:.82rem;letter-spacing:.1em;color:var(--tinta);
+  border-bottom:1px solid rgba(23,21,18,.3);padding-bottom:3px;
+  transition:color .3s ease,border-color .3s ease;
+}
+.serv__cta i{font-style:normal;transition:transform .4s var(--ease)}
+.serv__cta:hover{color:var(--naranja-osc);border-color:var(--naranja-osc)}
+.serv__cta:hover i{transform:translate(3px,-3px)}
+.carru__pista .pour::after{background:var(--naranja-osc)}
 
 /* ══════════════ PROCESO (pin horizontal) ══════════════ */
 .proceso{background:var(--tinta);position:relative}
@@ -532,8 +530,7 @@ ul{list-style:none}
   .obra--wide{grid-column:span 2}
   .lb__panel{grid-template-columns:1fr;max-height:90svh}
   .footer__grid{grid-template-columns:1fr 1fr}
-  .idx__row{grid-template-columns:44px 1fr 30px;row-gap:6px}
-  .idx__d{grid-column:2/4}
+  .serv{flex-basis:calc((100% - clamp(14px,1.8vw,26px)) / 2)}
 }
 @media (max-width:860px){
   .nav{
@@ -577,6 +574,10 @@ ul{list-style:none}
   .hero__facts{gap:18px}
   .hero__facts li{width:calc(50% - 9px)}
   .filtros{justify-self:start}
+  /* Una tarjeta a la vez, con asomo de la siguiente para invitar a deslizar */
+  .serv{flex-basis:86%}
+  .carru__b{width:44px;height:44px}
+  .carru__barra{gap:14px}
 }
 
 /* El radar no cabe en pantalla angosta: pasa a listado legible */
@@ -593,7 +594,7 @@ ul{list-style:none}
 
 @media (prefers-reduced-motion:reduce){
   *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
-  html{scroll-behavior:auto}
+  html,.carru__pista{scroll-behavior:auto}
   [data-reveal]{opacity:1;transform:none}
   .pour img{clip-path:none;transform:none}
   .iso [class*='iso__'] *{stroke-dashoffset:0}

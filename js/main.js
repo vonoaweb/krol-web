@@ -29,56 +29,8 @@ function medir(svg, { stagger = 0, dur = 0.9, base = 0 } = {}) {
 }
 
 /* ─────────────────────────────────────────────
-   2 · Preloader — el isotipo se traza solo
-   ───────────────────────────────────────────── */
-const pre = $('#preloader');
-const preFill = $('#preFill');
-const prePct = $('#prePct');
-const isoPre = $('.iso--pre');
-
-if (isoPre) {
-  medir(isoPre.querySelector('.iso__guides'), { stagger: 0.05, dur: 0.5 });
-  medir(isoPre.querySelector('.iso__cup'),    { stagger: 0.06, dur: 0.8, base: 0.25 });
-  medir(isoPre.querySelector('.iso__towers'), { stagger: 0.07, dur: 0.7, base: 0.75 });
-  requestAnimationFrame(() => isoPre.classList.add('drawn'));
-}
-
-let pct = 0;
-const tick = setInterval(() => {
-  pct = Math.min(pct + Math.random() * 19, 93);
-  preFill.style.width = pct + '%';
-  prePct.textContent = Math.round(pct);
-}, 170);
-setTimeout(() => pre.classList.add('lit'), 700);
-
-// El trazado del isotipo dura ~2.1s: no salimos antes de que termine.
-const T0 = performance.now();
-const MIN_MS = 2300;
-let arrancado = false;
-
-function arrancar() {
-  if (arrancado) return;
-  const falta = MIN_MS - (performance.now() - T0);
-  if (falta > 0) { setTimeout(arrancar, falta); return; }
-  arrancado = true;
-  clearInterval(tick);
-  preFill.style.width = '100%';
-  prePct.textContent = '100';
-
-  setTimeout(() => pre.classList.add('out'), 380);
-  setTimeout(() => {
-    pre.classList.add('gone');
-    document.body.style.overflow = '';
-    heroIntro();
-  }, 1050);
-  setTimeout(() => { pre.style.display = 'none'; if (GS) ScrollTrigger.refresh(); }, 1900);
-}
-document.body.style.overflow = 'hidden';
-addEventListener('load', arrancar);
-setTimeout(arrancar, 4200);          // seguro por si tarda una imagen
-
-/* ─────────────────────────────────────────────
-   3 · Hero — plano que se dibuja + titular
+   2 · Hero — plano que se dibuja + titular
+   Sin pantalla de carga: entra de inmediato.
    ───────────────────────────────────────────── */
 const hero = $('.hero');
 const plan = $('#heroPlan');
@@ -101,6 +53,9 @@ function heroIntro() {
   gsap.fromTo('.hero__media img', { scale: 1.18 }, { scale: 1.06, duration: 2.6, ease: 'power2.out' });
 }
 function gsapless(el) { el.style.opacity = 1; el.style.transform = 'none'; }
+
+// El script va al final del body, así que el DOM ya está listo.
+requestAnimationFrame(heroIntro);
 
 /* ─────────────────────────────────────────────
    4 · Header, progreso y navegación
@@ -202,33 +157,71 @@ if (GS && !CALMA && track && innerWidth > 860) {
 }
 
 /* ─────────────────────────────────────────────
-   9 · Servicios — miniatura que sigue al cursor
+   9 · Servicios — carrusel deslizable
+   Sobre scroll nativo con scroll-snap: así funciona con dedo, trackpad,
+   teclado y lector de pantalla sin reimplementar nada.
    ───────────────────────────────────────────── */
-const idx = $('#idx'), peek = $('#idxPeek'), peekImg = $('#idxPeekImg');
-if (idx && peek && HOVER) {
-  let px = 0, py = 0, cx = 0, cy = 0, activo = false;
+const pista = $('#carruPista');
+if (pista) {
+  const prev = $('#carruPrev'), next = $('#carruNext');
+  const riel = $('#carruRiel'), acta = $('#carruAct');
+  const tarjetas = $$('.serv', pista);
+  const paso = () => (tarjetas[1] ? tarjetas[1].offsetLeft - tarjetas[0].offsetLeft : pista.clientWidth);
 
-  // El alta va por fila; la baja, al salir de la lista completa: así no parpadea
-  // al pasar de un renglón a otro.
-  $$('.idx__row', idx).forEach(row => {
-    row.addEventListener('mouseenter', () => {
-      const src = row.dataset.img;
-      if (peekImg.getAttribute('src') !== src) peekImg.src = src;
-      peek.classList.add('on'); activo = true;
+  function pintar() {
+    const max = pista.scrollWidth - pista.clientWidth;
+    const x = pista.scrollLeft;
+    // Cuántas caben a la vez, para que el riel represente el tramo visible
+    const visibles = Math.max(1, Math.round(pista.clientWidth / paso()));
+    const ancho = Math.min(100, (visibles / tarjetas.length) * 100);
+    riel.style.width = ancho + '%';
+    riel.style.transform = `translateX(${max > 0 ? (x / max) * (100 / ancho) * (100 - ancho) : 0}%)`;
+
+    const i = max > 0 ? Math.round(x / paso()) : 0;
+    acta.textContent = String(Math.min(i + 1, tarjetas.length)).padStart(2, '0');
+    prev.disabled = x < 4;
+    next.disabled = x > max - 4;
+  }
+
+  prev.addEventListener('click', () => pista.scrollBy({ left: -paso() }));
+  next.addEventListener('click', () => pista.scrollBy({ left:  paso() }));
+  pista.addEventListener('scroll', pintar, { passive: true });
+  addEventListener('resize', pintar);
+  pintar();
+
+  // Arrastrar con el mouse (en táctil ya lo resuelve el scroll nativo)
+  if (HOVER) {
+    let abajo = false, x0 = 0, s0 = 0, movido = 0;
+    pista.addEventListener('pointerdown', e => {
+      if (e.pointerType !== 'mouse') return;
+      abajo = true; movido = 0; x0 = e.clientX; s0 = pista.scrollLeft;
+      pista.classList.add('arrastrando');
     });
-  });
-  idx.addEventListener('mouseleave', () => { peek.classList.remove('on'); activo = false; });
+    pista.addEventListener('pointermove', e => {
+      if (!abajo) return;
+      const d = e.clientX - x0;
+      movido = Math.max(movido, Math.abs(d));
+      pista.scrollLeft = s0 - d;
+    });
+    const soltar = () => {
+      if (!abajo) return;
+      abajo = false;
+      pista.classList.remove('arrastrando');
+      // Reencaja en la tarjeta más cercana al soltar
+      if (movido > 6) pista.scrollTo({ left: Math.round(pista.scrollLeft / paso()) * paso() });
+    };
+    pista.addEventListener('pointerup', soltar);
+    pista.addEventListener('pointerleave', soltar);
+    // Un arrastre no debe contar como clic en "Cotizar"
+    pista.addEventListener('click', e => { if (movido > 6) { e.preventDefault(); e.stopPropagation(); } }, true);
+  }
 
-  idx.addEventListener('mousemove', e => {
-    const r = idx.getBoundingClientRect();
-    px = e.clientX - r.left; py = e.clientY - r.top;
+  // El colado en cascada: las tarjetas viven en un carril horizontal, así que
+  // entran juntas cuando la sección aparece. El retardo escalonado lo disimula.
+  tarjetas.forEach((t, i) => {
+    const img = $('.pour img', t);   // la transición vive en la <img>, no en el contenedor
+    if (img) img.style.transitionDelay = Math.min(i, 4) * 0.09 + 's';
   });
-
-  (function seguir() {
-    cx += (px - cx) * .12; cy += (py - cy) * .12;
-    if (activo) peek.style.translate = `${cx}px ${cy}px`;
-    requestAnimationFrame(seguir);
-  })();
 }
 
 /* ─────────────────────────────────────────────

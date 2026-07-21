@@ -10,15 +10,20 @@ Preparado por **Vonoa Web** · julio 2026.
 El isotipo de KROL ya es un dibujo técnico, así que ese es el hilo de todo el sitio:
 **cada cosa entra como trazo y termina como obra colada.**
 
+**No hay pantalla de carga**: el sitio entra directo al hero. Se probó una y se descartó
+(hacía esperar sin dar nada a cambio, sobre todo abriendo desde el celular).
+
 | Momento | Qué pasa |
 |---|---|
-| Preloader | El isotipo se dibuja solo, como plóter: primero los ejes, luego la copa, luego las torres. Sale con un barrido con franja de obra. |
 | Hero | Sobre la foto real aparece un plano: retícula, ejes y **cotas acotadas con datos reales** (13 años, 7 estados). El titular entra por palabras enmascaradas. |
 | Nosotros | El isotipo se **traza con el scroll** (scrub): avanzas y el dibujo se completa. |
-| Servicios | Índice tipo hoja de especificación. Al pasar el cursor, el renglón se invierte a negro y aparece una **miniatura de obra que sigue al mouse**. |
+| Servicios | **Carrusel deslizable** con foto real de obra por servicio: 3 tarjetas en escritorio, 2 en tablet, 1 con asomo en celular. Flechas, contador, riel de avance, arrastre con mouse y deslizado con el dedo. |
 | Proceso | **Scroll horizontal fijado (pin)**: las 4 etapas se recorren en horizontal mientras la sección queda clavada. En móvil pasa a carrusel con el dedo. |
 | Fotos | Reveal **“colado”**: la imagen se llena de abajo hacia arriba, como concreto, con una línea naranja de remate. |
 | Cobertura | Radar técnico centrado en Guadalajara. Cada estado está en su **posición geográfica real** respecto a GDL. En móvil se convierte en listado. |
+
+El carrusel va montado sobre **scroll nativo con `scroll-snap`**, no sobre un slider de
+`transform`: así funciona de gratis con dedo, trackpad, teclado y lector de pantalla.
 
 Nada de adornos genéricos: sin cursor personalizado, sin partículas, sin degradados de moda.
 Todo el movimiento sale del lenguaje de la marca (plano, cimbra, colado, franja de obra).
