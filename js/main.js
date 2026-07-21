@@ -40,6 +40,7 @@ if (plan) {
 }
 
 function heroIntro() {
+  if (!hero) return;              // las páginas interiores llevan .phero, no .hero
   hero.classList.add('lit');
   if (!GS || CALMA) { $$('[data-hero]').forEach(el => gsapless(el)); return; }
 
@@ -83,12 +84,8 @@ $$('.nav__link').forEach(a => a.addEventListener('click', () => {
   burger.setAttribute('aria-expanded', 'false'); document.body.style.overflow = '';
 }));
 
-const enlaces = $$('.nav__link');
-const ioNav = new IntersectionObserver(es => es.forEach(e => {
-  if (!e.isIntersecting) return;
-  enlaces.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + e.target.id));
-}), { rootMargin: '-45% 0px -50% 0px' });
-$$('main section[id]').forEach(s => ioNav.observe(s));
+/* El sitio es de varias páginas: el enlace activo del menú ya viene marcado en
+   el HTML de cada página (class="nav__link on" + aria-current). Aquí no se toca. */
 
 /* ─────────────────────────────────────────────
    5 · Reveals genéricos
@@ -295,6 +292,7 @@ $$('.filtro').forEach(btn => btn.addEventListener('click', () => {
 const lb = $('#lb');
 let ultimoFoco = null;
 
+if (lb) {
 obras.forEach(o => o.addEventListener('click', () => {
   ultimoFoco = o;
   const img = $('img', o);
@@ -325,6 +323,7 @@ function cerrarLb() {
 }
 $$('[data-close]', lb).forEach(el => el.addEventListener('click', cerrarLb));
 addEventListener('keydown', e => { if (e.key === 'Escape' && lb.classList.contains('open')) cerrarLb(); });
+}   // fin: sólo la página de proyectos trae lightbox
 
 /* ─────────────────────────────────────────────
    14 · Video sólo cuando se ve

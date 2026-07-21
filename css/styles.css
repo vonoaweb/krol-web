@@ -190,6 +190,87 @@ ul{list-style:none}
 .hero__cue-rail i{position:absolute;top:0;left:0;width:100%;height:40%;background:var(--naranja);animation:railRun 2.1s infinite var(--ease)}
 @keyframes railRun{0%{transform:translateY(-110%)}60%,100%{transform:translateY(260%)}}
 
+/* ══════════════ PORTADA DE PÁGINA INTERIOR ══════════════ */
+.phero{
+  position:relative;display:flex;align-items:flex-end;overflow:hidden;
+  min-height:clamp(340px,52svh,560px);
+  padding-top:clamp(112px,14vh,152px);padding-bottom:clamp(40px,6vh,72px);
+}
+.phero__media{position:absolute;inset:0;z-index:0}
+.phero__media img{width:100%;height:100%;object-fit:cover}
+.phero__veil{
+  position:absolute;inset:0;
+  background:
+    linear-gradient(180deg,rgba(20,16,12,.9) 0%,rgba(20,16,12,.55) 46%,rgba(20,16,12,.96) 100%),
+    linear-gradient(90deg,rgba(20,16,12,.86) 0%,rgba(20,16,12,.12) 70%);
+}
+.phero__body{position:relative;z-index:1}
+.phero__t{
+  font-family:var(--cond);font-weight:800;text-transform:uppercase;
+  font-size:clamp(2.3rem,6vw,5rem);line-height:.92;letter-spacing:-.012em;
+  color:var(--papel);margin-bottom:18px;
+}
+.phero__lead{color:var(--linea);max-width:56ch;font-size:clamp(.98rem,1.2vw,1.1rem)}
+
+/* ══════════════ RESUMEN (inicio) ══════════════ */
+.resumen{background:var(--fondo)}
+.resumen__grid{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(28px,5vw,80px);align-items:start}
+.resumen .btn{margin-top:28px}
+.enlace{color:var(--naranja-osc);border-bottom:1px solid currentColor;transition:opacity .3s}
+.enlace:hover{opacity:.7}
+
+/* ══════════════ OBRA DESTACADA (inicio) ══════════════ */
+.destacados{background:var(--fondo)}
+.dest__grid{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(14px,1.8vw,26px)}
+.dest{position:relative;display:block}
+.dest--ancha{grid-column:1/-1}
+.dest__img{aspect-ratio:4/3;overflow:hidden}
+.dest--ancha .dest__img{aspect-ratio:21/9}
+.dest__img img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s var(--ease),clip-path 1.15s var(--ease)}
+.dest:hover .dest__img img{transform:scale(1.05)}
+.dest__meta{padding-top:16px}
+.dest__meta .obra__cat{color:var(--naranja)}
+.dest__meta h3{
+  font-family:var(--cond);font-weight:700;text-transform:uppercase;
+  font-size:clamp(1.05rem,1.7vw,1.4rem);line-height:1.12;color:var(--papel);margin-bottom:5px;
+}
+.dest__meta p{font-size:.87em;color:var(--acero)}
+.dest .obra__go{opacity:0;transform:translateY(-8px)}
+.dest:hover .obra__go{opacity:1;transform:translateY(0)}
+
+/* ══════════════ FLOTA (nosotros) ══════════════ */
+.flota{background:var(--tinta)}
+.flota__grid{
+  display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);
+  gap:clamp(14px,1.8vw,24px);
+}
+.flota__v{position:relative;border:1px solid rgba(233,229,222,.14);overflow:hidden}
+.flota__v video{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;background:var(--fondo)}
+/* La vertical abarca las dos filas: el video estira y el pie se queda pegado al texto */
+.flota__v--alta{grid-row:span 2;display:flex;flex-direction:column}
+.flota__v--alta video{flex:1;min-height:0;aspect-ratio:auto}
+.flota__v figcaption{padding:14px 16px;background:var(--fondo)}
+.flota__v figcaption b{
+  display:block;font-family:var(--cond);font-weight:700;text-transform:uppercase;
+  letter-spacing:.07em;color:var(--naranja);font-size:.95rem;margin-bottom:3px;
+}
+.flota__v figcaption span{font-size:.85em;color:var(--acero)}
+
+/* ══════════════ VIDEO DE OBRA (proyectos) ══════════════ */
+.obravid{background:var(--fondo)}
+.obravid__grid{
+  display:grid;grid-template-columns:minmax(0,.68fr) minmax(0,1.32fr);
+  gap:clamp(30px,5vw,80px);align-items:center;
+}
+.obravid__v{border:1px solid rgba(233,229,222,.14);overflow:hidden;max-width:360px;width:100%}
+.obravid__v video{width:100%;aspect-ratio:9/16;object-fit:cover;display:block;background:var(--tinta)}
+.obravid__txt .title{margin-bottom:22px}
+.obravid__lista{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+.obravid__lista li{
+  font-family:var(--cond);font-weight:500;text-transform:uppercase;font-size:.78rem;
+  letter-spacing:.08em;color:var(--cimbra);border:1px solid rgba(233,229,222,.2);padding:6px 13px;
+}
+
 /* ══════════════ FRANJA ══════════════ */
 .franja{background:var(--naranja);border-block:1px solid var(--tinta);overflow:hidden;padding-block:13px}
 .franja__track{display:flex;align-items:center;gap:26px;width:max-content;animation:slide 42s linear infinite}
@@ -531,6 +612,12 @@ ul{list-style:none}
   .lb__panel{grid-template-columns:1fr;max-height:90svh}
   .footer__grid{grid-template-columns:1fr 1fr}
   .serv{flex-basis:calc((100% - clamp(14px,1.8vw,26px)) / 2)}
+  .resumen__grid{grid-template-columns:1fr}
+  .obravid__grid{grid-template-columns:1fr}
+  .obravid__v{max-width:320px}
+  .flota__grid{grid-template-columns:1fr 1fr}
+  .flota__v--alta{grid-row:auto;grid-column:1/-1}
+  .flota__v--alta video{aspect-ratio:16/9}
 }
 @media (max-width:860px){
   .nav{
@@ -569,6 +656,9 @@ ul{list-style:none}
   .obras{grid-template-columns:1fr}
   .obra--wide{grid-column:span 1}
   .obra--wide .obra__img{aspect-ratio:4/3}
+  .dest__grid{grid-template-columns:1fr}
+  .dest--ancha .dest__img{aspect-ratio:4/3}
+  .flota__grid{grid-template-columns:1fr}
   .form__row{grid-template-columns:1fr}
   .datos li{grid-template-columns:1fr;gap:4px}
   .hero__facts{gap:18px}

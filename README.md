@@ -1,6 +1,6 @@
 # KROL Edificación Estructural — demo web
 
-Demo de sitio para **KROL Edificación Estructural S.A. de C.V.** (Guadalajara, Jal.)
+Demo de sitio (5 páginas) para **KROL Edificación Estructural S.A. de C.V.** (Guadalajara, Jal.)
 Preparado por **Vonoa Web** · julio 2026.
 
 ---
@@ -16,7 +16,7 @@ El isotipo de KROL ya es un dibujo técnico, así que ese es el hilo de todo el 
 | Momento | Qué pasa |
 |---|---|
 | Hero | Sobre la foto real aparece un plano: retícula, ejes y **cotas acotadas con datos reales** (13 años, 7 estados). El titular entra por palabras enmascaradas. |
-| Nosotros | El isotipo se **traza con el scroll** (scrub): avanzas y el dibujo se completa. |
+| Nosotros | El isotipo **se dibuja solo** al entrar en pantalla, como plóter: ejes, copa y torres en ~1.3s. (Antes iba amarrado al scroll y quedaba a medias si te parabas ahí.) |
 | Servicios | **Carrusel deslizable** con foto real de obra por servicio: 3 tarjetas en escritorio, 2 en tablet, 1 con asomo en celular. Flechas, contador, riel de avance, arrastre con mouse y deslizado con el dedo. |
 | Proceso | **Scroll horizontal fijado (pin)**: las 4 etapas se recorren en horizontal mientras la sección queda clavada. En móvil pasa a carrusel con el dedo. |
 | Fotos | Reveal **“colado”**: la imagen se llena de abajo hacia arriba, como concreto, con una línea naranja de remate. |
@@ -74,17 +74,43 @@ degrada bien si no cargan** (los reveals caen a IntersectionObserver).
 
 ## Estructura
 
+Cinco páginas, no un one-page:
+
 ```
 krol-demo/
-├── index.html          # una sola página, secciones con id
+├── index.html          # Inicio: hero, resumen + cifras, servicios, obra destacada
+├── nosotros.html       # historia, misión/visión, capacidad, flota, cobertura
+├── servicios.html      # los 8 servicios + el proceso de obra
+├── proyectos.html      # portafolio con filtros y ficha ampliada + video de obra
+├── contacto.html       # datos y formulario
 ├── css/styles.css      # variables de marca arriba del todo
-├── js/main.js          # 16 bloques numerados y comentados
+├── js/main.js          # bloques numerados y comentados
 ├── img/                # fotos de obra + logo + posters de video
-└── video/              # dobladora (taller propio) y camión (flota)
+└── video/              # dobladora, flota, pickup, camión, escalera
 ```
 
-Peso total ≈ 6.9 MB, casi todo imagen. El video carga con `preload="none"`
-y sólo se reproduce cuando entra en pantalla.
+**El encabezado y el pie están repetidos en las cinco páginas** (no hay build ni
+includes: es HTML plano para que GitHub Pages lo sirva tal cual y se pueda editar
+a mano). Si cambia el teléfono, el correo o un enlace del menú, hay que tocarlo en
+los cinco archivos. El enlace activo del menú va marcado en el HTML de cada página
+con `class="nav__link on"` y `aria-current="page"`; el JS no lo toca.
+
+### Videos
+
+Todos salen del material del cliente, recortados y recomprimidos para web:
+
+| Archivo | Dónde | Qué es |
+|---|---|---|
+| `dobladora.mp4` | nosotros | dobladora de varilla en el taller propio |
+| `flota.mp4` | nosotros | las unidades KROL formadas |
+| `pickup.mp4` | nosotros | pickup rotulada en carretera |
+| `camion.mp4` | nosotros + CTA | camión de material |
+| `escalera.mp4` | proyectos | escalera de concreto terminada en una agencia |
+
+Todos van `muted loop playsinline` con `preload="none"`: no descargan nada hasta
+que la sección entra en pantalla, y se pausan al salir.
+
+Peso total ≈ 12 MB repartido entre cinco páginas — ninguna carga más de ~4 MB.
 
 ---
 
