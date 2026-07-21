@@ -112,28 +112,8 @@ const ioPour = new IntersectionObserver(es => es.forEach(e => {
 }), { threshold: .22 });
 $$('.pour').forEach(el => ioPour.observe(el));
 
-/* ─────────────────────────────────────────────
-   7 · Isotipo que se traza solo al entrar
-   Antes iba amarrado al scroll (scrub) y si te parabas a media sección
-   el logo quedaba a medias, como un abanico. Ahora arranca al aparecer
-   y siempre termina completo: ejes, copa y torres, ~1.3s.
-   ───────────────────────────────────────────── */
-const isoNos = $('#isoScrub');
-if (isoNos) {
-  medir(isoNos.querySelector('.iso__guides'), { stagger: .04, dur: .45 });
-  medir(isoNos.querySelector('.iso__cup'),    { stagger: .05, dur: .60, base: .18 });
-  medir(isoNos.querySelector('.iso__towers'), { stagger: .05, dur: .50, base: .50 });
-
-  if (CALMA) {
-    isoNos.classList.add('drawn');
-  } else {
-    new IntersectionObserver((es, obs) => es.forEach(e => {
-      if (!e.isIntersecting) return;
-      isoNos.classList.add('drawn');
-      obs.unobserve(e.target);
-    }), { threshold: .35 }).observe(isoNos);
-  }
-}
+/* 7 · (libre) — el isotipo trazado se sustituyó por el bloque 3D de Nosotros,
+   que es puro CSS y no necesita JS. */
 
 /* ─────────────────────────────────────────────
    8 · Proceso — scroll horizontal fijado

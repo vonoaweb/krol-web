@@ -16,7 +16,7 @@ El isotipo de KROL ya es un dibujo técnico, así que ese es el hilo de todo el 
 | Momento | Qué pasa |
 |---|---|
 | Hero | **Video de fondo** con acercamiento lento a una casa de concreto aparente, en ciclo de ida y vuelta para que no dé el salto seco al repetir. Encima aparece un plano: retícula, ejes y **cotas acotadas con datos reales** (13 años, 7 estados). El titular entra por palabras enmascaradas. |
-| Nosotros | El isotipo **se dibuja solo** al entrar en pantalla, como plóter: ejes, copa y torres en ~1.3s. (Antes iba amarrado al scroll y quedaba a medias si te parabas ahí.) |
+| Nosotros | **Bloque 3D girando** con una foto real de obra por cara, en secuencia: cimentación → armado → cimbra y colado → entrega. Es un prisma de verdad en CSS (`preserve-3d`), sin librerías. Se pausa al pasar el cursor. |
 | Servicios | **Carrusel deslizable** con foto real de obra por servicio: 3 tarjetas en escritorio, 2 en tablet, 1 con asomo en celular. Flechas, contador, riel de avance, arrastre con mouse y deslizado con el dedo. |
 | Proceso | **Scroll horizontal fijado (pin)**: las 4 etapas se recorren en horizontal mientras la sección queda clavada. En móvil pasa a carrusel con el dedo. |
 | Fotos | Reveal **“colado”**: la imagen se llena de abajo hacia arriba, como concreto, con una línea naranja de remate. |
@@ -101,7 +101,7 @@ Todos salen del material del cliente, recortados y recomprimidos para web:
 
 | Archivo | Dónde | Qué es |
 |---|---|---|
-| `dobladora.mp4` | nosotros | dobladora de varilla en el taller propio |
+| `dobladora.mp4` | nosotros | cuadrilla operando la dobladora, toma cenital |
 | `flota.mp4` | nosotros | las unidades KROL formadas |
 | `pickup.mp4` | nosotros | pickup rotulada en carretera |
 | `camion.mp4` | nosotros + CTA | camión de material |

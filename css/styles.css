@@ -97,17 +97,46 @@ ul{list-style:none}
 .btn--lg{padding:18px 38px;font-size:.98rem}
 .btn--full{width:100%;justify-content:center;margin-top:8px}
 
-/* ─── Isotipo trazado ─── */
-.iso{overflow:visible}
-.iso g{fill:none;stroke-linecap:round;stroke-linejoin:round}
-.iso__guides{stroke:rgba(255,117,31,.34);stroke-width:1;stroke-dasharray:5 7}
-.iso__cup{stroke:var(--cimbra);stroke-width:2.4}
-.iso__towers{stroke:var(--naranja);stroke-width:3}
-.iso [class*='iso__'] path,.iso [class*='iso__'] line,.iso [class*='iso__'] circle{
-  stroke-dasharray:var(--len,1200);stroke-dashoffset:var(--len,1200);
+/* ─── Bloque 3D con fotos de obra ───
+   Prisma real en CSS (preserve-3d): cada cara es una etapa de la obra. */
+.cubo{
+  --l:clamp(180px,21vw,270px);
+  width:100%;height:calc(var(--l) * 1.55);
+  display:grid;place-items:center;perspective:1300px;
 }
-.iso.drawn [class*='iso__'] path,.iso.drawn [class*='iso__'] line,.iso.drawn [class*='iso__'] circle{
-  stroke-dashoffset:0;
+.cubo__caja{
+  position:relative;width:var(--l);height:var(--l);
+  transform-style:preserve-3d;
+  animation:girarCubo 28s linear infinite;
+}
+.cubo:hover .cubo__caja{animation-play-state:paused}
+@keyframes girarCubo{
+  from{transform:rotateX(-14deg) rotateY(0deg)}
+  to  {transform:rotateX(-14deg) rotateY(360deg)}
+}
+.cubo__c{
+  position:absolute;inset:0;overflow:hidden;
+  border:1px solid rgba(255,117,31,.55);
+  background:var(--tinta);
+}
+.cubo__c img{width:100%;height:100%;object-fit:cover;filter:saturate(.82) contrast(1.06) brightness(.86)}
+.cubo__c figcaption{
+  position:absolute;left:0;bottom:0;right:0;
+  font-family:var(--tecno);font-size:7.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--naranja);background:rgba(20,16,12,.86);padding:7px 9px;
+}
+.cubo__c--f{transform:translateZ(calc(var(--l) / 2))}
+.cubo__c--d{transform:rotateY(90deg)  translateZ(calc(var(--l) / 2))}
+.cubo__c--t{transform:rotateY(180deg) translateZ(calc(var(--l) / 2))}
+.cubo__c--i{transform:rotateY(-90deg) translateZ(calc(var(--l) / 2))}
+.cubo__c--arriba{transform:rotateX(90deg)  translateZ(calc(var(--l) / 2));background:var(--tinta)}
+.cubo__c--abajo {transform:rotateX(-90deg) translateZ(calc(var(--l) / 2));background:#0d0a07}
+/* Tapa superior: retícula de plano, para que no quede una cara muerta */
+.cubo__c--arriba{
+  background-image:
+    linear-gradient(rgba(255,117,31,.22) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,117,31,.22) 1px,transparent 1px);
+  background-size:26px 26px;
 }
 
 /* ══════════════ PROGRESO / HEADER ══════════════ */
@@ -290,7 +319,6 @@ ul{list-style:none}
 .nosotros{background:var(--fondo)}
 .nosotros__grid{display:grid;grid-template-columns:.82fr 1.18fr;gap:clamp(36px,6vw,96px);align-items:start}
 .nosotros__mark{position:sticky;top:120px}
-.iso--scrub{width:100%;height:auto}
 .nosotros__mark-cap{font-family:var(--tecno);font-size:8.5px;letter-spacing:.22em;color:var(--acero);text-transform:uppercase;margin-top:20px;text-align:center}
 .nosotros__text .title{margin-bottom:28px}
 .mv{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:44px}
@@ -690,5 +718,5 @@ ul{list-style:none}
   html,.carru__pista{scroll-behavior:auto}
   [data-reveal]{opacity:1;transform:none}
   .pour img{clip-path:none;transform:none}
-  .iso [class*='iso__'] *{stroke-dashoffset:0}
+  .cubo__caja{animation:none;transform:rotateX(-14deg) rotateY(-26deg)}
 }
