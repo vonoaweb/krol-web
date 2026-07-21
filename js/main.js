@@ -114,20 +114,25 @@ const ioPour = new IntersectionObserver(es => es.forEach(e => {
 $$('.pour').forEach(el => ioPour.observe(el));
 
 /* ─────────────────────────────────────────────
-   7 · Isotipo que se traza con el scroll
+   7 · Isotipo que se traza solo al entrar
+   Antes iba amarrado al scroll (scrub) y si te parabas a media sección
+   el logo quedaba a medias, como un abanico. Ahora arranca al aparecer
+   y siempre termina completo: ejes, copa y torres, ~1.3s.
    ───────────────────────────────────────────── */
-const isoScrub = $('#isoScrub');
-if (isoScrub) {
-  const trazos = medir(isoScrub, { dur: 0 });
-  trazos.forEach(el => el.style.transition = 'none');
-  if (GS && !CALMA) {
-    gsap.to(trazos, {
-      strokeDashoffset: 0, ease: 'none', stagger: { each: .12, from: 'start' },
-      scrollTrigger: { trigger: '.nosotros', start: 'top 62%', end: 'center 45%', scrub: .8 }
-    });
+const isoNos = $('#isoScrub');
+if (isoNos) {
+  medir(isoNos.querySelector('.iso__guides'), { stagger: .04, dur: .45 });
+  medir(isoNos.querySelector('.iso__cup'),    { stagger: .05, dur: .60, base: .18 });
+  medir(isoNos.querySelector('.iso__towers'), { stagger: .05, dur: .50, base: .50 });
+
+  if (CALMA) {
+    isoNos.classList.add('drawn');
   } else {
-    isoScrub.classList.add('drawn');
-    trazos.forEach(el => el.style.strokeDashoffset = 0);
+    new IntersectionObserver((es, obs) => es.forEach(e => {
+      if (!e.isIntersecting) return;
+      isoNos.classList.add('drawn');
+      obs.unobserve(e.target);
+    }), { threshold: .35 }).observe(isoNos);
   }
 }
 
@@ -298,9 +303,14 @@ obras.forEach(o => o.addEventListener('click', () => {
   $('#lbCat').textContent   = $('.obra__cat', o).textContent;
   $('#lbTitle').textContent = $('h3', o).textContent;
   $('#lbDesc').textContent  = o.dataset.desc;
-  $('#lbLugar').textContent = o.dataset.lugar;
-  $('#lbAnio').textContent  = o.dataset.anio;
-  $('#lbAlcance').textContent = o.dataset.alcance;
+  // Sólo mostramos los datos que el cliente confirmó: si viene vacío, se oculta
+  // la ficha completa en vez de dejar un renglón en blanco.
+  [['#lbLugar', o.dataset.lugar], ['#lbAnio', o.dataset.anio], ['#lbAlcance', o.dataset.alcance]]
+    .forEach(([sel, val]) => {
+      const dd = $(sel);
+      dd.textContent = val || '';
+      dd.closest('div').hidden = !val;
+    });
   lb.classList.add('open');
   lb.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden';
