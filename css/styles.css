@@ -223,11 +223,13 @@ ul{list-style:none}
 .hero__body{position:relative;z-index:2;width:min(1280px,90%)}
 .hero__title{
   font-family:var(--cond);font-weight:800;text-transform:uppercase;
-  font-size:clamp(2.9rem,7.9vw,7rem);line-height:.87;letter-spacing:-.015em;
+  font-size:clamp(2.9rem,7.9vw,7rem);line-height:1;letter-spacing:-.015em;
   color:var(--papel);margin-bottom:clamp(20px,2.4vw,30px);
 }
-.mask{display:block;overflow:hidden;padding-bottom:.04em}
-.mask__in{display:block}
+/* padding-block da aire entre renglones y evita que overflow:hidden recorte
+   la parte alta de las letras durante el barrido de la animación. */
+.mask{display:block;overflow:hidden;padding-block:.05em .08em}
+.mask__in{display:block;will-change:transform}
 .hero__title .tecno{color:var(--naranja)}
 .hero__lead{font-size:clamp(1rem,1.35vw,1.2rem);color:var(--linea);max-width:56ch;margin-bottom:clamp(28px,3.4vw,42px)}
 .hero__actions{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:clamp(38px,4.6vw,60px)}
@@ -259,7 +261,7 @@ ul{list-style:none}
 .phero__body{position:relative;z-index:1}
 .phero__t{
   font-family:var(--cond);font-weight:800;text-transform:uppercase;
-  font-size:clamp(2.3rem,6vw,5rem);line-height:.92;letter-spacing:-.012em;
+  font-size:clamp(2.3rem,6vw,5rem);line-height:1;letter-spacing:-.012em;
   color:var(--papel);margin-bottom:18px;
 }
 .phero__lead{color:var(--linea);max-width:56ch;font-size:clamp(.98rem,1.2vw,1.1rem)}

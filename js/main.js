@@ -52,7 +52,8 @@ function heroIntro() {
     .from('.hero__cue',      { autoAlpha: 0, duration: .6 }, '-=.4');
 
   // Sólo cuando el fondo es foto fija: el video del inicio ya se acerca solo.
-  const fondo = $('.hero__media img');
+  // Hijo directo: así no toma el <img> de respaldo que va dentro del <video>.
+  const fondo = $('.hero__media > img');
   if (fondo) gsap.fromTo(fondo, { scale: 1.18 }, { scale: 1.06, duration: 2.6, ease: 'power2.out' });
 }
 function gsapless(el) { el.style.opacity = 1; el.style.transform = 'none'; }

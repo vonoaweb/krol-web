@@ -20,6 +20,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;500;600;700;800&family=Michroma&family=Black+Ops+One&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="css/styles.css" />
+<link rel="preload" as="image" href="img/muro-armado.jpg" fetchpriority="high" />
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2314100C'/%3E%3Cg fill='none' stroke='%23FF751F' stroke-width='2'%3E%3Cpath d='M5 12c1 9 5 13 11 13s10-4 11-13'/%3E%3Cpath d='M12 18V7l4-3 4 3v11'/%3E%3C/g%3E%3C/svg%3E" />
 </head>
 <body>
@@ -112,7 +113,10 @@
 <section class="capacidad">
   <div class="shell capacidad__grid">
     <div class="capacidad__vid" data-reveal>
-      <video src="video/dobladora.mp4" poster="img/dobladora-poster.jpg" muted loop playsinline preload="none" aria-label="Dobladora de varilla en operación en taller KROL"></video>
+      <video poster="img/dobladora-poster.jpg" muted loop playsinline preload="none" aria-label="Dobladora de varilla en operación en taller KROL">
+        <source src="video/dobladora.mp4" type="video/mp4" />
+        <img src="img/dobladora-poster.jpg" alt="Dobladora de varilla en operación en taller KROL" loading="lazy" />
+      </video>
       <span class="capacidad__tag">Taller propio · Habilitado de varilla</span>
     </div>
     <div class="capacidad__text">
@@ -143,15 +147,24 @@
 
     <div class="flota__grid">
       <figure class="flota__v flota__v--alta" data-reveal>
-        <video src="video/flota.mp4" poster="img/flota-poster.jpg" muted loop playsinline preload="none" aria-label="Flota de unidades KROL formada"></video>
+        <video poster="img/flota-poster.jpg" muted loop playsinline preload="none" aria-label="Flota de unidades KROL formada">
+          <source src="video/flota.mp4" type="video/mp4" />
+          <img src="img/flota-poster.jpg" alt="Flota de unidades KROL formada" loading="lazy" />
+        </video>
         <figcaption><b>La flota</b><span>Unidades KROL en Guadalajara</span></figcaption>
       </figure>
       <figure class="flota__v" data-reveal>
-        <video src="video/pickup.mp4" poster="img/pickup-poster.jpg" muted loop playsinline preload="none" aria-label="Pickup rotulada de KROL en carretera"></video>
+        <video poster="img/pickup-poster.jpg" muted loop playsinline preload="none" aria-label="Pickup rotulada de KROL en carretera">
+          <source src="video/pickup.mp4" type="video/mp4" />
+          <img src="img/pickup-poster.jpg" alt="Pickup rotulada de KROL en carretera" loading="lazy" />
+        </video>
         <figcaption><b>Unidades rotuladas</b><span>Traslado de cuadrillas y herramienta</span></figcaption>
       </figure>
       <figure class="flota__v" data-reveal>
-        <video src="video/camion.mp4" poster="img/camion-poster.jpg" muted loop playsinline preload="none" aria-label="Camión de material de KROL"></video>
+        <video poster="img/camion-poster.jpg" muted loop playsinline preload="none" aria-label="Camión de material de KROL">
+          <source src="video/camion.mp4" type="video/mp4" />
+          <img src="img/camion-poster.jpg" alt="Camión de material de KROL" loading="lazy" />
+        </video>
         <figcaption><b>Camión de material</b><span>Acero habilitado y equipo a obra</span></figcaption>
       </figure>
     </div>
