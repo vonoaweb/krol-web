@@ -85,6 +85,8 @@ function menu(abierto) {
   nav.classList.toggle('open', abierto);
   scrim.classList.toggle('on', abierto);
   burger.classList.toggle('on', abierto);
+  // Quita el backdrop-filter del header mientras el menú está abierto (ver CSS)
+  header.classList.toggle('nav-open', abierto);
   burger.setAttribute('aria-label', abierto ? 'Cerrar menú' : 'Abrir menú');
   burger.setAttribute('aria-expanded', abierto);
   document.body.style.overflow = abierto ? 'hidden' : '';
