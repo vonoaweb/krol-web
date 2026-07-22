@@ -671,8 +671,14 @@ ul{list-style:none}
   .flota__v--alta video{aspect-ratio:16/9}
 }
 @media (max-width:860px){
+  /* Panel lateral. Altura de viewport explícita (100dvh) y anclado arriba a la
+     derecha: así no depende del "contenedor" que crea el backdrop-filter del
+     header al hacer scroll, que antes lo colapsaba a la altura del header. */
   .nav{
-    position:fixed;inset:0 0 0 auto;width:min(320px,84%);
+    position:fixed;top:0;right:0;left:auto;bottom:auto;
+    width:min(320px,84%);height:100vh;height:100dvh;
+    max-height:100vh;max-height:100dvh;overflow-y:auto;overscroll-behavior:contain;
+    -webkit-overflow-scrolling:touch;z-index:4;
     background:var(--tinta);flex-direction:column;justify-content:center;
     gap:6px;padding:40px;transform:translateX(101%);
     transition:transform .5s var(--ease);margin:0;
@@ -680,6 +686,13 @@ ul{list-style:none}
   }
   .nav.open{transform:none}
   .nav__link{font-size:1.5rem;padding-block:11px}
+  /* Scrim: fondo oscuro que aparece detrás del panel y cierra al tocar fuera. */
+  .nav-scrim{
+    position:fixed;inset:0;z-index:1090;
+    background:rgba(8,6,4,.55);backdrop-filter:blur(2px);
+    opacity:0;visibility:hidden;transition:opacity .4s var(--ease),visibility .4s;
+  }
+  .nav-scrim.on{opacity:1;visibility:visible}
   .burger{display:flex;margin-left:auto;z-index:5}
   .header__cta{display:none}
   .cifras{grid-template-columns:1fr 1fr}
