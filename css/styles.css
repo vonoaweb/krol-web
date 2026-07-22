@@ -223,11 +223,13 @@ ul{list-style:none}
 .hero__body{position:relative;z-index:2;width:min(1280px,90%)}
 .hero__title{
   font-family:var(--cond);font-weight:800;text-transform:uppercase;
-  font-size:clamp(2.9rem,7.9vw,7rem);line-height:.87;letter-spacing:-.015em;
+  font-size:clamp(2.9rem,7.9vw,7rem);line-height:1;letter-spacing:-.015em;
   color:var(--papel);margin-bottom:clamp(20px,2.4vw,30px);
 }
-.mask{display:block;overflow:hidden;padding-bottom:.04em}
-.mask__in{display:block}
+/* padding-block da aire entre renglones y evita que overflow:hidden recorte
+   la parte alta de las letras durante el barrido de la animación. */
+.mask{display:block;overflow:hidden;padding-block:.05em .08em}
+.mask__in{display:block;will-change:transform}
 .hero__title .tecno{color:var(--naranja)}
 .hero__lead{font-size:clamp(1rem,1.35vw,1.2rem);color:var(--linea);max-width:56ch;margin-bottom:clamp(28px,3.4vw,42px)}
 .hero__actions{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:clamp(38px,4.6vw,60px)}
@@ -259,7 +261,7 @@ ul{list-style:none}
 .phero__body{position:relative;z-index:1}
 .phero__t{
   font-family:var(--cond);font-weight:800;text-transform:uppercase;
-  font-size:clamp(2.3rem,6vw,5rem);line-height:.92;letter-spacing:-.012em;
+  font-size:clamp(2.3rem,6vw,5rem);line-height:1;letter-spacing:-.012em;
   color:var(--papel);margin-bottom:18px;
 }
 .phero__lead{color:var(--linea);max-width:56ch;font-size:clamp(.98rem,1.2vw,1.1rem)}
@@ -671,8 +673,14 @@ ul{list-style:none}
   .flota__v--alta video{aspect-ratio:16/9}
 }
 @media (max-width:860px){
+  /* Panel lateral. Altura de viewport explícita (100dvh) y anclado arriba a la
+     derecha: así no depende del "contenedor" que crea el backdrop-filter del
+     header al hacer scroll, que antes lo colapsaba a la altura del header. */
   .nav{
-    position:fixed;inset:0 0 0 auto;width:min(320px,84%);
+    position:fixed;top:0;right:0;left:auto;bottom:auto;
+    width:min(320px,84%);height:100vh;height:100dvh;
+    max-height:100vh;max-height:100dvh;overflow-y:auto;overscroll-behavior:contain;
+    -webkit-overflow-scrolling:touch;z-index:4;
     background:var(--tinta);flex-direction:column;justify-content:center;
     gap:6px;padding:40px;transform:translateX(101%);
     transition:transform .5s var(--ease);margin:0;
@@ -680,6 +688,13 @@ ul{list-style:none}
   }
   .nav.open{transform:none}
   .nav__link{font-size:1.5rem;padding-block:11px}
+  /* Scrim: fondo oscuro que aparece detrás del panel y cierra al tocar fuera. */
+  .nav-scrim{
+    position:fixed;inset:0;z-index:1090;
+    background:rgba(8,6,4,.55);backdrop-filter:blur(2px);
+    opacity:0;visibility:hidden;transition:opacity .4s var(--ease),visibility .4s;
+  }
+  .nav-scrim.on{opacity:1;visibility:visible}
   .burger{display:flex;margin-left:auto;z-index:5}
   .header__cta{display:none}
   .cifras{grid-template-columns:1fr 1fr}

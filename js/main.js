@@ -52,7 +52,8 @@ function heroIntro() {
     .from('.hero__cue',      { autoAlpha: 0, duration: .6 }, '-=.4');
 
   // Sólo cuando el fondo es foto fija: el video del inicio ya se acerca solo.
-  const fondo = $('.hero__media img');
+  // Hijo directo: así no toma el <img> de respaldo que va dentro del <video>.
+  const fondo = $('.hero__media > img');
   if (fondo) gsap.fromTo(fondo, { scale: 1.18 }, { scale: 1.06, duration: 2.6, ease: 'power2.out' });
 }
 function gsapless(el) { el.style.opacity = 1; el.style.transform = 'none'; }
@@ -75,16 +76,26 @@ addEventListener('scroll', () => {
   barra.style.width = (max > 0 ? (y / max) * 100 : 0) + '%';
 }, { passive: true });
 
-burger.addEventListener('click', () => {
-  const abierto = nav.classList.toggle('open');
+/* Scrim: fondo oscuro que se inyecta una sola vez y cierra el menú al tocarlo. */
+const scrim = document.createElement('div');
+scrim.className = 'nav-scrim';
+document.body.appendChild(scrim);
+
+function menu(abierto) {
+  nav.classList.toggle('open', abierto);
+  scrim.classList.toggle('on', abierto);
   burger.classList.toggle('on', abierto);
+  burger.setAttribute('aria-label', abierto ? 'Cerrar menú' : 'Abrir menú');
   burger.setAttribute('aria-expanded', abierto);
   document.body.style.overflow = abierto ? 'hidden' : '';
+}
+
+burger.addEventListener('click', () => menu(!nav.classList.contains('open')));
+scrim.addEventListener('click', () => menu(false));
+$$('.nav__link').forEach(a => a.addEventListener('click', () => menu(false)));
+addEventListener('keydown', e => {
+  if (e.key === 'Escape' && nav.classList.contains('open')) menu(false);
 });
-$$('.nav__link').forEach(a => a.addEventListener('click', () => {
-  nav.classList.remove('open'); burger.classList.remove('on');
-  burger.setAttribute('aria-expanded', 'false'); document.body.style.overflow = '';
-}));
 
 /* El sitio es de varias páginas: el enlace activo del menú ya viene marcado en
    el HTML de cada página (class="nav__link on" + aria-current). Aquí no se toca. */
