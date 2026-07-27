@@ -52,7 +52,7 @@
 
 <!-- ══════════════ PORTADA DE PÁGINA ══════════════ -->
 <section class="phero">
-  <div class="phero__media"><img src="img/armado-losa2.jpg" alt="Armado de losa antes del colado" fetchpriority="high" /><span class="phero__veil"></span></div>
+  <div class="phero__media"><img src="img/armado-losa2.jpg" alt="Armado de losa antes del colado" fetchpriority="high" data-parallax /><span class="phero__veil"></span></div>
   <div class="shell phero__body">
     <p class="eyebrow"><span class="eyebrow__mark"></span>02 — Servicios</p>
     <h1 class="phero__t">La solidez de un proyecto<br>comienza con una estructura<br>bien ejecutada</h1>
@@ -200,7 +200,10 @@
 
 <!-- ══════════════ CTA ══════════════ -->
 <section class="cta">
-  <div class="cta__bg"><span></span></div>
+  <div class="cta__bg">
+    <picture><source srcset="img/casa-reserva.avif" type="image/avif" /><img src="img/casa-reserva.jpg" alt="" loading="lazy" data-parallax /></picture>
+    <span></span>
+  </div>
   <div class="shell cta__body">
     <p class="eyebrow" data-reveal><span class="eyebrow__mark"></span>Hablemos de tu proyecto</p>
     <h2 data-reveal>¿Tienes un proyecto<br>en puerta?</h2>

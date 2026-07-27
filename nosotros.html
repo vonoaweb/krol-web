@@ -52,7 +52,7 @@
 
 <!-- ══════════════ PORTADA DE PÁGINA ══════════════ -->
 <section class="phero">
-  <div class="phero__media"><img src="img/muro-armado.jpg" alt="Muro de contención armado por KROL" fetchpriority="high" /><span class="phero__veil"></span></div>
+  <div class="phero__media"><img src="img/muro-armado.jpg" alt="Muro de contención armado por KROL" fetchpriority="high" data-parallax /><span class="phero__veil"></span></div>
   <div class="shell phero__body">
     <p class="eyebrow"><span class="eyebrow__mark"></span>01 — Quiénes somos</p>
     <h1 class="phero__t">Precisión, rapidez<br>y especialización</h1>
@@ -216,7 +216,10 @@
 
 <!-- ══════════════ CTA ══════════════ -->
 <section class="cta">
-  <div class="cta__bg"><span></span></div>
+  <div class="cta__bg">
+    <picture><source srcset="img/casa-reserva.avif" type="image/avif" /><img src="img/casa-reserva.jpg" alt="" loading="lazy" data-parallax /></picture>
+    <span></span>
+  </div>
   <div class="shell cta__body">
     <p class="eyebrow" data-reveal><span class="eyebrow__mark"></span>Hablemos de tu proyecto</p>
     <h2 data-reveal>¿Tienes un proyecto<br>en puerta?</h2>
