@@ -91,7 +91,8 @@ ul{list-style:none}
 }
 /* Se levanta al pasar el cursor y se hunde al pulsar */
 .btn:hover{transform:translateY(-3px)}
-.btn:active{transform:translateY(-1px)}
+/* Al pulsar se hunde y encoge un poco: respuesta clara con clic y con dedo */
+.btn:active{transform:translateY(-1px) scale(.975);transition-duration:.09s}
 /* Relleno que sube desde abajo. Sólo lo usa el botón de contorno: el sólido
    se queda naranja y recibe únicamente el destello, como en la referencia. */
 .btn--ghost::before{
@@ -111,7 +112,7 @@ ul{list-style:none}
 .btn:hover .arrow{transform:translateX(5px)}
 .btn--solid{background:var(--naranja);color:var(--tinta)}
 .btn--solid:hover{color:var(--tinta);box-shadow:0 12px 30px rgba(255,117,31,.38)}
-.btn--ghost{border-color:rgba(233,229,222,.32);color:var(--papel)}
+.btn--ghost{border-color:var(--naranja);color:var(--papel)}
 .btn--ghost::before{background:var(--naranja)}
 .btn--ghost:hover{color:var(--tinta);border-color:var(--naranja);box-shadow:0 12px 30px rgba(255,117,31,.28)}
 /* En táctil no hay cursor, así que el hover nunca se dispara: el destello
@@ -265,13 +266,15 @@ ul{list-style:none}
 .hero__marca svg{width:100%;height:auto;display:block;overflow:visible}
 /* Boceto: sin relleno, sólo el contorno en naranja. El guion oculta cada
    trazo y la animación lo empuja a cero, como si se dibujara en vivo. */
+/* El resplandor va una sola vez en el svg: por trazo son 316 filtros y el
+   navegador se atasca. */
+.hero__marca svg{filter:drop-shadow(0 0 5px rgba(255,117,31,.3))}
 .hero__marca path{
   fill:none;
   stroke:var(--naranja);stroke-width:3.4;
   stroke-linecap:round;stroke-linejoin:round;
   stroke-dasharray:4000;stroke-dashoffset:4000;
   opacity:.62;
-  filter:drop-shadow(0 0 4px rgba(255,117,31,.35));
 }
 .hero.lit .hero__marca path{animation:dibujarLogo 3s cubic-bezier(.25,1,.5,1) forwards}
 @keyframes dibujarLogo{to{stroke-dashoffset:0}}
