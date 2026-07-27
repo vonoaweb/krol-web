@@ -125,12 +125,54 @@ if (!HOVER) {
     setTimeout(() => b.classList.remove('tocado'), 780);
   }, { passive: true }));
 }
+
+/* Botones magnéticos: mientras el cursor está encima, el botón lo sigue. Se le
+   suma la elevación para que no se pierda al escribir el transform en línea.
+   Sólo con ratón: en táctil no hay puntero al que seguir. */
+if (HOVER) {
+  $$('.btn').forEach(b => {
+    b.addEventListener('mousemove', e => {
+      const r = b.getBoundingClientRect();
+      const x = (e.clientX - r.left - r.width / 2) * .18;
+      const y = (e.clientY - r.top - r.height / 2) * .28 - 3;
+      b.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`;
+    });
+    b.addEventListener('mouseleave', () => { b.style.transform = ''; });
+  });
+}
 addEventListener('keydown', e => {
   if (e.key === 'Escape' && nav.classList.contains('open')) menu(false);
 });
 
 /* El sitio es de varias páginas: el enlace activo del menú ya viene marcado en
    el HTML de cada página (class="nav__link on" + aria-current). Aquí no se toca. */
+
+/* ─────────────────────────────────────────────
+   4.5 · Parallax de fondos
+   Las capas marcadas se mueven más despacio que la página. Van un poco más
+   altas que su hueco, así el desplazamiento nunca descubre el borde.
+   ───────────────────────────────────────────── */
+if (!CALMA) {
+  const capas = $$('[data-parallax]');
+  if (capas.length) {
+    let pedido = false;
+    const pintar = () => {
+      pedido = false;
+      capas.forEach(c => {
+        const zona = c.closest('.hero, .phero, .cta') || c.parentElement;
+        const r = zona.getBoundingClientRect();
+        if (r.bottom < -200 || r.top > innerHeight + 200) return;
+        // -1 cuando la zona viene subiendo, +1 cuando ya se fue
+        const p = (r.top + r.height / 2 - innerHeight / 2) / ((innerHeight + r.height) / 2);
+        c.style.transform = `translate3d(0,${(-p * 8).toFixed(2)}%,0)`;
+      });
+    };
+    const alPasar = () => { if (!pedido) { pedido = true; requestAnimationFrame(pintar); } };
+    addEventListener('scroll', alPasar, { passive: true });
+    addEventListener('resize', alPasar, { passive: true });
+    pintar();
+  }
+}
 
 /* ─────────────────────────────────────────────
    5 · Reveals genéricos

@@ -24,8 +24,6 @@
   --cuerpo:'Barlow', sans-serif;
 
   --franja:repeating-linear-gradient(-45deg, var(--naranja) 0 14px, var(--tinta) 14px 28px);
-  /* Panal: retícula de hexágonos en trazo, para el fondo del CTA */
-  --panal:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='97' viewBox='0 0 56 97'%3E%3Cg fill='none' stroke='%23FF751F' stroke-width='2'%3E%3Cpath d='M28 1 55 16.5v31L28 63 1 47.5v-31z'/%3E%3Cpath d='M28 63v18'/%3E%3Cpath d='M55 47.5 71 57'/%3E%3Cpath d='M1 47.5-15 57'/%3E%3C/g%3E%3C/svg%3E");
   --ease:cubic-bezier(.22,1,.36,1);
   --pad:clamp(72px, 9vw, 140px);
 }
@@ -241,11 +239,14 @@ ul{list-style:none}
   padding-top:clamp(104px,12vh,148px);padding-bottom:clamp(104px,13vh,160px);
 }
 .hero__media{position:absolute;inset:0;z-index:0;background:var(--fondo)}
-/* La toma es de atardecer y sale apagada: se levanta un poco la imagen */
+/* La toma es de atardecer y sale apagada: se levanta un poco la imagen.
+   Va más alta que su hueco para que el parallax no descubra el borde. */
 .hero__media img,
 .hero__media video{
-  width:100%;height:100%;object-fit:cover;display:block;
+  position:absolute;left:0;top:-9%;
+  width:100%;height:118%;object-fit:cover;display:block;
   filter:brightness(1.24) contrast(1.06) saturate(1.05);
+  will-change:transform;
 }
 /* El video ya trae su propio acercamiento: no se le encima el zoom del GSAP */
 .hero__media img{transform:scale(1.12)}
@@ -317,8 +318,12 @@ ul{list-style:none}
   min-height:clamp(340px,52svh,560px);
   padding-top:clamp(112px,14vh,152px);padding-bottom:clamp(40px,6vh,72px);
 }
-.phero__media{position:absolute;inset:0;z-index:0}
-.phero__media img{width:100%;height:100%;object-fit:cover}
+.phero__media{position:absolute;inset:0;z-index:0;overflow:hidden}
+/* Más alta que su hueco: el parallax no descubre el borde */
+.phero__media img{
+  position:absolute;left:0;top:-9%;
+  width:100%;height:118%;object-fit:cover;will-change:transform;
+}
 .phero__veil{
   position:absolute;inset:0;
   background:
@@ -655,11 +660,15 @@ ul{list-style:none}
 .cta{position:relative;padding-block:clamp(80px,11vw,160px);overflow:hidden;text-align:center}
 .cta__bg{position:absolute;inset:0;z-index:0}
 .cta__bg video{width:100%;height:100%;object-fit:cover}
+/* Foto de obra con parallax, en vez de la retícula que se había puesto */
+.cta__bg img{
+  position:absolute;left:0;top:-9%;
+  width:100%;height:118%;object-fit:cover;display:block;
+  will-change:transform;
+}
 .cta__bg span{
   position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(20,16,12,.88),rgba(20,16,12,.94)),var(--panal),var(--tinta);
-  background-size:auto,56px 97px,auto;
-  opacity:.97;
+  background:linear-gradient(180deg,rgba(20,16,12,.9) 0%,rgba(20,16,12,.78) 50%,rgba(20,16,12,.93) 100%);
 }
 .cta__body{position:relative;z-index:1}
 .cta__body h2{font-family:var(--cond);font-weight:800;text-transform:uppercase;font-size:clamp(2.2rem,6.2vw,5rem);line-height:.94;color:var(--papel);margin-bottom:20px}
