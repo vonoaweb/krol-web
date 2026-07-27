@@ -445,6 +445,32 @@ obras.forEach(o => o.addEventListener('click', () => {
   const img = $('img', o);
   $('#lbImg').src = img.src;
   $('#lbImg').alt = img.alt;
+
+  /* Galería: las obras con varias fotos las declaran en data-fotos, separadas
+     por coma, y cada una lleva su texto alternativo después de una barra. Las
+     que traen una sola foto no muestran miniaturas. */
+  const tiras = $('#lbTiras');
+  const fotos = (o.dataset.fotos || '').split(',').filter(Boolean).map(f => f.split('|'));
+  tiras.innerHTML = '';
+  tiras.hidden = fotos.length < 2;
+  if (!tiras.hidden) {
+    $('#lbImg').src = fotos[0][0];
+    $('#lbImg').alt = fotos[0][1] || '';
+    fotos.forEach(([src, alt], i) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'lb__tira' + (i ? '' : ' on');
+      b.setAttribute('aria-label', `Ver foto ${i + 1} de ${fotos.length}`);
+      b.innerHTML = `<img src="${src}" alt="" loading="lazy" />`;
+      b.addEventListener('click', () => {
+        $('#lbImg').src = src;
+        $('#lbImg').alt = alt || '';
+        $$('.lb__tira', tiras).forEach(x => x.classList.remove('on'));
+        b.classList.add('on');
+      });
+      tiras.appendChild(b);
+    });
+  }
   $('#lbCat').textContent   = $('.obra__cat', o).textContent;
   $('#lbTitle').textContent = $('h3', o).textContent;
   $('#lbDesc').textContent  = o.dataset.desc;

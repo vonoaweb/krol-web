@@ -616,7 +616,22 @@ ul{list-style:none}
 }
 .lb.open .lb__panel{transform:none}
 .lb__x{position:absolute;top:12px;right:12px;z-index:3;width:40px;height:40px;background:var(--naranja);color:var(--tinta);font-size:1rem}
-.lb__img img{width:100%;height:100%;object-fit:cover;min-height:280px}
+.lb__img{position:relative}
+.lb__img > img{width:100%;height:100%;object-fit:cover;min-height:280px}
+/* Miniaturas de la obra, sobre la foto grande */
+.lb__tiras{
+  position:absolute;left:0;right:0;bottom:0;z-index:1;
+  display:flex;gap:8px;padding:12px;
+  background:linear-gradient(0deg,rgba(20,16,12,.85),transparent);
+}
+.lb__tira{
+  width:62px;height:44px;flex:none;padding:0;overflow:hidden;
+  border:2px solid transparent;border-radius:5px;opacity:.6;
+  transition:opacity .25s ease,border-color .25s ease;
+}
+.lb__tira img{width:100%;height:100%;object-fit:cover;display:block}
+.lb__tira:hover{opacity:1}
+.lb__tira.on{opacity:1;border-color:var(--naranja)}
 .lb__body{padding:clamp(24px,3vw,42px)}
 .lb__body h3{font-family:var(--cond);font-weight:800;text-transform:uppercase;font-size:clamp(1.4rem,2.4vw,2rem);line-height:1.05;color:var(--papel);margin-bottom:14px}
 .lb__desc{color:var(--cimbra);font-size:.95em;margin-bottom:24px}
