@@ -91,6 +91,18 @@ function menu(abierto) {
 burger.addEventListener('click', () => menu(!nav.classList.contains('open')));
 scrim.addEventListener('click', () => menu(false));
 $$('.nav__link').forEach(a => a.addEventListener('click', () => menu(false)));
+
+/* Botones en táctil: sin cursor no hay hover, así que el destello se lanza al
+   tocar. Se quita la clase antes de volver a ponerla para reiniciar el barrido
+   cuando se toca dos veces seguidas. */
+if (!HOVER) {
+  $$('.btn').forEach(b => b.addEventListener('touchstart', () => {
+    b.classList.remove('tocado');
+    void b.offsetWidth;
+    b.classList.add('tocado');
+    setTimeout(() => b.classList.remove('tocado'), 780);
+  }, { passive: true }));
+}
 addEventListener('keydown', e => {
   if (e.key === 'Escape' && nav.classList.contains('open')) menu(false);
 });
