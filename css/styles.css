@@ -84,7 +84,7 @@ ul{list-style:none}
   font-family:var(--cond);font-weight:700;text-transform:uppercase;
   font-size:.9rem;letter-spacing:.1em;
   padding:15px 30px;border:1px solid transparent;position:relative;
-  border-radius:8px;
+  border-radius:12px;
   overflow:hidden;isolation:isolate;
   transition:color .4s var(--ease),border-color .4s var(--ease),
              transform .3s var(--ease),box-shadow .4s var(--ease);

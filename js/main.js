@@ -1,6 +1,6 @@
 /* ══════════════════════════════════════════════════════════════
    KROL EDIFICACIÓN ESTRUCTURAL — Demo por Vonoa Web
-   "Del trazo a la obra": todo entra como dibujo técnico y se cola.
+   "¡Construyendo soluciones!": todo entra como dibujo técnico y se cola.
    GSAP + ScrollTrigger, con degradado limpio si no cargan.
    ══════════════════════════════════════════════════════════════ */
 
