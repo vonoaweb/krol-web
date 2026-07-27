@@ -190,9 +190,15 @@ ul{list-style:none}
   font-family:var(--cond);font-weight:600;text-transform:uppercase;
   font-size:.88rem;letter-spacing:.07em;color:var(--cimbra);
   display:flex;align-items:baseline;gap:6px;position:relative;padding-block:4px;
-  transition:color .3s ease;
+  transition:color .3s ease,transform .3s var(--ease);
 }
-.nav__link i{font-family:var(--disp);font-size:8px;color:var(--acero);font-style:normal;transition:color .3s ease}
+/* Al pasar el cursor el enlace se eleva y su número sube y crece un poco */
+.nav__link:hover{transform:translateY(-2px)}
+.nav__link i{
+  font-family:var(--disp);font-size:8px;color:var(--acero);font-style:normal;
+  transition:color .3s ease,transform .35s var(--ease);
+}
+.nav__link:hover i{transform:translateY(-2px) scale(1.25)}
 .nav__link::after{content:'';position:absolute;left:0;bottom:0;height:1px;width:0;background:var(--naranja);transition:width .4s var(--ease)}
 .nav__link:hover,.nav__link.on{color:var(--papel)}
 .nav__link:hover i,.nav__link.on i{color:var(--naranja)}
@@ -235,9 +241,15 @@ ul{list-style:none}
 .hero.lit .plan-draw path,.hero.lit .plan-tick circle{stroke-dashoffset:0}
 
 .hero__body{position:relative;z-index:2;width:min(1280px,90%)}
+/* Logotipo grande sobre el titular */
+.hero__logo{margin-bottom:clamp(12px,1.6vw,20px)}
+.hero__logo img{
+  height:clamp(46px,5.4vw,78px);width:auto;display:block;
+  filter:drop-shadow(0 6px 22px rgba(0,0,0,.45));
+}
 .hero__title{
   font-family:var(--cond);font-weight:800;text-transform:uppercase;
-  font-size:clamp(2.9rem,7.9vw,7rem);line-height:1;letter-spacing:-.015em;
+  font-size:clamp(2.5rem,6.4vw,5.6rem);line-height:1;letter-spacing:-.015em;
   color:var(--papel);margin-bottom:clamp(20px,2.4vw,30px);
 }
 /* padding-block da aire entre renglones y evita que overflow:hidden recorte
