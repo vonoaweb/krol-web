@@ -35,6 +35,28 @@ function medir(svg, { stagger = 0, dur = 0.9, base = 0 } = {}) {
    ───────────────────────────────────────────── */
 const hero = $('.hero');
 
+/* Marca de agua: el SVG se inyecta en línea porque el CSS no puede animar los
+   paths de un <img>. Se queda como archivo aparte para que el navegador lo
+   guarde en caché y no engorde el HTML. */
+const marca = $('#heroMarca');
+if (marca) {
+  fetch(marca.dataset.svg)
+    .then(r => r.ok ? r.text() : Promise.reject(r.status))
+    .then(txt => {
+      marca.innerHTML = txt;
+      const svg = $('svg', marca);
+      if (!svg) return;
+      svg.removeAttribute('width');
+      svg.removeAttribute('height');
+      // El trazado trae un rectángulo blanco de fondo que taparía la portada
+      const fondo = $('path[fill="rgb(255,255,255)"]', svg);
+      if (fondo && /^M 0 0 L 2048 0/.test(fondo.getAttribute('d') || '')) fondo.remove();
+      // Escalonar los trazos: se dibuja de a poco en vez de todo de golpe
+      if (!CALMA) $$('path', svg).forEach((p, i) => { p.style.animationDelay = (i * 6) + 'ms'; });
+    })
+    .catch(() => {});   // decorativo: si no carga, la portada se ve igual
+}
+
 function heroIntro() {
   if (!hero) return;              // las páginas interiores llevan .phero, no .hero
   hero.classList.add('lit');

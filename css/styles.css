@@ -92,12 +92,13 @@ ul{list-style:none}
 /* Se levanta al pasar el cursor y se hunde al pulsar */
 .btn:hover{transform:translateY(-3px)}
 .btn:active{transform:translateY(-1px)}
-/* Relleno que sube desde abajo */
-.btn::before{
+/* Relleno que sube desde abajo. Sólo lo usa el botón de contorno: el sólido
+   se queda naranja y recibe únicamente el destello, como en la referencia. */
+.btn--ghost::before{
   content:'';position:absolute;inset:0;z-index:-1;
   transform:translateY(101%);transition:transform .5s var(--ease);
 }
-.btn:hover::before{transform:translateY(0)}
+.btn--ghost:hover::before{transform:translateY(0)}
 /* Destello que barre en diagonal al pasar el cursor */
 .btn::after{
   content:'';position:absolute;inset:0;z-index:-1;
@@ -109,7 +110,6 @@ ul{list-style:none}
 .btn .arrow{transition:transform .3s var(--ease)}
 .btn:hover .arrow{transform:translateX(5px)}
 .btn--solid{background:var(--naranja);color:var(--tinta)}
-.btn--solid::before{background:var(--papel)}
 .btn--solid:hover{color:var(--tinta);box-shadow:0 12px 30px rgba(255,117,31,.38)}
 .btn--ghost{border-color:rgba(233,229,222,.32);color:var(--papel)}
 .btn--ghost::before{background:var(--naranja)}
@@ -262,28 +262,19 @@ ul{list-style:none}
   position:absolute;right:2.5%;top:52%;translate:0 -50%;z-index:1;
   width:min(40vw,540px);pointer-events:none;
 }
-/* El logo se descubre de abajo hacia arriba, como una obra que se levanta.
-   La opacidad va en el picture y no en el contenedor, para que la línea que
-   lo traza conserve su propia intensidad. */
-.hero__marca picture{
-  display:block;clip-path:inset(100% 0 0 0);opacity:0;
-  transition:opacity 1s var(--ease) .5s,clip-path 2.6s var(--ease) .6s;
+.hero__marca svg{width:100%;height:auto;display:block;overflow:visible}
+/* Boceto: sin relleno, sólo el contorno en naranja. El guion oculta cada
+   trazo y la animación lo empuja a cero, como si se dibujara en vivo. */
+.hero__marca path{
+  fill:none;
+  stroke:var(--naranja);stroke-width:3.4;
+  stroke-linecap:round;stroke-linejoin:round;
+  stroke-dasharray:4000;stroke-dashoffset:4000;
+  opacity:.62;
+  filter:drop-shadow(0 0 4px rgba(255,117,31,.35));
 }
-.hero.lit .hero__marca picture{opacity:.16;clip-path:inset(0 0 0 0)}
-.hero__marca img{width:100%;height:auto;display:block}
-/* Línea que sube trazando el logo, como el cabezal de un plotter */
-.hero__marca-traza{
-  position:absolute;left:-5%;right:-5%;bottom:0;height:2px;opacity:0;
-  background:linear-gradient(90deg,transparent,var(--naranja),transparent);
-  filter:drop-shadow(0 0 6px rgba(255,117,31,.6));
-}
-.hero.lit .hero__marca-traza{animation:marca-traza 2.6s var(--ease) .6s}
-@keyframes marca-traza{
-  0%{bottom:0;opacity:0}
-  10%{opacity:.85}
-  88%{opacity:.85}
-  100%{bottom:100%;opacity:0}
-}
+.hero.lit .hero__marca path{animation:dibujarLogo 3s cubic-bezier(.25,1,.5,1) forwards}
+@keyframes dibujarLogo{to{stroke-dashoffset:0}}
 /* Debajo del ancho del titular se encimaría con el texto */
 @media (max-width:1100px){.hero__marca{display:none}}
 
@@ -843,6 +834,5 @@ ul{list-style:none}
   [data-reveal]{opacity:1;transform:none}
   .pour img{clip-path:none;transform:none}
   .ciudad__esc{animation:none;transform:rotateX(-24deg) rotateY(-32deg)}
-  .hero__marca picture{clip-path:none}
-  .hero__marca-traza{display:none}
+  .hero__marca path{stroke-dashoffset:0}
 }
