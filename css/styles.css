@@ -404,7 +404,8 @@ ul{list-style:none}
 /* El track lleva la lista duplicada. Se desplaza media longitud + medio gap:
    sin ese medio gap el bucle saltaba y la franja "reaparecía de golpe". */
 .franja__track{display:flex;align-items:center;gap:26px;width:max-content;animation:slide 42s linear infinite}
-.franja__track--slow{animation-duration:64s}
+/* 64s dejaban a los clientes del final medio minuto sin aparecer */
+.franja__track--slow{animation-duration:38s}
 .franja span{font-family:var(--cond);font-weight:700;text-transform:uppercase;font-size:clamp(.92rem,1.5vw,1.15rem);letter-spacing:.07em;color:var(--tinta);white-space:nowrap}
 .franja em{width:7px;height:7px;background:var(--tinta);transform:rotate(45deg);flex:none}
 .franja--soft{background:var(--tinta);border-block:1px solid rgba(233,229,222,.09);padding-block:26px}
