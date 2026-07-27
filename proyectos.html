@@ -108,7 +108,8 @@
            a lo que se ve en las fotos. -->
       <article class="obra" data-cat="comercial" data-reveal
         data-desc="Estacionamiento en Hacienda La Herradura: terracerías y compactación del terreno, muro de contención de piedra, preparación de instalaciones y firme de concreto."
-        data-lugar="" data-anio="" data-alcance="Terracerías · Compactación · Firme de concreto">
+        data-lugar="" data-anio="" data-alcance="Terracerías · Compactación · Firme de concreto"
+        data-fotos="img/herradura-2.jpg|Muro de contención de piedra y compactación del terreno,img/herradura-3.jpg|Compactación del terreno con bailarina,img/herradura-1.jpg|Firme de concreto y preparación de instalaciones">
         <div class="obra__img pour"><img src="img/herradura-2.jpg" alt="Muro de contención de piedra y compactación del terreno en el estacionamiento de Hacienda La Herradura" loading="lazy" /></div>
         <div class="obra__meta"><span class="obra__cat">Comercial</span><h3>Hacienda La Herradura · Estacionamiento</h3><p>Terracerías · Compactación · Firme de concreto</p></div>
         <span class="obra__go">↗</span>
@@ -163,7 +164,11 @@
   <div class="lb__bd" data-close></div>
   <div class="lb__panel">
     <button class="lb__x" data-close aria-label="Cerrar">✕</button>
-    <div class="lb__img"><img id="lbImg" alt="" /></div>
+    <div class="lb__img">
+      <img id="lbImg" alt="" />
+      <!-- Miniaturas: sólo aparecen si la obra trae más de una foto -->
+      <div class="lb__tiras" id="lbTiras" hidden></div>
+    </div>
     <div class="lb__body">
       <span class="obra__cat" id="lbCat"></span>
       <h3 id="lbTitle"></h3>
