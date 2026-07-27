@@ -91,10 +91,9 @@
   </div>
 
   <!-- Marca de agua: el isotipo a la derecha, sin cruzarse con el texto -->
-  <div class="hero__marca" aria-hidden="true">
-    <picture><source srcset="img/logo-krol.avif" type="image/avif" /><img src="img/logo-krol.png" alt="" /></picture>
-    <span class="hero__marca-traza"></span>
-  </div>
+  <!-- El isotipo se dibuja trazo a trazo, como un plano. El script inyecta
+       aquí el SVG para poder animar sus paths desde el CSS. -->
+  <div class="hero__marca" id="heroMarca" data-svg="img/logo_orange_white.svg" aria-hidden="true"></div>
 
   <div class="shell hero__body">
     <p class="eyebrow" data-hero="1"><span class="eyebrow__mark"></span>Constructora en Guadalajara, Jalisco</p>
