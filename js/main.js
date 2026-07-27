@@ -189,9 +189,13 @@ if (pista) {
   const tarjetas = $$('.serv', pista);
   const paso = () => (tarjetas[1] ? tarjetas[1].offsetLeft - tarjetas[0].offsetLeft : pista.clientWidth);
 
+  const carru = $('#carru');
+
   function pintar() {
     const max = pista.scrollWidth - pista.clientWidth;
     const x = pista.scrollLeft;
+    // En cuanto se mueve, se retira el aviso de "desliza"
+    if (carru && x > 4) carru.classList.add('movido');
     // Cuántas caben a la vez, para que el riel represente el tramo visible
     const visibles = Math.max(1, Math.round(pista.clientWidth / paso()));
     const ancho = Math.min(100, (visibles / tarjetas.length) * 100);
