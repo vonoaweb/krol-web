@@ -24,8 +24,10 @@
   --cuerpo:'Barlow', sans-serif;
 
   --franja:repeating-linear-gradient(-45deg, var(--naranja) 0 14px, var(--tinta) 14px 28px);
-  /* Panal: retícula de hexágonos en trazo, para el fondo del cierre */
-  --panal:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='97' viewBox='0 0 56 97'%3E%3Cg fill='none' stroke='%23FF751F' stroke-width='2'%3E%3Cpath d='M28 1 55 16.5v31L28 63 1 47.5v-31z'/%3E%3Cpath d='M28 63v18'/%3E%3Cpath d='M55 47.5 71 57'/%3E%3Cpath d='M1 47.5-15 57'/%3E%3C/g%3E%3C/svg%3E");
+  /* Panal para el fondo del cierre. Hexágono de punta arriba de lado 32: el
+     mosaico mide √3·32 de ancho por 3·32 de alto, y sus vértices tocan el
+     borde justo, así la retícula encaja sin cortes ni trazos sueltos. */
+  --panal:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='55.43' height='96' viewBox='0 0 55.43 96'%3E%3Cg fill='none' stroke='%23FF751F' stroke-width='1.6'%3E%3Cpath d='M27.71 0L55.43 16V48L27.71 64L0 48V16Z'/%3E%3Cpath d='M27.71 64V96'/%3E%3C/g%3E%3C/svg%3E");
   --ease:cubic-bezier(.22,1,.36,1);
   --pad:clamp(72px, 9vw, 140px);
 }
@@ -91,6 +93,10 @@ ul{list-style:none}
 }
 /* Se levanta al pasar el cursor y se hunde al pulsar */
 .btn:hover{transform:translateY(-3px)}
+/* Mientras sigue al cursor conviene una salida suave y sin rebote: el
+   cubic-bezier de arriba se pasa de largo y hace que el botón dé tirones. */
+.btn.iman{transition:transform .22s ease-out,color .4s var(--ease),
+                     border-color .4s var(--ease),box-shadow .4s var(--ease)}
 /* Al pulsar se hunde y encoge un poco: respuesta clara con clic y con dedo */
 .btn:active{transform:translateY(-1px) scale(.975);transition-duration:.09s}
 /* Relleno que sube desde abajo. Sólo lo usa el botón de contorno: el sólido
@@ -661,8 +667,8 @@ ul{list-style:none}
 .cta__panal{
   position:absolute;left:0;top:-9%;
   width:100%;height:118%;
-  background:var(--panal) repeat;background-size:56px 97px;
-  opacity:.28;will-change:transform;
+  background:var(--panal) repeat;background-size:55.43px 96px;
+  opacity:.3;will-change:transform;
 }
 .cta__velo{
   position:absolute;inset:0;

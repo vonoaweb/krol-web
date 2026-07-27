@@ -130,14 +130,21 @@ if (!HOVER) {
    suma la elevación para que no se pierda al escribir el transform en línea.
    Sólo con ratón: en táctil no hay puntero al que seguir. */
 if (HOVER) {
+  // Con topes: en los botones anchos el desplazamiento libre se iba a casi
+  // 30px y el botón daba tirones al mover el cursor.
+  const tope = (v, m) => v < -m ? -m : v > m ? m : v;
   $$('.btn').forEach(b => {
+    b.addEventListener('mouseenter', () => b.classList.add('iman'));
     b.addEventListener('mousemove', e => {
       const r = b.getBoundingClientRect();
-      const x = (e.clientX - r.left - r.width / 2) * .18;
-      const y = (e.clientY - r.top - r.height / 2) * .28 - 3;
+      const x = tope((e.clientX - r.left - r.width / 2) * .12, 9);
+      const y = tope((e.clientY - r.top - r.height / 2) * .18, 5) - 3;
       b.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`;
     });
-    b.addEventListener('mouseleave', () => { b.style.transform = ''; });
+    b.addEventListener('mouseleave', () => {
+      b.classList.remove('iman');
+      b.style.transform = '';
+    });
   });
 }
 addEventListener('keydown', e => {
