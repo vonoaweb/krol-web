@@ -24,6 +24,8 @@
   --cuerpo:'Barlow', sans-serif;
 
   --franja:repeating-linear-gradient(-45deg, var(--naranja) 0 14px, var(--tinta) 14px 28px);
+  /* Panal: retícula de hexágonos en trazo, para el fondo del cierre */
+  --panal:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='97' viewBox='0 0 56 97'%3E%3Cg fill='none' stroke='%23FF751F' stroke-width='2'%3E%3Cpath d='M28 1 55 16.5v31L28 63 1 47.5v-31z'/%3E%3Cpath d='M28 63v18'/%3E%3Cpath d='M55 47.5 71 57'/%3E%3Cpath d='M1 47.5-15 57'/%3E%3C/g%3E%3C/svg%3E");
   --ease:cubic-bezier(.22,1,.36,1);
   --pad:clamp(72px, 9vw, 140px);
 }
@@ -202,7 +204,7 @@ ul{list-style:none}
 .header.nav-open{backdrop-filter:none;-webkit-backdrop-filter:none;background:transparent;border-bottom-color:transparent}
 .header.up{transform:translateY(-100%)}
 .header__inner{display:flex;align-items:center;gap:28px;padding-block:16px}
-.brand img{height:clamp(40px,4.6vw,54px);width:auto}
+.brand img{height:clamp(52px,6vw,72px);width:auto}
 /* Menú centrado: auto a ambos lados lo deja al centro del header */
 .nav{display:flex;gap:clamp(14px,1.9vw,34px);margin-inline:auto}
 .nav__link{
@@ -283,12 +285,6 @@ ul{list-style:none}
 @media (max-width:1100px){.hero__marca{display:none}}
 
 .hero__body{position:relative;z-index:2;width:min(1280px,90%)}
-/* Logotipo grande sobre el titular */
-.hero__logo{margin-bottom:clamp(12px,1.6vw,20px)}
-.hero__logo img{
-  height:clamp(46px,5.4vw,78px);width:auto;display:block;
-  filter:drop-shadow(0 6px 22px rgba(0,0,0,.45));
-}
 .hero__title{
   font-family:var(--cond);font-weight:800;text-transform:uppercase;
   font-size:clamp(2.5rem,6.4vw,5.6rem);line-height:1;letter-spacing:-.015em;
@@ -660,15 +656,17 @@ ul{list-style:none}
 .cta{position:relative;padding-block:clamp(80px,11vw,160px);overflow:hidden;text-align:center}
 .cta__bg{position:absolute;inset:0;z-index:0}
 .cta__bg video{width:100%;height:100%;object-fit:cover}
-/* Foto de obra con parallax, en vez de la retícula que se había puesto */
-.cta__bg img{
+/* Retícula de panal, que se desplaza con el scroll. Va más alta que su hueco
+   para que el parallax no descubra el borde. */
+.cta__panal{
   position:absolute;left:0;top:-9%;
-  width:100%;height:118%;object-fit:cover;display:block;
-  will-change:transform;
+  width:100%;height:118%;
+  background:var(--panal) repeat;background-size:56px 97px;
+  opacity:.28;will-change:transform;
 }
-.cta__bg span{
+.cta__velo{
   position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(20,16,12,.9) 0%,rgba(20,16,12,.78) 50%,rgba(20,16,12,.93) 100%);
+  background:linear-gradient(180deg,rgba(20,16,12,.82) 0%,rgba(20,16,12,.6) 50%,rgba(20,16,12,.88) 100%);
 }
 .cta__body{position:relative;z-index:1}
 .cta__body h2{font-family:var(--cond);font-weight:800;text-transform:uppercase;font-size:clamp(2.2rem,6.2vw,5rem);line-height:.94;color:var(--papel);margin-bottom:20px}
