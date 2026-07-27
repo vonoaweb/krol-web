@@ -29,15 +29,11 @@ function medir(svg, { stagger = 0, dur = 0.9, base = 0 } = {}) {
 }
 
 /* ─────────────────────────────────────────────
-   2 · Hero — plano que se dibuja + titular
-   Sin pantalla de carga: entra de inmediato.
+   2 · Hero — titular
+   Sin pantalla de carga: entra de inmediato. La marca de agua de la
+   derecha entra sola por CSS cuando el hero recibe .lit
    ───────────────────────────────────────────── */
 const hero = $('.hero');
-const plan = $('#heroPlan');
-if (plan) {
-  medir(plan.querySelector('.plan-draw'), { stagger: 0.09, dur: 1.1, base: 0.5 });
-  medir(plan.querySelector('.plan-tick'), { stagger: 0.08, dur: 0.5, base: 1.3 });
-}
 
 function heroIntro() {
   if (!hero) return;              // las páginas interiores llevan .phero, no .hero

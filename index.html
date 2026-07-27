@@ -71,7 +71,7 @@
       <a href="contacto.html" class="nav__link"><i>05</i>Contacto</a>
     </nav>
 
-    <a href="contacto.html" class="btn btn--solid header__cta">Solicitar presupuesto</a>
+    <a href="contacto.html" class="btn btn--solid header__cta">Solicitar presupuesto <span class="arrow" aria-hidden="true">→</span></a>
 
     <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false"><span></span><span></span></button>
   </div>
@@ -90,40 +90,10 @@
     <div class="hero__veil"></div>
   </div>
 
-  <!-- Capa de trazo: el plano que se dibuja sobre la obra real -->
-  <svg class="hero__plan" id="heroPlan" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-    <defs>
-      <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
-        <path d="M60 0 H0 V60" fill="none" stroke="rgba(255,117,31,.16)" stroke-width="1" />
-      </pattern>
-    </defs>
-    <rect class="plan-grid" width="1440" height="900" fill="url(#grid)" />
-    <g class="plan-draw">
-      <!-- cota horizontal inferior -->
-      <path d="M170 742 H1270" /><path d="M170 728 V756" /><path d="M1270 728 V756" />
-      <!-- cota vertical derecha -->
-      <path d="M1318 250 V742" /><path d="M1304 250 H1332" /><path d="M1304 742 H1332" />
-      <!-- ejes -->
-      <path d="M170 250 V742" /><path d="M170 250 H1270" />
-      <path d="M560 250 V742" stroke-dasharray="10 10" /><path d="M900 250 V742" stroke-dasharray="10 10" />
-    </g>
-    <g class="plan-tick">
-      <circle cx="170" cy="250" r="9" /><circle cx="1270" cy="250" r="9" />
-      <circle cx="170" cy="742" r="9" /><circle cx="1270" cy="742" r="9" />
-    </g>
-    <g class="plan-label">
-      <text x="720" y="722" text-anchor="middle">13 AÑOS DE TRAYECTORIA</text>
-      <text x="1352" y="500" text-anchor="middle" transform="rotate(90 1352 500)">20 ESTADOS</text>
-      <text x="580" y="240">EJE B</text><text x="920" y="240">EJE C</text>
-    </g>
-  </svg>
-
-  <!-- La obra que se levanta: pórtico estructural que se dibuja al entrar -->
-  <svg class="hero__obra" viewBox="0 0 400 500" fill="none" aria-hidden="true">
-    <path class="obra__l" d="M60 470 V150 L200 70 L340 150 V470" />
-    <path class="obra__l o2" d="M120 470 V196 L200 152 L280 196 V470" />
-    <path class="obra__l o3" d="M60 300 H340 M60 385 H340 M200 470 V152" />
-  </svg>
+  <!-- Marca de agua: el isotipo a la derecha, sin cruzarse con el texto -->
+  <div class="hero__marca" aria-hidden="true">
+    <picture><source srcset="img/logo-krol.avif" type="image/avif" /><img src="img/logo-krol.png" alt="" /></picture>
+  </div>
 
   <div class="shell hero__body">
     <p class="eyebrow" data-hero="1"><span class="eyebrow__mark"></span>Constructora en Guadalajara, Jalisco</p>
@@ -141,8 +111,8 @@
     <p class="hero__lead" data-hero="3">Obra civil y estructuras de concreto para proyectos industriales, comerciales y habitacionales. Cimentaciones, muros de contención y ejecución especializada, con la precisión que exige cada obra.</p>
 
     <div class="hero__actions" data-hero="3">
-      <a href="contacto.html" class="btn btn--solid btn--lg">Solicitar presupuesto</a>
-      <a href="proyectos.html" class="btn btn--ghost btn--lg">Ver proyectos</a>
+      <a href="contacto.html" class="btn btn--solid btn--lg">Solicitar presupuesto <span class="arrow" aria-hidden="true">→</span></a>
+      <a href="proyectos.html" class="btn btn--ghost btn--lg">Ver proyectos <span class="arrow" aria-hidden="true">→</span></a>
     </div>
 
     <ul class="hero__facts" data-hero="4">
@@ -181,7 +151,7 @@
     </div>
     <div>
       <p class="lead" data-reveal>Somos una empresa jalisciense especializada en cimentaciones, estructuras de concreto y obra civil, comprometida con ofrecer soluciones constructivas de alta calidad mediante ingeniería, experiencia y un enfoque orientado a los resultados.</p>
-      <a href="nosotros.html" class="btn btn--ghost" data-reveal>Conocer la empresa</a>
+      <a href="nosotros.html" class="btn btn--ghost" data-reveal>Conocer la empresa <span class="arrow" aria-hidden="true">→</span></a>
     </div>
   </div>
 
@@ -340,7 +310,7 @@
     <p class="eyebrow" data-reveal><span class="eyebrow__mark"></span>Hablemos de tu proyecto</p>
     <h2 data-reveal>¿Tienes un proyecto<br>en puerta?</h2>
     <p data-reveal>Mándanos planos o una descripción del alcance. Te regresamos presupuesto y programa de obra. Nosotros nos encargamos del resto.</p>
-    <a href="contacto.html" class="btn btn--solid btn--lg" data-reveal>Solicitar presupuesto</a>
+    <a href="contacto.html" class="btn btn--solid btn--lg" data-reveal>Solicitar presupuesto <span class="arrow" aria-hidden="true">→</span></a>
   </div>
 </section>
 
