@@ -382,13 +382,21 @@ addEventListener('keydown', e => { if (e.key === 'Escape' && lb.classList.contai
    14 · Video sólo cuando se ve
    ───────────────────────────────────────────── */
 // Con movimiento reducido no se reproduce nada: se queda el póster.
-if (!CALMA) {
-  const ioVid = new IntersectionObserver(es => es.forEach(e => {
-    const v = e.target;
-    if (e.isIntersecting) { v.preload = 'auto'; v.play?.().catch(() => {}); }
-    else v.pause?.();
-  }), { threshold: .25 });
-  $$('video').forEach(v => ioVid.observe(v));
+// El video del inicio pesa más de un mega y antes se bajaba de inmediato, lo
+// que retrasaba la carga de toda la página. Ahora se espera a que la página
+// termine y se salta con el ahorro de datos activado: queda el póster, que se
+// precarga con prioridad y se ve igual.
+if (!CALMA && !(navigator.connection && navigator.connection.saveData)) {
+  const verVideos = () => {
+    const ioVid = new IntersectionObserver(es => es.forEach(e => {
+      const v = e.target;
+      if (e.isIntersecting) { v.preload = 'auto'; v.play?.().catch(() => {}); }
+      else v.pause?.();
+    }), { threshold: .25 });
+    $$('video').forEach(v => ioVid.observe(v));
+  };
+  if (document.readyState === 'complete') verVideos();
+  else addEventListener('load', verVideos, { once: true });
 }
 
 /* ─────────────────────────────────────────────
