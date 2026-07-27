@@ -114,6 +114,15 @@ ul{list-style:none}
 .btn--ghost{border-color:rgba(233,229,222,.32);color:var(--papel)}
 .btn--ghost::before{background:var(--naranja)}
 .btn--ghost:hover{color:var(--tinta);border-color:var(--naranja);box-shadow:0 12px 30px rgba(255,117,31,.28)}
+/* En táctil no hay cursor, así que el hover nunca se dispara: el destello
+   y la flecha se lanzan al tocar, con la clase que pone el script. */
+@media (hover:none){
+  .btn:active{transform:translateY(-1px) scale(.985)}
+  .btn--solid:active{box-shadow:0 10px 26px rgba(255,117,31,.42)}
+  .btn--ghost:active{box-shadow:0 10px 26px rgba(255,117,31,.3)}
+  .btn.tocado::after{transform:translateX(100%);transition:transform .7s ease}
+  .btn.tocado .arrow{transform:translateX(5px)}
+}
 .btn--lg{padding:18px 38px;font-size:.98rem}
 .btn--full{width:100%;justify-content:center;margin-top:8px}
 
