@@ -161,9 +161,11 @@ if (!CALMA) {
       capas.forEach(c => {
         const zona = c.closest('.hero, .phero, .cta') || c.parentElement;
         const r = zona.getBoundingClientRect();
-        if (r.bottom < -200 || r.top > innerHeight + 200) return;
-        // -1 cuando la zona viene subiendo, +1 cuando ya se fue
-        const p = (r.top + r.height / 2 - innerHeight / 2) / ((innerHeight + r.height) / 2);
+        // -1 cuando la zona viene subiendo, +1 cuando ya se fue. Se acota y se
+        // calcula siempre, también fuera de pantalla: así al entrar ya viene
+        // colocada y no pega un salto.
+        const bruto = (r.top + r.height / 2 - innerHeight / 2) / ((innerHeight + r.height) / 2);
+        const p = Math.max(-1, Math.min(1, bruto));
         c.style.transform = `translate3d(0,${(-p * 8).toFixed(2)}%,0)`;
       });
     };
