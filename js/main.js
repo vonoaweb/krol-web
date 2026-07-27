@@ -155,6 +155,49 @@ addEventListener('keydown', e => {
    el HTML de cada página (class="nav__link on" + aria-current). Aquí no se toca. */
 
 /* ─────────────────────────────────────────────
+   4.4 · El panal del cierre se construye
+   La retícula del fondo es una imagen repetida y no se puede animar trazo a
+   trazo, así que se cambia por una malla de hexágonos en SVG. Se arma aquí
+   para no cargar el HTML con casi trescientos paths.
+   ───────────────────────────────────────────── */
+const panal = $('.cta__panal');
+if (panal && !CALMA) {
+  const lado = 48;
+  const ancho = Math.sqrt(3) * lado;   // ancho del hexágono de punta arriba
+  const paso = 1.5 * lado;             // separación entre filas
+  const vbX = 1600, vbY = 900;
+  const cols = Math.ceil(vbX / ancho) + 1;
+  const filas = Math.ceil(vbY / paso) + 1;
+
+  const hexágono = (cx, cy) => {
+    const m = ancho / 2, r = lado / 2;
+    return `M${cx} ${cy - lado}L${cx + m} ${cy - r}L${cx + m} ${cy + r}` +
+           `L${cx} ${cy + lado}L${cx - m} ${cy + r}L${cx - m} ${cy - r}Z`;
+  };
+
+  const trazos = [];
+  for (let f = 0; f < filas; f++) {
+    for (let c = 0; c < cols; c++) {
+      const cx = (c * ancho + (f % 2 ? ancho / 2 : 0)).toFixed(1);
+      const cy = (f * paso).toFixed(1);
+      // Se levanta de abajo hacia arriba y de izquierda a derecha
+      const espera = (filas - 1 - f) * 70 + c * 22;
+      trazos.push(`<path d="${hexágono(+cx, +cy)}" style="animation-delay:${espera}ms"/>`);
+    }
+  }
+  panal.innerHTML =
+    `<svg viewBox="0 0 ${vbX} ${vbY}" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${trazos.join('')}</svg>`;
+  panal.classList.add('con-svg');
+
+  // Se dibuja cuando la sección aparece, no antes
+  new IntersectionObserver((es, io) => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    panal.classList.add('construido');
+    io.disconnect();
+  }), { threshold: .15 }).observe(panal.closest('.cta') || panal);
+}
+
+/* ─────────────────────────────────────────────
    4.5 · Parallax de fondos
    Las capas marcadas se mueven más despacio que la página. Van un poco más
    altas que su hueco, así el desplazamiento nunca descubre el borde.

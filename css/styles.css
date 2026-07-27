@@ -671,6 +671,16 @@ ul{list-style:none}
   background:var(--panal) repeat;background-size:55.43px 96px;
   opacity:.3;will-change:transform;
 }
+/* Con el SVG puesto sobra la imagen de fondo, que sólo sirve de respaldo */
+.cta__panal.con-svg{background:none}
+.cta__panal svg{width:100%;height:100%;display:block}
+.cta__panal path{
+  fill:none;stroke:var(--naranja);stroke-width:2;
+  stroke-dasharray:300;stroke-dashoffset:300;
+}
+/* Cada hexágono se traza solo, escalonado de abajo hacia arriba */
+.cta__panal.construido path{animation:construirPanal 1.1s var(--ease) forwards}
+@keyframes construirPanal{to{stroke-dashoffset:0}}
 .cta__velo{
   position:absolute;inset:0;
   background:linear-gradient(180deg,rgba(20,16,12,.82) 0%,rgba(20,16,12,.6) 50%,rgba(20,16,12,.88) 100%);
@@ -678,6 +688,12 @@ ul{list-style:none}
 .cta__body{position:relative;z-index:1}
 .cta__body h2{font-family:var(--cond);font-weight:800;text-transform:uppercase;font-size:clamp(2.2rem,6.2vw,5rem);line-height:.94;color:var(--papel);margin-bottom:20px}
 .cta__body p{color:var(--linea);margin:0 auto 34px;max-width:52ch}
+/* Segunda frase del cierre: va destacada, no perdida en el párrafo */
+.cta__sub{
+  font-family:var(--cond);font-weight:700;text-transform:uppercase;
+  font-size:clamp(1.05rem,2.1vw,1.6rem);letter-spacing:.04em;
+  color:var(--naranja)!important;margin-bottom:18px!important;
+}
 
 /* ══════════════ CONTACTO (claro) ══════════════ */
 .contacto{background:var(--concreto);color:var(--tinta)}
