@@ -412,6 +412,16 @@ ul{list-style:none}
 .franja--soft span.cl{color:var(--cimbra);font-size:clamp(1rem,2vw,1.6rem);letter-spacing:.11em;transition:color .3s}
 .franja--soft:hover span.cl{color:var(--papel)}
 .franja--soft em{background:var(--naranja)}
+/* En un teléfono, un nombre largo como "Cadamuro Construcciones" ocupaba el
+   ancho entero y se cortaba: no se leía la lista, sólo un fragmento. Se
+   achican la letra y los espacios para que entren dos o tres a la vez. */
+@media (max-width:620px){
+  .franja__track{gap:15px}
+  .franja span{font-size:.82rem;letter-spacing:.05em}
+  .franja--soft span.cl{font-size:.84rem;letter-spacing:.06em}
+  .franja--soft{padding-block:18px}
+  .franja em{width:5px;height:5px}
+}
 @keyframes slide{to{transform:translateX(calc(-50% - 13px))}}
 
 /* ══════════════ NOSOTROS ══════════════ */
