@@ -452,56 +452,19 @@ ul{list-style:none}
 .servicios .eyebrow__mark::after{background:var(--naranja-osc)}
 
 /* ─── Carrusel de servicios ─── */
-.carru{position:relative}
-.carru__barra{
-  display:flex;align-items:center;gap:clamp(16px,3vw,34px);
-  padding-bottom:22px;margin-bottom:clamp(24px,3vw,36px);
-  border-bottom:1px solid rgba(23,21,18,.16);
+/* Cuadrícula de servicios. Antes era un carrusel y no se notaba que se
+   deslizaba a la derecha, así que los ocho quedan a la vista. */
+.servs{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:clamp(20px,2.4vw,34px) clamp(14px,1.8vw,26px);
 }
-.carru__cuenta{display:flex;align-items:baseline;gap:6px;flex:none}
-/* Aviso de "desliza": se oculta en cuanto el usuario mueve el carrusel */
-.carru__hint{
-  display:flex;align-items:center;gap:7px;flex:none;
-  font-family:var(--cond);font-weight:600;text-transform:uppercase;
-  font-size:.76rem;letter-spacing:.09em;color:var(--naranja-osc);
-  transition:opacity .4s var(--ease);
-}
-.carru__hint i{font-style:normal;animation:hint-desliza 1.5s var(--ease) infinite}
-.carru.movido .carru__hint{opacity:0;pointer-events:none}
-@keyframes hint-desliza{0%,100%{transform:translateX(0)}50%{transform:translateX(5px)}}
-.carru__cuenta b{font-family:var(--disp);font-size:1.35rem;color:var(--tinta);line-height:1}
-.carru__cuenta span{font-family:var(--cond);font-weight:600;font-size:.9rem;color:var(--acero);letter-spacing:.06em}
-.carru__riel{flex:1;height:2px;background:rgba(23,21,18,.16);position:relative;overflow:hidden}
-.carru__riel span{
-  position:absolute;top:0;left:0;height:100%;width:12%;
-  background:var(--naranja-osc);transition:transform .45s var(--ease),width .45s var(--ease);
-}
-.carru__btns{display:flex;gap:8px;flex:none}
-.carru__b{
-  width:48px;height:48px;display:grid;place-items:center;font-size:1.05rem;
-  border:1px solid rgba(23,21,18,.24);color:var(--tinta);
-  transition:background .3s ease,color .3s ease,border-color .3s ease,opacity .3s;
-}
-.carru__b:hover:not(:disabled){background:var(--tinta);border-color:var(--tinta);color:var(--papel)}
-.carru__b:disabled{opacity:.28;cursor:default}
-.carru__b:focus-visible{outline:2px solid var(--naranja-osc);outline-offset:3px}
-
-.carru__pista{
-  display:flex;gap:clamp(14px,1.8vw,26px);
-  overflow-x:auto;overscroll-behavior-x:contain;
-  scroll-snap-type:x mandatory;scroll-behavior:smooth;
-  scrollbar-width:none;-ms-overflow-style:none;
-  padding-bottom:6px;cursor:grab;
-}
-.carru__pista::-webkit-scrollbar{display:none}
-.carru__pista.arrastrando{cursor:grabbing;scroll-behavior:auto;scroll-snap-type:none}
-.carru__pista.arrastrando .serv{pointer-events:none}
-.carru__pista:focus-visible{outline:2px solid var(--naranja-osc);outline-offset:6px}
-
-.serv{
-  flex:0 0 calc((100% - 2*clamp(14px,1.8vw,26px)) / 3);
-  scroll-snap-align:start;min-width:0;
-}
+@media (max-width:1180px){.servs{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:860px){.servs{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:540px){.servs{grid-template-columns:1fr}}
+/* Columna: con textos de distinto largo, el enlace se va al pie y todos los
+   "Cotizar" quedan alineados en cada fila. */
+.serv{min-width:0;display:flex;flex-direction:column}
+.serv__cta{margin-top:auto;align-self:flex-start}
 .serv__img{position:relative;aspect-ratio:4/3;overflow:hidden;margin-bottom:18px}
 .serv__img img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s var(--ease),clip-path 1.15s var(--ease)}
 .serv:hover .serv__img img{transform:scale(1.06)}
@@ -526,7 +489,7 @@ ul{list-style:none}
 .serv__cta i{font-style:normal;transition:transform .4s var(--ease)}
 .serv__cta:hover{color:var(--naranja-osc);border-color:var(--naranja-osc)}
 .serv__cta:hover i{transform:translate(3px,-3px)}
-.carru__pista .pour::after{background:var(--naranja-osc)}
+.servs .pour::after{background:var(--naranja-osc)}
 
 /* ══════════════ PROCESO (pin horizontal) ══════════════ */
 .proceso{background:var(--tinta);position:relative}
@@ -868,10 +831,6 @@ ul{list-style:none}
   .hero__facts{gap:18px}
   .hero__facts li{width:calc(50% - 9px)}
   .filtros{justify-self:start}
-  /* Una tarjeta a la vez, con asomo de la siguiente para invitar a deslizar */
-  .serv{flex-basis:86%}
-  .carru__b{width:44px;height:44px}
-  .carru__barra{gap:14px}
 }
 
 /* El radar no cabe en pantalla angosta: pasa a listado legible */
@@ -888,7 +847,7 @@ ul{list-style:none}
 
 @media (prefers-reduced-motion:reduce){
   *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
-  html,.carru__pista{scroll-behavior:auto}
+  html{scroll-behavior:auto}
   [data-reveal]{opacity:1;transform:none}
   .pour img{clip-path:none;transform:none}
   .ciudad__esc{animation:none;transform:rotateX(-24deg) rotateY(-32deg)}
