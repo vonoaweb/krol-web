@@ -302,76 +302,14 @@ if (GS && !CALMA && track && innerWidth > 860) {
 }
 
 /* ─────────────────────────────────────────────
-   9 · Servicios — carrusel deslizable
-   Sobre scroll nativo con scroll-snap: así funciona con dedo, trackpad,
-   teclado y lector de pantalla sin reimplementar nada.
+   9 · Servicios — colado escalonado de la cuadrícula
+   Antes iban en un carril horizontal; ahora en cuadrícula, así que el
+   retardo se reinicia en cada fila.
    ───────────────────────────────────────────── */
-const pista = $('#carruPista');
-if (pista) {
-  const prev = $('#carruPrev'), next = $('#carruNext');
-  const riel = $('#carruRiel'), acta = $('#carruAct');
-  const tarjetas = $$('.serv', pista);
-  const paso = () => (tarjetas[1] ? tarjetas[1].offsetLeft - tarjetas[0].offsetLeft : pista.clientWidth);
-
-  const carru = $('#carru');
-
-  function pintar() {
-    const max = pista.scrollWidth - pista.clientWidth;
-    const x = pista.scrollLeft;
-    // En cuanto se mueve, se retira el aviso de "desliza"
-    if (carru && x > 4) carru.classList.add('movido');
-    // Cuántas caben a la vez, para que el riel represente el tramo visible
-    const visibles = Math.max(1, Math.round(pista.clientWidth / paso()));
-    const ancho = Math.min(100, (visibles / tarjetas.length) * 100);
-    riel.style.width = ancho + '%';
-    riel.style.transform = `translateX(${max > 0 ? (x / max) * (100 / ancho) * (100 - ancho) : 0}%)`;
-
-    const i = max > 0 ? Math.round(x / paso()) : 0;
-    acta.textContent = String(Math.min(i + 1, tarjetas.length)).padStart(2, '0');
-    prev.disabled = x < 4;
-    next.disabled = x > max - 4;
-  }
-
-  prev.addEventListener('click', () => pista.scrollBy({ left: -paso() }));
-  next.addEventListener('click', () => pista.scrollBy({ left:  paso() }));
-  pista.addEventListener('scroll', pintar, { passive: true });
-  addEventListener('resize', pintar);
-  pintar();
-
-  // Arrastrar con el mouse (en táctil ya lo resuelve el scroll nativo)
-  if (HOVER) {
-    let abajo = false, x0 = 0, s0 = 0, movido = 0;
-    pista.addEventListener('pointerdown', e => {
-      if (e.pointerType !== 'mouse') return;
-      abajo = true; movido = 0; x0 = e.clientX; s0 = pista.scrollLeft;
-      pista.classList.add('arrastrando');
-    });
-    pista.addEventListener('pointermove', e => {
-      if (!abajo) return;
-      const d = e.clientX - x0;
-      movido = Math.max(movido, Math.abs(d));
-      pista.scrollLeft = s0 - d;
-    });
-    const soltar = () => {
-      if (!abajo) return;
-      abajo = false;
-      pista.classList.remove('arrastrando');
-      // Reencaja en la tarjeta más cercana al soltar
-      if (movido > 6) pista.scrollTo({ left: Math.round(pista.scrollLeft / paso()) * paso() });
-    };
-    pista.addEventListener('pointerup', soltar);
-    pista.addEventListener('pointerleave', soltar);
-    // Un arrastre no debe contar como clic en "Cotizar"
-    pista.addEventListener('click', e => { if (movido > 6) { e.preventDefault(); e.stopPropagation(); } }, true);
-  }
-
-  // El colado en cascada: las tarjetas viven en un carril horizontal, así que
-  // entran juntas cuando la sección aparece. El retardo escalonado lo disimula.
-  tarjetas.forEach((t, i) => {
-    const img = $('.pour img', t);   // la transición vive en la <img>, no en el contenedor
-    if (img) img.style.transitionDelay = Math.min(i, 4) * 0.09 + 's';
-  });
-}
+$$('.servs .serv').forEach((t, i) => {
+  const img = $('.pour img', t);   // la transición vive en la <img>
+  if (img) img.style.transitionDelay = (i % 4) * 0.09 + 's';
+});
 
 /* ─────────────────────────────────────────────
    10 · Contadores
