@@ -32,13 +32,30 @@ Todo el movimiento sale del lenguaje de la marca (plano, cimbra, colado, franja 
 
 ## Marca
 
-Colores y tipografías tomados **tal cual del Manual de Marca KROL v3** ya entregado al cliente:
+Las tipografías salen **tal cual del Manual de Marca KROL v3** ya entregado al cliente.
+
+Los colores **ya no son los del manual**: a petición del cliente se adoptó el esquema de
+[Natanja](https://vonoaweb.github.io/natanja-demo/) — dark mode industrial, grises grafito
+con acento naranja. El sitio es oscuro de punta a punta; no quedan secciones claras.
 
 ```
---naranja  #FF751F     --tinta    #171512     --concreto #E5E1DA
---nar-osc  #D45C0F     --fondo    #14100C     --papel    #F7F5F2
---acero    #55524E     --cimbra   #A8A39B     --linea    #D9D4CD
+--naranja        #F97316                  accent
+--fondo          #0D1117                  bg
+--tinta          #12161D                  bg-soft
+--tarjeta        #161B23                  bg-card
+--concreto       #E8EAED                  text
+--cimbra         #9AA2AD                  text-dim
+--borde          rgba(255,255,255,.08)    line
+--naranja-suave  rgba(249,115,22,.12)     accent-soft
+--durazno        #FDBA74                  cierre del degradado
+--degradado      linear-gradient(90deg, #F97316, #FDBA74)
+--acero          #7C8695                  gris frío intermedio
+--papel          #F4F6F8                  --linea #CBD0D7
 ```
+
+El degradado va en las dos barras de progreso: la de lectura y el riel de etapas.
+`--tarjeta` marca las superficies elevadas (cifras, especificaciones, chips del radar,
+panel del lightbox, formulario).
 
 - **Michroma** — etiquetas técnicas
 - **Barlow Condensed** — titulares
