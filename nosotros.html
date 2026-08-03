@@ -37,7 +37,13 @@
     <nav class="nav" id="nav" aria-label="Principal">
       <a href="index.html" class="nav__link"><i>01</i>Inicio</a>
       <a href="nosotros.html" class="nav__link on" aria-current="page"><i>02</i>Nosotros</a>
-      <a href="servicios.html" class="nav__link"><i>03</i>Servicios</a>
+      <div class="nav__item">
+        <a href="servicios.html" class="nav__link"><i>03</i>Servicios</a>
+        <div class="sub"><div class="sub__in">
+          <a href="servicios.html">Todos los servicios</a>
+          <a href="obra-vertical.html">Obra vertical <span class="nuevo">Nueva</span></a>
+        </div></div>
+      </div>
       <a href="proyectos.html" class="nav__link"><i>04</i>Proyectos</a>
       <a href="contacto.html" class="nav__link"><i>05</i>Contacto</a>
     </nav>
@@ -65,6 +71,13 @@
   <div class="shell nosotros__grid">
 
     <div class="nosotros__mark">
+      <!-- El cliente pidió "algo más" en este bloque además de que el conjunto
+           gire. Se le monta encima su plano: cruces de construcción, cota y
+           cajetín, que se trazan al entrar la sección. Del trazo a la obra. -->
+      <div class="marca" id="marca">
+      <span class="mp-cruz mp-cruz--i" aria-hidden="true"></span>
+      <span class="mp-cruz mp-cruz--d" aria-hidden="true"></span>
+      <div class="mp-cota" aria-hidden="true"><i></i><span>Conjunto · esc. s/e</span></div>
       <div class="ciudad" id="ciudad" aria-hidden="true">
         <div class="ciudad__tilt" id="ciudadTilt">
           <div class="ciudad__esc">
@@ -77,12 +90,13 @@
           </div>
         </div>
       </div>
+      </div>
       <p class="nosotros__mark-cap" data-reveal>Estructuras de concreto · volumetría KROL</p>
     </div>
 
     <div class="nosotros__text">
-      <p class="eyebrow" data-reveal><span class="eyebrow__mark"></span>01 — Quiénes somos</p>
-      <h2 class="title" data-reveal>Precisión, rapidez<br>y especialización</h2>
+      <p class="eyebrow" data-reveal><span class="eyebrow__mark"></span>02 — La empresa</p>
+      <h2 class="title" data-reveal>Trece años<br>forjados en obra</h2>
 
       <p class="lead" data-reveal>KROL Edificación Estructural es una empresa jalisciense especializada en obra civil y en el diseño y construcción de estructuras de concreto para proyectos industriales, comerciales y habitacionales.</p>
       <p data-reveal>Nuestra historia se ha forjado participando en proyectos que demandan precisión, rapidez de respuesta y un alto nivel de especialización. Nos hemos consolidado en la ejecución de cimentaciones, muros de contención, estructuras de concreto y obras civiles, con una metodología basada en la planeación, la optimización de recursos y el cumplimiento de los tiempos de ejecución.</p>
@@ -120,8 +134,8 @@
       <span class="capacidad__tag">Taller propio · Habilitado de varilla</span>
     </div>
     <div class="capacidad__text">
-      <p class="eyebrow" data-reveal><span class="eyebrow__mark"></span>Nuestra infraestructura</p>
-      <h2 class="title" data-reveal>Equipo propio.<br>Menos intermediarios,<br>menos tiempos muertos.</h2>
+      <p class="eyebrow" data-reveal><span class="eyebrow__mark"></span>03 — Nuestra infraestructura</p>
+      <h2 class="title" data-reveal>Equipo propio,<br>obra más productiva</h2>
       <p data-reveal>Contamos con maquinaria y taller propios para el habilitado de acero. Eso significa que no dependemos de terceros para cortar y doblar varilla: llegamos a obra con el acero listo, en la medida exacta del proyecto.</p>
       <div class="capacidad__specs">
         <div data-reveal><b>Habilitado de acero</b><span>Equipo hidráulico especializado para corte y doblez, en planta y campo.</span></div>
@@ -139,8 +153,8 @@
   <div class="shell">
     <div class="head">
       <div>
-        <p class="eyebrow" data-reveal><span class="eyebrow__mark"></span>Flota propia</p>
-        <h2 class="title" data-reveal>SECCION CAPACIDAD<br>INSTALADA</h2>
+        <p class="eyebrow" data-reveal><span class="eyebrow__mark"></span>04 — Flota propia</p>
+        <h2 class="title" data-reveal>Unidades, cuadrillas<br>y material propios</h2>
       </div>
       <p class="head__desc" data-reveal>Nuestra flota propia garantiza una logística eficiente, traslados oportunos y mayor control en cada proyecto.
 </p>
@@ -243,13 +257,14 @@
     <div class="footer__col">
       <h4>Navegación</h4>
       <a href="index.html">Inicio</a><a href="nosotros.html">Nosotros</a><a href="servicios.html">Servicios</a>
+      <a href="obra-vertical.html">Obra vertical</a>
       <a href="proyectos.html">Proyectos</a><a href="contacto.html">Contacto</a>
     </div>
     <div class="footer__col">
       <h4>Servicios</h4>
       <a href="servicios.html">Cimentaciones</a><a href="servicios.html">Estructuras de concreto</a>
       <a href="servicios.html">Muros de contención</a><a href="servicios.html">Concreto aparente</a>
-      <a href="servicios.html">Pisos industriales</a><a href="servicios.html">Habilitado de varilla</a>
+      <a href="servicios.html">Pisos industriales</a><a href="obra-vertical.html">Obra vertical</a>
     </div>
     <div class="footer__col">
       <h4>Contacto</h4>

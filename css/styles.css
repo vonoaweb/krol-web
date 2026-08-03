@@ -241,6 +241,34 @@ ul{list-style:none}
 .nav__link:hover,.nav__link.on{color:var(--papel)}
 .nav__link:hover i,.nav__link.on i{color:var(--naranja)}
 .nav__link.on::after,.nav__link:hover::after{transform:scaleX(1);transform-origin:left}
+
+/* ── Submenú ──
+   Servicios abre una especialidad aparte (obra vertical). El desplegable lleva
+   su propio colchón superior para que el puntero no se caiga al bajar. */
+.nav__item{position:relative;display:flex;align-items:center}
+.sub{
+  position:absolute;top:100%;left:-18px;min-width:250px;padding-top:16px;
+  opacity:0;visibility:hidden;transform:translateY(-6px);
+  transition:opacity .28s ease,transform .28s var(--ease),visibility .28s;
+}
+.nav__item:hover .sub,.nav__item:focus-within .sub{opacity:1;visibility:visible;transform:none}
+.sub__in{
+  background:var(--tarjeta);border:1px solid var(--borde);
+  border-radius:12px;padding:8px 0;overflow:hidden;
+  box-shadow:0 18px 40px rgba(0,0,0,.45);
+}
+.sub a{
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+  font-family:var(--cond);font-weight:600;text-transform:uppercase;
+  font-size:.84rem;letter-spacing:.06em;color:var(--cimbra);
+  padding:11px 20px;border-left:2px solid transparent;
+  transition:color .25s ease,border-color .25s ease,background .25s ease;
+}
+.sub a:hover,.sub a.on{color:var(--papel);border-left-color:var(--naranja);background:var(--naranja-suave)}
+.sub .nuevo{
+  font-family:var(--tecno);font-size:7px;letter-spacing:.16em;color:var(--naranja);
+  border:1px solid currentColor;border-radius:4px;padding:3px 6px;flex:none;
+}
 .header__cta{padding:12px 22px;font-size:.82rem}
 .burger{display:none;width:34px;height:26px;flex-direction:column;justify-content:center;gap:7px}
 .burger span{display:block;height:2px;background:var(--papel);transition:transform .35s var(--ease),opacity .25s}
@@ -436,6 +464,43 @@ ul{list-style:none}
 .nosotros__grid{display:grid;grid-template-columns:.82fr 1.18fr;gap:clamp(36px,6vw,96px);align-items:start}
 .nosotros__mark{position:sticky;top:120px}
 .nosotros__mark-cap{font-family:var(--tecno);font-size:8.5px;letter-spacing:.22em;color:var(--acero);text-transform:uppercase;margin-top:20px;text-align:center}
+
+/* ── El plano sobre el que se levanta la volumetría ──
+   Cruces de construcción y cota acotada. Va en HTML y no en un SVG estirado:
+   con preserveAspectRatio="none" el texto y los redondeles se deforman. */
+.marca{position:relative;padding-bottom:44px}
+.ciudad{position:relative;z-index:1}
+
+.mp-cruz{
+  position:absolute;top:8px;width:26px;height:26px;z-index:2;
+  opacity:0;transition:opacity .6s ease;
+}
+.mp-cruz--i{left:-4px}
+.mp-cruz--d{right:-4px}
+.mp-cruz::before,.mp-cruz::after{content:'';position:absolute;background:rgba(249,115,22,.55)}
+.mp-cruz::before{left:0;right:0;top:50%;height:1px}
+.mp-cruz::after{top:0;bottom:0;left:50%;width:1px}
+
+.mp-cota{position:absolute;left:0;right:0;bottom:8px;z-index:2}
+/* La línea de cota se traza de izquierda a derecha; los topes son sus extremos */
+.mp-cota i{
+  display:block;height:1px;background:var(--borde);position:relative;
+  transform:scaleX(0);transform-origin:left;transition:transform .9s .15s var(--ease);
+}
+.mp-cota i::before,.mp-cota i::after{
+  content:'';position:absolute;top:-6px;width:1px;height:13px;background:var(--acero);
+}
+.mp-cota i::before{left:0}
+.mp-cota i::after{right:0}
+.mp-cota span{
+  display:block;text-align:center;margin-top:9px;
+  font-family:var(--tecno);font-size:8px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--acero);opacity:0;transition:opacity .8s ease .8s;
+}
+.marca.in .mp-cruz{opacity:1}
+.marca.in .mp-cruz--d{transition-delay:.18s}
+.marca.in .mp-cota i{transform:scaleX(1)}
+.marca.in .mp-cota span{opacity:1}
 .nosotros__text .title{margin-bottom:28px}
 .mv{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:44px}
 .mv__item{border-top:1px solid rgba(255,255,255,.14);padding-top:20px;position:relative}
@@ -532,7 +597,8 @@ ul{list-style:none}
 .capacidad{background:var(--fondo);padding-block:var(--pad)}
 .capacidad__grid{display:grid;grid-template-columns:minmax(0,.62fr) minmax(0,1.38fr);gap:clamp(32px,5vw,84px);align-items:center}
 .capacidad__vid{position:relative;border:1px solid rgba(255,255,255,.14);max-width:360px;width:100%}
-.capacidad__vid video{width:100%;aspect-ratio:9/16;object-fit:cover;filter:contrast(1.06) saturate(.9)}
+.capacidad__vid video,
+.capacidad__vid img{width:100%;aspect-ratio:9/16;object-fit:cover;filter:contrast(1.06) saturate(.9)}
 .capacidad__tag{
   position:absolute;bottom:0;left:0;right:0;background:var(--tinta);
   font-family:var(--tecno);font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;
@@ -543,6 +609,43 @@ ul{list-style:none}
 .capacidad__specs div{background:var(--tarjeta);padding:20px 22px}
 .capacidad__specs b{display:block;font-family:var(--cond);font-weight:700;text-transform:uppercase;font-size:1rem;letter-spacing:.07em;color:var(--naranja);margin-bottom:5px}
 .capacidad__specs span{font-size:.88em;color:var(--acero);line-height:1.5}
+
+/* ══════════════ OBRA VERTICAL ══════════════ */
+/* Tarjetas de modalidad: sin foto a propósito — de esta línea no hay obra
+   propia que fotografiar y no se usan imágenes de proyectos ajenos. */
+.vcards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.vcard{
+  background:var(--tarjeta);border:1px solid var(--borde);border-radius:14px;
+  padding:clamp(24px,2.4vw,34px);position:relative;
+  transition:transform .4s var(--ease),border-color .4s ease;
+}
+.vcard:hover{transform:translateY(-4px);border-color:rgba(249,115,22,.4)}
+.vcard__n{
+  font-family:var(--disp);font-size:.8rem;color:var(--naranja);
+  display:block;margin-bottom:18px;letter-spacing:.06em;
+}
+.vcard h3{
+  font-family:var(--cond);font-weight:700;text-transform:uppercase;
+  font-size:1.3rem;letter-spacing:.03em;color:var(--papel);margin-bottom:12px;line-height:1.06;
+}
+.vcard p{font-size:.92em;color:var(--cimbra)}
+
+/* Nota de transparencia: se distingue del cuerpo porque es una declaración,
+   no argumento de venta. */
+.aviso{
+  background:var(--tarjeta);border:1px solid var(--borde);
+  border-left:2px solid var(--naranja);border-radius:14px;
+  padding:clamp(28px,3.4vw,46px);max-width:920px;
+}
+.aviso__lb{
+  font-family:var(--tecno);font-size:8.5px;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--naranja);margin-bottom:18px;
+}
+.aviso__t{
+  font-family:var(--cond);font-weight:700;text-transform:uppercase;
+  font-size:clamp(1.4rem,2.6vw,2rem);line-height:1.04;color:var(--papel);margin-bottom:18px;
+}
+.aviso p{max-width:none}
 
 /* ══════════════ PROYECTOS ══════════════ */
 .proyectos{background:var(--tinta);color:var(--concreto)}
@@ -770,6 +873,7 @@ ul{list-style:none}
   .flota__grid{grid-template-columns:1fr 1fr}
   .flota__v--alta{grid-row:auto;grid-column:1/-1}
   .flota__v--alta video{aspect-ratio:16/9}
+  .vcards{grid-template-columns:1fr 1fr}
 }
 @media (max-width:860px){
   /* Panel lateral. Altura de viewport explícita (100dvh) y anclado arriba a la
@@ -787,6 +891,12 @@ ul{list-style:none}
   }
   .nav.open{transform:none}
   .nav__link{font-size:1.5rem;padding-block:11px}
+  /* En el cajón no hay hover: el submenú se queda abierto y sangrado */
+  .nav__item{flex-direction:column;align-items:stretch}
+  .sub{position:static;opacity:1;visibility:visible;transform:none;padding-top:2px;min-width:0}
+  .sub__in{background:none;border:0;border-left:1px solid var(--borde);border-radius:0;box-shadow:none;padding:0 0 6px 14px}
+  .sub a{font-size:1rem;padding:8px 0;border-left:0;justify-content:flex-start}
+  .sub a:hover,.sub a.on{background:none}
   /* Scrim: fondo oscuro que aparece detrás del panel y cierra al tocar fuera. */
   .nav-scrim{
     position:fixed;inset:0;z-index:1090;
@@ -828,6 +938,7 @@ ul{list-style:none}
   .hero__facts{gap:18px}
   .hero__facts li{width:calc(50% - 9px)}
   .filtros{justify-self:start}
+  .vcards{grid-template-columns:1fr}
 }
 
 /* El radar no cabe en pantalla angosta: pasa a listado legible */

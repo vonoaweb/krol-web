@@ -112,7 +112,8 @@ function menu(abierto) {
 
 burger.addEventListener('click', () => menu(!nav.classList.contains('open')));
 scrim.addEventListener('click', () => menu(false));
-$$('.nav__link').forEach(a => a.addEventListener('click', () => menu(false)));
+// `.nav a` y no `.nav__link`: en móvil los enlaces del submenú también cierran.
+$$('.nav a').forEach(a => a.addEventListener('click', () => menu(false)));
 
 /* Botones en táctil: sin cursor no hay hover, así que el destello se lanza al
    tocar. Se quita la clase antes de volver a ponerla para reiniciar el barrido
@@ -274,6 +275,19 @@ if (ciudad) {
   new IntersectionObserver(es => es.forEach(e => {
     ciudad.classList.toggle('quieta', !e.isIntersecting);
   }), { threshold: .05 }).observe(ciudad);
+}
+
+/* ─────────────────────────────────────────────
+   7b · El plano que enmarca la volumetría
+   `planoMarca` y no `marca`: ese nombre ya lo usa la marca de agua del hero.
+   ───────────────────────────────────────────── */
+const planoMarca = $('#marca');
+if (planoMarca) {
+  new IntersectionObserver((es, obs) => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    planoMarca.classList.add('in');
+    obs.unobserve(e.target);
+  }), { threshold: .25 }).observe(planoMarca);
 }
 
 /* ─────────────────────────────────────────────
