@@ -87,19 +87,19 @@
 <!-- ══════════════ HERO ══════════════ -->
 <section class="hero" id="inicio">
   <div class="hero__media" id="heroMedia">
-    <!-- Fondo decorativo: el titular carga el significado, por eso va aria-hidden -->
+    <!-- Tres capas: el video como textura, el velo que lo apaga, y encima el
+         plano en trazo naranja. El titular carga el significado, así que todo
+         esto es decorativo y va aria-hidden. -->
     <video poster="img/hero-poster.jpg" muted loop playsinline preload="none" aria-hidden="true" data-parallax>
       <source src="video/hero.mp4" type="video/mp4" />
       <!-- Alternativa si el video no puede reproducirse -->
       <img src="img/hero-poster.jpg" alt="" fetchpriority="high" />
     </video>
     <div class="hero__veil"></div>
+    <!-- El plano lo arma el script (~230 trazos) y se dibuja en el orden en que
+         se construye una obra: terreno, zapatas, columnas, trabes y losa. -->
+    <div class="plano" id="planoObra" aria-hidden="true"></div>
   </div>
-
-  <!-- Marca de agua: el isotipo a la derecha, sin cruzarse con el texto -->
-  <!-- El isotipo se dibuja trazo a trazo, como un plano. El script inyecta
-       aquí el SVG para poder animar sus paths desde el CSS. -->
-  <div class="hero__marca" id="heroMarca" data-svg="img/logo_orange_white.svg" aria-hidden="true"></div>
 
   <div class="shell hero__body">
     <p class="eyebrow" data-hero="1"><span class="eyebrow__mark"></span>Constructora en Guadalajara, Jalisco</p>

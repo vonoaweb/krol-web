@@ -221,7 +221,9 @@ ul{list-style:none}
 .nav{display:flex;gap:clamp(14px,1.9vw,34px);margin-inline:auto}
 .nav__link{
   font-family:var(--cond);font-weight:600;text-transform:uppercase;
-  font-size:.88rem;letter-spacing:.07em;color:var(--cimbra);
+  /* Más claro que --cimbra: la portada aclaró y sobre el muro del video este
+     texto se quedaba en 2.5:1. En las demás páginas sólo gana legibilidad. */
+  font-size:.88rem;letter-spacing:.07em;color:#C8CFD8;
   display:flex;align-items:baseline;gap:6px;position:relative;padding-block:4px;
   transition:color .3s ease,transform .3s var(--ease);
 }
@@ -287,19 +289,106 @@ ul{list-style:none}
 .hero__media video{
   position:absolute;left:0;top:-9%;
   width:100%;height:118%;object-fit:cover;display:block;
-  filter:brightness(1.24) contrast(1.06) saturate(1.05);
+  /* El cliente pidió que la portada no se viera oscura, así que el video sube
+     de brillo en vez de bajar. Se le quita algo de color para que no compita
+     con el naranja del plano, pero se queda claro. */
+  filter:brightness(1.2) contrast(1.02) saturate(.72);
   will-change:transform;
 }
 /* El video ya trae su propio acercamiento: no se le encima el zoom del GSAP */
 .hero__media img{transform:scale(1.12)}
-/* Velo aligerado: deja ver el video de fondo, manteniendo el contraste del
-   texto con un degradado más marcado sólo del lado izquierdo. */
+/* Velo aligerado para que la portada no se vea oscura. No puede irse del todo:
+   el titular es blanco y sin nada debajo se pierde contra el muro claro del
+   video. Se queda sólo lo justo del lado izquierdo, donde va el texto, y la
+   mitad derecha se deja casi limpia para que se vea la toma. */
 .hero__veil{
   position:absolute;inset:0;
   background:
-    linear-gradient(180deg,rgba(13,17,23,.5) 0%,rgba(13,17,23,.06) 40%,rgba(13,17,23,.72) 100%),
-    linear-gradient(90deg,rgba(13,17,23,.8) 0%,rgba(13,17,23,.5) 40%,rgba(13,17,23,.06) 72%);
+    /* La franja de arriba se queda cargada aunque el resto aclare: es donde va
+       el menú, y sobre el muro claro del video se volvía ilegible. Cae rápido,
+       así que oscurece la banda del header y no la portada. */
+    linear-gradient(180deg,rgba(13,17,23,.86) 0%,rgba(13,17,23,.08) 20%,rgba(13,17,23,0) 46%,rgba(13,17,23,.42) 100%),
+    linear-gradient(90deg,rgba(13,17,23,.72) 0%,rgba(13,17,23,.34) 46%,rgba(13,17,23,0) 74%);
 }
+/* ── El plano de la portada ────────────────────────────────────────────────
+   Sustituye al video de la casa: era una residencia terminada hecha con IA y
+   no decía nada de estructuras de concreto. Ahora el fondo es un alzado que
+   se dibuja solo, en el orden en que se construye.
+   Todo cuelga de una jerarquía de opacidad, que es lo que separa un plano de
+   un garabato: la malla casi no se ve, los ejes se insinúan, la obra manda. */
+/* Va ENCIMA del velo (z-index 2) y sin fondo propio: el video tiene que verse
+   por debajo. El parallax se lo queda el video; si las dos capas se movieran,
+   el plano flotaría sobre la imagen en vez de estar calcado sobre ella.
+
+   Vive en su propia caja, a la derecha de la columna de texto, y NO de fondo a
+   toda la portada. De fondo, en una ventana apaisada el alzado se metía debajo
+   de los botones: decorado encima de un control es un problema de uso, no de
+   gusto. Con la caja, el hueco del contenido queda siempre limpio.
+   El desvanecido de la izquierda evita que el recorte se note como un borde. */
+.plano{
+  position:absolute;left:52%;right:0;top:0;bottom:0;
+  z-index:2;overflow:hidden;pointer-events:none;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 14%);
+  mask-image:linear-gradient(90deg,transparent 0,#000 14%);
+}
+.plano svg{width:100%;height:100%;display:block}
+.plano :is(line,rect,circle){
+  fill:none;stroke:var(--naranja);
+  stroke-linecap:round;stroke-linejoin:round;
+  stroke-dasharray:var(--len,900);stroke-dashoffset:var(--len,900);
+}
+/* Las opacidades subieron al aclararse el video: sobre el muro claro de la toma
+   el trazo fino se desvanecía y las cotas dejaban de leerse. */
+.plano .pl-malla   {stroke:#7C8695;stroke-width:1;opacity:.1}
+.plano .pl-eje     {stroke-width:1.3;opacity:.5}
+.plano .pl-terreno {stroke-width:3;opacity:.95}
+.plano .pl-hatch   {stroke-width:1.3;opacity:.5}
+.plano .pl-obra    {stroke-width:2.8;opacity:1}
+.plano .pl-armado  {stroke-width:1.1;opacity:.5}
+.plano .pl-cota    {stroke-width:1.4;opacity:.72}
+.plano .pl-cota--guia{opacity:.34}
+.plano text{
+  fill:var(--naranja);font-family:var(--tecno,var(--cond));
+  font-size:19px;letter-spacing:.08em;opacity:0;
+}
+.plano .pl-txt--eje{font-size:21px}
+.plano .pl-txt--sello{font-size:17px;opacity:0;letter-spacing:.18em}
+/* Sombra oscura y no resplandor naranja: el video quedó claro y lo que hace
+   falta es despegar el trazo del muro, no darle brillo. Va una sola vez en el
+   svg y no por trazo: son ~180 elementos y con un filtro cada uno el navegador
+   se arrastra. */
+.plano svg{
+  filter:drop-shadow(0 0 2px rgba(13,17,23,.92)) drop-shadow(0 2px 5px rgba(13,17,23,.55));
+}
+.plano.trazando :is(line,rect,circle){
+  animation:trazarPlano .85s cubic-bezier(.22,1,.36,1) var(--d,0ms) forwards;
+}
+.plano.trazando text{animation:asomarCota .5s ease-out var(--d,0ms) forwards}
+/* Sin animación (movimiento reducido): el plano ya aparece dibujado */
+.plano.listo :is(line,rect,circle){stroke-dashoffset:0}
+.plano.listo text{opacity:.85}
+@keyframes trazarPlano{to{stroke-dashoffset:0}}
+@keyframes asomarCota{to{opacity:.85}}
+/* En celular el svg pasa a `meet` (lo hace el script) y el alzado entra
+   completo, apoyado abajo. Ahí ya no es fondo sino remate al pie de la
+   portada: se atenúa para que el titular siga mandando, y las cotas se van
+   porque a ese tamaño son ilegibles y sólo ensucian. */
+/* Fuera en celular y tablet. El hero ya va lleno ahí —titular, párrafo, dos
+   botones y tres datos— y no queda un hueco donde el alzado no cruce algo:
+   un trazo naranja pasando por encima de un botón con borde naranja no es
+   decoración, es un estorbo. Manda el contenido, la portada la sostiene el
+   video, y el plano aparece a partir del escritorio, que es donde hay sitio. */
+/* Entre 1100 y 1300 la columna de texto todavía pasa de la mitad: el alzado se
+   corre a la derecha y sale más chico, pero no toca los datos. */
+@media (max-width:1300px){
+  .plano{left:60%}
+}
+/* 1100 y no 900: a 1024 el texto llega tan a la derecha que ya no queda hueco
+   ni corriendo el dibujo. */
+@media (max-width:1100px){
+  .plano{display:none}
+}
+
 /* Marca de agua: el isotipo grande a la derecha. Sustituye al diagrama de
    cotas y ejes, que cruzaba el titular y estorbaba la lectura. */
 .hero__marca{
@@ -325,6 +414,10 @@ ul{list-style:none}
 @media (max-width:1100px){.hero__marca{display:none}}
 
 .hero__body{position:relative;z-index:2;width:min(1280px,90%)}
+/* En el resto del sitio el eyebrow va naranja sobre fondo oscuro y se lee bien.
+   Aquí no: el naranja tiene luminancia media y contra el muro claro del video
+   se queda en 2.6:1. El texto pasa a blanco y el acento se queda en la marca. */
+.hero .eyebrow{color:var(--papel)}
 .hero__title{
   font-family:var(--cond);font-weight:800;text-transform:uppercase;
   font-size:clamp(2.5rem,6.4vw,5.6rem);line-height:1;letter-spacing:-.015em;
