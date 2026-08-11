@@ -124,9 +124,16 @@
       </div>
       <div class="field"><textarea id="f-msg" name="mensaje" rows="4" required placeholder=" "></textarea><label for="f-msg">Alcance del proyecto</label></div>
 
+      <!-- Trampa antibots: invisible para personas. Si viene llena, se descarta. -->
+      <div class="hp" aria-hidden="true">
+        <label for="f-web">No llenar este campo</label>
+        <input type="text" id="f-web" name="website" tabindex="-1" autocomplete="off" />
+      </div>
+
       <button type="submit" class="btn btn--solid btn--full">Enviar solicitud</button>
-      <p class="form__ok" id="formOk">Solicitud registrada. Te contactamos el mismo día hábil.</p>
-      <p class="form__note">Demo — el formulario no envía datos reales todavía.</p>
+      <p class="form__ok"  id="formOk"  role="status" aria-live="polite">Solicitud registrada. Te contactamos el mismo día hábil.</p>
+      <p class="form__err" id="formErr" role="alert"  aria-live="assertive"></p>
+      <p class="form__note">Tus datos solo se usan para responder tu solicitud.</p>
     </form>
   </div>
 </section>

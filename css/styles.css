@@ -918,6 +918,18 @@ ul{list-style:none}
   max-height:0;opacity:0;overflow:hidden;transition:all .45s var(--ease);
 }
 .form__ok.show{max-height:60px;opacity:1}
+.form__err{
+  color:#F87171;font-family:var(--cond);font-weight:600;
+  letter-spacing:.03em;font-size:.9rem;margin-top:14px;line-height:1.5;
+  max-height:0;opacity:0;overflow:hidden;transition:all .45s var(--ease);
+}
+.form__err.show{max-height:120px;opacity:1}
+.form__err a{color:#F87171;text-decoration:underline}
+/* Trampa antibots: fuera de pantalla, invisible pero no display:none
+   (algunos bots ignoran los campos ocultos con display:none) */
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+/* Botón mientras se envía */
+.form button[type="submit"][disabled]{opacity:.6;cursor:progress}
 .form__note{font-size:.76em;color:var(--acero);margin-top:14px;text-align:center}
 
 /* ══════════════ FOOTER ══════════════ */

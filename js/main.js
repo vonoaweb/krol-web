@@ -632,16 +632,77 @@ if (!CALMA && !(navigator.connection && navigator.connection.saveData)) {
 }
 
 /* ─────────────────────────────────────────────
-   15 · Formulario (demo)
+   15 · Formulario de contacto
+
+   Manda a una Edge Function de Supabase que GUARDA EN BASE DE DATOS
+   primero y notifica por correo despues. Asi, si el correo falla, el
+   prospecto no se pierde: queda registrado de todos modos.
    ───────────────────────────────────────────── */
+const ENDPOINT = 'https://ajekywhnuepmqbxflala.supabase.co/functions/v1/krol-contacto';
+const WHATSAPP = 'https://wa.me/523324093470';
+
 const form = $('#form');
-form?.addEventListener('submit', e => {
-  e.preventDefault();
-  if (!form.checkValidity()) { form.reportValidity(); return; }
-  $('#formOk').classList.add('show');
-  form.reset();
-  setTimeout(() => $('#formOk').classList.remove('show'), 6000);
-});
+if (form) {
+  const ok  = $('#formOk');
+  const err = $('#formErr');
+  const btn = $('button[type="submit"]', form);
+  const textoBtn = btn ? btn.textContent : '';
+  let enviando = false;
+
+  const avisar = (el, msg) => {
+    if (!el) return;
+    if (msg) el.innerHTML = msg;
+    el.classList.add('show');
+  };
+  const limpiarAvisos = () => {
+    ok?.classList.remove('show');
+    err?.classList.remove('show');
+  };
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    if (enviando) return;
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+
+    limpiarAvisos();
+    enviando = true;
+    if (btn) { btn.disabled = true; btn.textContent = 'Enviando…'; }
+
+    const d = new FormData(form);
+    try {
+      const r = await fetch(ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          nombre:   d.get('nombre'),
+          telefono: d.get('telefono'),
+          correo:   d.get('correo'),
+          tipo:     d.get('tipo'),
+          zona:     d.get('zona'),
+          mensaje:  d.get('mensaje'),
+          website:  d.get('website'),   // trampa antibots: debe ir vacia
+          origen:   location.href,
+        }),
+      });
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok || !j.ok) throw new Error(j.error || ('HTTP ' + r.status));
+
+      avisar(ok);
+      form.reset();
+      setTimeout(() => ok?.classList.remove('show'), 8000);
+    } catch (e2) {
+      console.error('Error al enviar el formulario:', e2);
+      // Nunca dejamos al prospecto sin salida: se le ofrece WhatsApp.
+      avisar(err,
+        'No se pudo enviar la solicitud. Escríbenos por ' +
+        '<a href="' + WHATSAPP + '" target="_blank" rel="noopener">WhatsApp</a> ' +
+        'o al <a href="tel:+523324093470">33 2409 3470</a>.');
+    } finally {
+      enviando = false;
+      if (btn) { btn.disabled = false; btn.textContent = textoBtn; }
+    }
+  });
+}
 
 /* ─────────────────────────────────────────────
    16 · Recalcular al terminar de cargar todo
