@@ -513,18 +513,26 @@ ul{list-style:none}
 
 /* ══════════════ VIDEO DE OBRA (proyectos) ══════════════ */
 .obravid{background:var(--fondo)}
+/* Cuadrícula de videos de obra. Los clips vienen del cliente con
+   proporciones distintas (unos verticales de teléfono, otros
+   horizontales), así que todos se encuadran igual y se recortan. */
 .obravid__grid{
-  display:grid;grid-template-columns:minmax(0,.68fr) minmax(0,1.32fr);
-  gap:clamp(30px,5vw,80px);align-items:center;
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:clamp(14px,1.6vw,24px);margin-top:clamp(30px,4vw,52px);
 }
-.obravid__v{border:1px solid rgba(255,255,255,.14);overflow:hidden;max-width:360px;width:100%}
-.obravid__v video{width:100%;aspect-ratio:9/16;object-fit:cover;display:block;background:var(--tinta)}
-.obravid__txt .title{margin-bottom:22px}
-.obravid__lista{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
-.obravid__lista li{
-  font-family:var(--cond);font-weight:500;text-transform:uppercase;font-size:.78rem;
-  letter-spacing:.08em;color:var(--durazno);background:var(--naranja-suave);
-  border:1px solid transparent;padding:6px 13px;
+.ovid{margin:0;border:1px solid var(--borde);background:var(--tinta);overflow:hidden}
+.ovid video,.ovid img{
+  width:100%;aspect-ratio:4/5;object-fit:cover;display:block;
+  background:var(--tinta);filter:contrast(1.05) saturate(.92);
+}
+.ovid figcaption{padding:13px 16px 15px}
+.ovid figcaption b{
+  display:block;font-family:var(--cond);font-weight:700;text-transform:uppercase;
+  letter-spacing:.05em;font-size:1rem;color:var(--papel);
+}
+.ovid figcaption span{
+  display:block;font-family:var(--tecno);font-size:7.5px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--acero);margin-top:6px;
 }
 
 /* ══════════════ FRANJA ══════════════ */
@@ -619,7 +627,8 @@ ul{list-style:none}
   gap:clamp(20px,2.4vw,34px) clamp(14px,1.8vw,26px);
 }
 @media (max-width:1180px){.servs{grid-template-columns:repeat(3,1fr)}}
-@media (max-width:860px){.servs{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:860px){
+  .obravid__grid{grid-template-columns:1fr}.servs{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:540px){.servs{grid-template-columns:1fr}}
 /* Columna: con textos de distinto largo, el enlace se va al pie y todos los
    "Cotizar" quedan alineados en cada fila. */
@@ -1040,8 +1049,7 @@ ul{list-style:none}
   .footer__grid{grid-template-columns:1fr 1fr}
   .serv{flex-basis:calc((100% - clamp(14px,1.8vw,26px)) / 2)}
   .resumen__grid{grid-template-columns:1fr}
-  .obravid__grid{grid-template-columns:1fr}
-  .obravid__v{max-width:320px}
+  .obravid__grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .flota__grid{grid-template-columns:1fr 1fr}
   .flota__v--alta{grid-row:auto;grid-column:1/-1}
   .flota__v--alta video{aspect-ratio:16/9}
