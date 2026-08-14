@@ -15,6 +15,7 @@ const $$ = (s, c = document) => [...c.querySelectorAll(s)];
    1 · Medir trazos SVG  →  --len para el dash
    ───────────────────────────────────────────── */
 function medir(svg, { stagger = 0, dur = 0.9, base = 0 } = {}) {
+  if (!svg) return;   // si el grupo no existe en esta página, no pasa nada
   const trazos = $$('path, line, circle, rect', svg).filter(el => !el.hasAttribute('fill') || el.getAttribute('fill') === 'none');
   trazos.forEach((el, i) => {
     let len = 0;
@@ -505,22 +506,40 @@ $$('.count').forEach(el => ioCount.observe(el));
    ───────────────────────────────────────────── */
 const radar = $('#radar');
 if (radar) {
-  medir(radar.querySelector('.radar__rings'),  { stagger: .12, dur: 1.1 });
-  medir(radar.querySelector('.radar__cross'),  { stagger: .12, dur: 1.0, base: .2 });
-  medir(radar.querySelector('.radar__spokes'), { stagger: .09, dur: .7,  base: .6 });
-  medir(radar.querySelector('.radar__core'),   { stagger: .1,  dur: .6,  base: .5 });
+  // Ya no hay radiales (.radar__spokes): con 21 estados se veían como maraña,
+  // ahora cada estado es un punto en su posición geográfica.
+  medir(radar.querySelector('.radar__rings'), { stagger: .12, dur: 1.1 });
+  medir(radar.querySelector('.radar__cross'), { stagger: .12, dur: 1.0, base: .2 });
+  medir(radar.querySelector('.radar__core'),  { stagger: .1,  dur: .6,  base: .5 });
 
-  $$('.st', radar).forEach((st, i) => {
-    st.style.transitionDelay = (0.9 + i * 0.11) + 's';
-    st.style.transform = 'translate(-50%,-50%) scale(.86)';
-  });
+  // Los puntos van apareciendo uno tras otro cuando el radar entra en pantalla
+  const puntos = $$('.pt', radar);
+  puntos.forEach((p, i) => { p.style.transitionDelay = (0.7 + i * 0.05) + 's'; });
 
   new IntersectionObserver((es, obs) => es.forEach(e => {
     if (!e.isIntersecting) return;
     radar.classList.add('in');
-    $$('.st', radar).forEach(st => st.style.transform = 'translate(-50%,-50%) scale(1)');
     obs.unobserve(e.target);
   }), { threshold: .3 }).observe(radar);
+
+  /* La lista y el radar se señalan entre sí: al posar el cursor sobre un
+     estado de la lista se resalta su punto, y al revés. Es la única forma de
+     poner nombre a 21 puntos sin que las etiquetas se encimen. */
+  const porEstado = new Map(puntos.map(p => [p.dataset.st, p]));
+  $$('.es').forEach(item => {
+    const punto = porEstado.get(item.dataset.st);
+    if (!punto) return;
+    const marcar = on => {
+      punto.classList.toggle('on', on);
+      item.classList.toggle('on', on);
+      // el delay de entrada estorbaría al resaltar; se quita al primer uso
+      punto.style.transitionDelay = '0s';
+    };
+    item.addEventListener('mouseenter', () => marcar(true));
+    item.addEventListener('mouseleave', () => marcar(false));
+    punto.addEventListener('mouseenter', () => marcar(true));
+    punto.addEventListener('mouseleave', () => marcar(false));
+  });
 }
 
 /* ─────────────────────────────────────────────

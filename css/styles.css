@@ -785,19 +785,22 @@ ul{list-style:none}
 }
 .lb.open .lb__panel{transform:none}
 .lb__x{position:absolute;top:12px;right:12px;z-index:3;width:40px;height:40px;background:var(--naranja);color:var(--tinta);font-size:1rem}
-.lb__img{position:relative}
-.lb__img > img{width:100%;height:100%;object-fit:cover;min-height:280px}
+/* La columna de la foto se queda fija mientras el texto hace scroll: así las
+   miniaturas, que van pegadas abajo, nunca se salen de la pantalla. */
+.lb__img{position:sticky;top:0;align-self:start;max-height:88svh;overflow:hidden}
+.lb__img > img{width:100%;height:100%;object-fit:cover;min-height:280px;max-height:88svh}
 /* Miniaturas de la obra, sobre la foto grande */
 .lb__tiras{
   position:absolute;left:0;right:0;bottom:0;z-index:1;
-  display:flex;gap:8px;padding:12px;
-  background:linear-gradient(0deg,rgba(13,17,23,.85),transparent);
+  display:flex;gap:8px;padding:14px;
+  background:linear-gradient(0deg,rgba(13,17,23,.92) 45%,transparent);
 }
 .lb__tira{
-  width:62px;height:44px;flex:none;padding:0;overflow:hidden;
-  border:2px solid transparent;border-radius:5px;opacity:.6;
-  transition:opacity .25s ease,border-color .25s ease;
+  width:74px;height:54px;flex:none;padding:0;overflow:hidden;cursor:pointer;
+  border:2px solid rgba(255,255,255,.35);border-radius:5px;opacity:.85;
+  transition:opacity .25s ease,border-color .25s ease,transform .25s ease;
 }
+.lb__tira:hover{transform:translateY(-2px)}
 .lb__tira img{width:100%;height:100%;object-fit:cover;display:block}
 .lb__tira:hover{opacity:1}
 .lb__tira.on{opacity:1;border-color:var(--naranja)}
@@ -824,20 +827,53 @@ ul{list-style:none}
 }
 .radar.in .radar__rings circle,.radar.in .radar__spokes line,
 .radar.in .radar__cross line,.radar.in .radar__core circle{stroke-dashoffset:0}
-.radar__states{position:absolute;inset:0}
-.st{
-  position:absolute;left:var(--x);top:var(--y);transform:translate(-50%,-50%);
-  font-family:var(--cond);font-weight:700;text-transform:uppercase;
-  font-size:clamp(.85rem,1.5vw,1.25rem);letter-spacing:.06em;color:var(--papel);
-  background:var(--tarjeta);border:1px solid var(--borde);
-  padding:9px 16px;white-space:nowrap;text-align:center;
-  opacity:0;transition:opacity .55s var(--ease),transform .55s var(--ease),border-color .3s;
+/* Puntos de cobertura: cada estado en su posición geográfica real.
+   Los nombres van en la lista de abajo, no encima del radar: con 21
+   estados las etiquetas se encimarían (el Bajío las junta demasiado). */
+.radar__puntos{position:absolute;inset:0;list-style:none;margin:0;padding:0}
+.pt{
+  position:absolute;left:var(--x);top:var(--y);width:11px;height:11px;
+  transform:translate(-50%,-50%);border-radius:50%;
+  background:var(--acero);border:2px solid var(--fondo);
+  opacity:0;transition:opacity .5s ease,background .25s ease,transform .25s ease;
 }
-.st i{display:block;font-family:var(--tecno);font-style:normal;font-size:7.5px;letter-spacing:.18em;color:var(--acero);margin-top:4px}
-.st--core{border-color:var(--naranja);background:var(--naranja);color:var(--tinta)}
-.st--core i{color:rgba(18,22,29,.65)}
-.radar.in .st{opacity:1}
-.st:hover{border-color:var(--naranja)}
+.radar.in .pt{opacity:1}
+.pt--obra{background:var(--naranja)}
+.pt--base{
+  width:19px;height:19px;background:var(--naranja);
+  box-shadow:0 0 0 6px rgba(249,115,22,.22);
+}
+.pt.on,.pt:hover{background:var(--naranja);transform:translate(-50%,-50%) scale(1.5);z-index:2}
+/* Nombre del estado: sólo al pasar el cursor o al resaltarlo desde la lista */
+.pt__tip{
+  position:absolute;left:50%;bottom:calc(100% + 9px);transform:translateX(-50%);
+  font-family:var(--cond);font-weight:700;text-transform:uppercase;letter-spacing:.06em;
+  font-size:.78rem;white-space:nowrap;color:var(--papel);
+  background:var(--tarjeta);border:1px solid var(--naranja);padding:4px 9px;
+  opacity:0;pointer-events:none;transition:opacity .25s ease;
+}
+.pt.on .pt__tip,.pt:hover .pt__tip{opacity:1}
+
+/* Lista de estados */
+.radar__lista{
+  list-style:none;margin:clamp(26px,3.5vw,44px) 0 0;padding:0;
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));
+  gap:1px;background:var(--borde);border:1px solid var(--borde);
+}
+.es{
+  background:var(--tinta);padding:13px 16px;cursor:default;
+  font-family:var(--cond);font-weight:700;text-transform:uppercase;
+  font-size:1rem;letter-spacing:.05em;color:var(--papel);
+  border-left:3px solid transparent;transition:background .25s ease,border-color .25s ease;
+}
+.es i{
+  display:block;font-family:var(--tecno);font-style:normal;
+  font-size:7.5px;letter-spacing:.18em;color:var(--acero);margin-top:5px;
+}
+.es:hover,.es.on{background:var(--tarjeta);border-left-color:var(--naranja)}
+.es--obra{border-left-color:rgba(249,115,22,.45)}
+.es--base{background:var(--naranja);color:var(--tinta);border-left-color:var(--naranja)}
+.es--base i{color:rgba(18,22,29,.7)}
 
 /* ══════════════ CLIENTES ══════════════ */
 .clientes{background:var(--tinta);padding-top:clamp(56px,7vw,90px);padding-bottom:clamp(56px,7vw,90px)}
@@ -969,7 +1005,11 @@ ul{list-style:none}
   .contacto__grid{grid-template-columns:1fr}
   .obras{grid-template-columns:repeat(2,1fr)}
   .obra--wide{grid-column:span 2}
+  /* Apilado: la foto deja de ser fija y se limita para que las miniaturas
+     queden a la vista sin tener que buscarlas con scroll. */
   .lb__panel{grid-template-columns:1fr;max-height:90svh}
+  .lb__img{position:relative;max-height:46svh}
+  .lb__img > img{max-height:46svh}
   .footer__grid{grid-template-columns:1fr 1fr}
   .serv{flex-basis:calc((100% - clamp(14px,1.8vw,26px)) / 2)}
   .resumen__grid{grid-template-columns:1fr}
