@@ -506,11 +506,10 @@ $$('.count').forEach(el => ioCount.observe(el));
    ───────────────────────────────────────────── */
 const radar = $('#radar');
 if (radar) {
-  // Ya no hay radiales (.radar__spokes): con 21 estados se veían como maraña,
-  // ahora cada estado es un punto en su posición geográfica.
-  medir(radar.querySelector('.radar__rings'), { stagger: .12, dur: 1.1 });
-  medir(radar.querySelector('.radar__cross'), { stagger: .12, dur: 1.0, base: .2 });
-  medir(radar.querySelector('.radar__core'),  { stagger: .1,  dur: .6,  base: .5 });
+  medir(radar.querySelector('.radar__rings'),  { stagger: .12, dur: 1.1 });
+  medir(radar.querySelector('.radar__cross'),  { stagger: .12, dur: 1.0, base: .2 });
+  medir(radar.querySelector('.radar__spokes'), { stagger: .05, dur: .7,  base: .5 });
+  medir(radar.querySelector('.radar__core'),   { stagger: .1,  dur: .6,  base: .4 });
 
   // Los puntos van apareciendo uno tras otro cuando el radar entra en pantalla
   const puntos = $$('.pt', radar);
@@ -526,12 +525,15 @@ if (radar) {
      estado de la lista se resalta su punto, y al revés. Es la única forma de
      poner nombre a 21 puntos sin que las etiquetas se encimen. */
   const porEstado = new Map(puntos.map(p => [p.dataset.st, p]));
+  const radiales  = new Map($$('.radar__spokes line', radar).map(l => [l.dataset.st, l]));
   $$('.es').forEach(item => {
     const punto = porEstado.get(item.dataset.st);
     if (!punto) return;
+    const linea = radiales.get(item.dataset.st);
     const marcar = on => {
       punto.classList.toggle('on', on);
       item.classList.toggle('on', on);
+      linea?.classList.toggle('on', on);   // se enciende también su radial
       // el delay de entrada estorbaría al resaltar; se quita al primer uso
       punto.style.transitionDelay = '0s';
     };

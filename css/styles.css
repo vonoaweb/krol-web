@@ -814,64 +814,89 @@ ul{list-style:none}
 
 /* ══════════════ COBERTURA ══════════════ */
 .cobertura{background:var(--fondo)}
-.radar{position:relative;aspect-ratio:900/620;max-width:1000px;margin-inline:auto}
+/* ══════════════ COBERTURA ══════════════ */
+/* Radar y lista lado a lado: el radar solo se leía como puntos sueltos,
+   los nombres al lado le dan sentido de un vistazo. */
+.cobertura__grid{
+  display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);
+  gap:clamp(24px,3.5vw,52px);align-items:center;
+}
+.radar{position:relative;aspect-ratio:900/620;min-width:0}
 .radar__svg{position:absolute;inset:0;width:100%;height:100%}
 .radar__svg g{fill:none}
 .radar__rings circle{stroke:rgba(255,255,255,.13);stroke-width:1}
 .radar__cross line{stroke:rgba(249,115,22,.22);stroke-width:1;stroke-dasharray:6 8}
-.radar__spokes line{stroke:var(--naranja);stroke-width:1.3;opacity:.55}
+.radar__spokes line{stroke:var(--naranja);stroke-width:1.1;opacity:.4;transition:opacity .25s ease,stroke-width .25s ease}
+.radar__spokes line.on{opacity:1;stroke-width:2}
+.radar__kms text{fill:var(--acero);font-family:var(--tecno);font-size:11px;letter-spacing:.16em;opacity:0;transition:opacity .6s ease .8s}
+.radar.in .radar__kms text{opacity:.55}
 .radar__core circle{stroke:var(--naranja);stroke-width:2;fill:none}
 .radar__core circle:first-child{fill:var(--naranja)}
-.radar__rings circle,.radar__spokes line,.radar__cross line,.radar__core circle{
+.radar__rings circle,.radar__cross line,.radar__core circle,.radar__spokes line{
   stroke-dasharray:var(--len,1400);stroke-dashoffset:var(--len,1400);
 }
-.radar.in .radar__rings circle,.radar.in .radar__spokes line,
-.radar.in .radar__cross line,.radar.in .radar__core circle{stroke-dashoffset:0}
-/* Puntos de cobertura: cada estado en su posición geográfica real.
-   Los nombres van en la lista de abajo, no encima del radar: con 21
-   estados las etiquetas se encimarían (el Bajío las junta demasiado). */
+.radar.in .radar__rings circle,.radar.in .radar__cross line,.radar.in .radar__core circle,.radar.in .radar__spokes line{stroke-dashoffset:0}
+
+/* Barrido giratorio, anclado en Guadalajara (50% / 65% del marco) */
+.radar__barrido{
+  position:absolute;left:50%;top:65%;width:0;height:0;pointer-events:none;opacity:0;
+  transition:opacity .8s ease .9s;
+}
+.radar.in .radar__barrido{opacity:1}
+.radar__barrido::before{
+  content:"";position:absolute;left:-72%;top:-72%;width:144%;height:144%;
+  border-radius:50%;
+  background:conic-gradient(from 0deg,
+    rgba(249,115,22,.30) 0deg, rgba(249,115,22,.10) 26deg, transparent 52deg, transparent 360deg);
+  animation:barrer 6s linear infinite;
+}
+@keyframes barrer{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.radar__barrido::before{animation:none;opacity:.45}}
+
 .radar__puntos{position:absolute;inset:0;list-style:none;margin:0;padding:0}
 .pt{
-  position:absolute;left:var(--x);top:var(--y);width:11px;height:11px;
-  transform:translate(-50%,-50%);border-radius:50%;
+  position:absolute;left:var(--x);top:var(--y);width:14px;height:14px;
+  transform:translate(-50%,-50%) scale(.4);border-radius:50%;
   background:var(--acero);border:2px solid var(--fondo);
-  opacity:0;transition:opacity .5s ease,background .25s ease,transform .25s ease;
+  opacity:0;transition:opacity .45s ease,transform .45s var(--ease),background .25s ease;
 }
-.radar.in .pt{opacity:1}
-.pt--obra{background:var(--naranja)}
+.radar.in .pt{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.pt--obra{background:var(--naranja);box-shadow:0 0 0 4px rgba(249,115,22,.18)}
 .pt--base{
-  width:19px;height:19px;background:var(--naranja);
-  box-shadow:0 0 0 6px rgba(249,115,22,.22);
+  width:22px;height:22px;background:var(--naranja);
+  box-shadow:0 0 0 7px rgba(249,115,22,.22);
 }
-.pt.on,.pt:hover{background:var(--naranja);transform:translate(-50%,-50%) scale(1.5);z-index:2}
-/* Nombre del estado: sólo al pasar el cursor o al resaltarlo desde la lista */
+.radar.in .pt.on,.radar.in .pt:hover{
+  background:var(--naranja);transform:translate(-50%,-50%) scale(1.6);z-index:3;
+}
+/* El nombre sale al señalar el punto o su renglón en la lista */
 .pt__tip{
-  position:absolute;left:50%;bottom:calc(100% + 9px);transform:translateX(-50%);
+  position:absolute;left:50%;bottom:calc(100% + 10px);transform:translateX(-50%);
   font-family:var(--cond);font-weight:700;text-transform:uppercase;letter-spacing:.06em;
-  font-size:.78rem;white-space:nowrap;color:var(--papel);
-  background:var(--tarjeta);border:1px solid var(--naranja);padding:4px 9px;
+  font-size:.8rem;white-space:nowrap;color:var(--papel);
+  background:var(--tarjeta);border:1px solid var(--naranja);padding:5px 10px;
   opacity:0;pointer-events:none;transition:opacity .25s ease;
 }
 .pt.on .pt__tip,.pt:hover .pt__tip{opacity:1}
 
 /* Lista de estados */
 .radar__lista{
-  list-style:none;margin:clamp(26px,3.5vw,44px) 0 0;padding:0;
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));
+  list-style:none;margin:0;padding:0;min-width:0;
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
   gap:1px;background:var(--borde);border:1px solid var(--borde);
 }
 .es{
-  background:var(--tinta);padding:13px 16px;cursor:default;
+  background:var(--tinta);padding:12px 14px;
   font-family:var(--cond);font-weight:700;text-transform:uppercase;
-  font-size:1rem;letter-spacing:.05em;color:var(--papel);
+  font-size:.96rem;letter-spacing:.05em;color:var(--papel);
   border-left:3px solid transparent;transition:background .25s ease,border-color .25s ease;
 }
 .es i{
   display:block;font-family:var(--tecno);font-style:normal;
-  font-size:7.5px;letter-spacing:.18em;color:var(--acero);margin-top:5px;
+  font-size:7px;letter-spacing:.16em;color:var(--acero);margin-top:5px;
 }
 .es:hover,.es.on{background:var(--tarjeta);border-left-color:var(--naranja)}
-.es--obra{border-left-color:rgba(249,115,22,.45)}
+.es--obra{border-left-color:rgba(249,115,22,.5)}
 .es--base{background:var(--naranja);color:var(--tinta);border-left-color:var(--naranja)}
 .es--base i{color:rgba(18,22,29,.7)}
 
@@ -1007,6 +1032,8 @@ ul{list-style:none}
   .obra--wide{grid-column:span 2}
   /* Apilado: la foto deja de ser fija y se limita para que las miniaturas
      queden a la vista sin tener que buscarlas con scroll. */
+  .cobertura__grid{grid-template-columns:1fr;gap:clamp(20px,4vw,34px)}
+  .radar{max-width:560px;margin-inline:auto;width:100%}
   .lb__panel{grid-template-columns:1fr;max-height:90svh}
   .lb__img{position:relative;max-height:46svh}
   .lb__img > img{max-height:46svh}

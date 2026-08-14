@@ -197,69 +197,97 @@
       <p class="head__desc" data-reveal>Movilizamos cuadrillas, equipo y material fuera del estado. Si tu proyecto está fuera de esta lista, escríbenos: lo evaluamos igual.</p>
     </div>
 
-    <div class="radar" id="radar">
-      <svg class="radar__svg" viewBox="0 0 900 620" aria-hidden="true">
-        <g class="radar__rings">
-          <circle cx="450" cy="310" r="88" /><circle cx="450" cy="310" r="156" />
-          <circle cx="450" cy="310" r="224" /><circle cx="450" cy="310" r="292" />
-        </g>
-        <g class="radar__cross">
-          <line x1="60" y1="310" x2="840" y2="310" /><line x1="450" y1="18" x2="450" y2="602" />
-        </g>
-        <g class="radar__core"><circle cx="450" cy="310" r="7" /><circle cx="450" cy="310" r="21" /></g>
-      </svg>
+    <div class="cobertura__grid">
+      <div class="radar" id="radar">
+        <svg class="radar__svg" viewBox="0 0 900 620" aria-hidden="true">
+          <g class="radar__rings">
+            <circle cx="450.0" cy="403.0" r="104" /><circle cx="450.0" cy="403.0" r="207" /><circle cx="450.0" cy="403.0" r="311" /><circle cx="450.0" cy="403.0" r="415" />
+          </g>
+          <g class="radar__kms"><text x="456.0" y="314" class="radar__km">400 km</text><text x="456.0" y="211" class="radar__km">800 km</text><text x="456.0" y="107" class="radar__km">1 200 km</text><text x="456.0" y="3" class="radar__km">1 600 km</text></g>
+          <g class="radar__cross">
+            <line x1="30" y1="403.0" x2="870" y2="403.0" /><line x1="450.0" y1="12" x2="450.0" y2="608" />
+          </g>
+          <!-- Una línea de Guadalajara a cada estado -->
+          <g class="radar__spokes">
+            <line x1="450" y1="403" x2="410" y2="372" data-st="nayarit" />
+            <line x1="450" y1="403" x2="440" y2="444" data-st="colima" />
+            <line x1="450" y1="403" x2="494" y2="435" data-st="michoacan" />
+            <line x1="450" y1="403" x2="511" y2="396" data-st="guanajuato" />
+            <line x1="450" y1="403" x2="478" y2="365" data-st="aguascalientes" />
+            <line x1="450" y1="403" x2="463" y2="331" data-st="zacatecas" />
+            <line x1="450" y1="403" x2="415" y2="291" data-st="durango" />
+            <line x1="450" y1="403" x2="338" y2="278" data-st="sinaloa" />
+            <line x1="450" y1="403" x2="536" y2="402" data-st="queretaro" />
+            <line x1="450" y1="403" x2="528" y2="346" data-st="san-luis-potosi" />
+            <line x1="450" y1="403" x2="255" y2="146" data-st="sonora" />
+            <line x1="450" y1="403" x2="374" y2="175" data-st="chihuahua" />
+            <line x1="450" y1="403" x2="122" y2="120" data-st="baja-california" />
+            <line x1="450" y1="403" x2="222" y2="264" data-st="baja-california-sur" />
+            <line x1="450" y1="403" x2="634" y2="508" data-st="oaxaca" />
+            <line x1="450" y1="403" x2="545" y2="492" data-st="guerrero" />
+            <line x1="450" y1="403" x2="548" y2="441" data-st="mexico" />
+            <line x1="450" y1="403" x2="837" y2="399" data-st="yucatan" />
+            <line x1="450" y1="403" x2="543" y2="261" data-st="nuevo-leon" />
+            <line x1="450" y1="403" x2="734" y2="480" data-st="tabasco" />
+          </g>
+          <g class="radar__core"><circle cx="450.0" cy="403.0" r="7" /><circle cx="450.0" cy="403.0" r="22" /></g>
+        </svg>
 
-      <!-- Cada estado va en su posicion geografica real respecto a Guadalajara.
-           Los nombres van en la lista de abajo: 21 etiquetas encima del radar se
-           encimarian, el Bajio las junta demasiado. -->
-      <ul class="radar__puntos">
-        <li class="pt pt--base" style="--x:50.0%; --y:50.0%" data-st="jalisco"><span class="pt__tip">Jalisco</span></li>
-        <li class="pt" style="--x:45.4%; --y:45.6%" data-st="nayarit"><span class="pt__tip">Nayarit</span></li>
-        <li class="pt" style="--x:48.8%; --y:55.8%" data-st="colima"><span class="pt__tip">Colima</span></li>
-        <li class="pt pt--obra" style="--x:55.0%; --y:54.5%" data-st="michoacan"><span class="pt__tip">Michoacán</span></li>
-        <li class="pt pt--obra" style="--x:56.9%; --y:49.0%" data-st="guanajuato"><span class="pt__tip">Guanajuato</span></li>
-        <li class="pt" style="--x:53.2%; --y:44.6%" data-st="aguascalientes"><span class="pt__tip">Aguascalientes</span></li>
-        <li class="pt" style="--x:51.4%; --y:39.8%" data-st="zacatecas"><span class="pt__tip">Zacatecas</span></li>
-        <li class="pt" style="--x:46.0%; --y:34.2%" data-st="durango"><span class="pt__tip">Durango</span></li>
-        <li class="pt pt--obra" style="--x:37.3%; --y:32.4%" data-st="sinaloa"><span class="pt__tip">Sinaloa</span></li>
-        <li class="pt" style="--x:59.9%; --y:49.8%" data-st="queretaro"><span class="pt__tip">Querétaro</span></li>
-        <li class="pt" style="--x:58.9%; --y:41.9%" data-st="san-luis-potosi"><span class="pt__tip">San Luis Potosí</span></li>
-        <li class="pt" style="--x:27.7%; --y:13.7%" data-st="sonora"><span class="pt__tip">Sonora</span></li>
-        <li class="pt" style="--x:41.3%; --y:17.7%" data-st="chihuahua"><span class="pt__tip">Chihuahua</span></li>
-        <li class="pt" style="--x:12.7%; --y:10.0%" data-st="baja-california"><span class="pt__tip">Baja California</span></li>
-        <li class="pt pt--obra" style="--x:24.1%; --y:30.3%" data-st="baja-california-sur"><span class="pt__tip">Baja California Sur</span></li>
-        <li class="pt" style="--x:71.0%; --y:64.9%" data-st="oaxaca"><span class="pt__tip">Oaxaca</span></li>
-        <li class="pt" style="--x:60.9%; --y:62.5%" data-st="guerrero"><span class="pt__tip">Guerrero</span></li>
-        <li class="pt" style="--x:61.2%; --y:55.4%" data-st="mexico"><span class="pt__tip">México</span></li>
-        <li class="pt" style="--x:94.1%; --y:49.5%" data-st="yucatan"><span class="pt__tip">Yucatán</span></li>
-        <li class="pt" style="--x:60.6%; --y:29.9%" data-st="nuevo-leon"><span class="pt__tip">Nuevo León</span></li>
-        <li class="pt" style="--x:82.4%; --y:60.9%" data-st="tabasco"><span class="pt__tip">Tabasco</span></li>
+        <!-- Barrido: gira sobre el centro, como el de un radar de verdad -->
+        <span class="radar__barrido" aria-hidden="true"></span>
+
+        <!-- Cada estado en su posición geográfica real respecto a Guadalajara.
+             Los nombres van en la lista de al lado: 21 etiquetas encima se
+             encimarían, el Bajío junta cinco estados en muy poco espacio. -->
+        <ul class="radar__puntos">
+        <li class="pt pt--base" style="--x:50.0%; --y:65.0%" data-st="jalisco"><span class="pt__tip">Jalisco</span></li>
+        <li class="pt" style="--x:45.5%; --y:60.0%" data-st="nayarit"><span class="pt__tip">Nayarit</span></li>
+        <li class="pt" style="--x:48.9%; --y:71.6%" data-st="colima"><span class="pt__tip">Colima</span></li>
+        <li class="pt pt--obra" style="--x:54.9%; --y:70.1%" data-st="michoacan"><span class="pt__tip">Michoacán</span></li>
+        <li class="pt pt--obra" style="--x:56.8%; --y:63.8%" data-st="guanajuato"><span class="pt__tip">Guanajuato</span></li>
+        <li class="pt" style="--x:53.1%; --y:58.8%" data-st="aguascalientes"><span class="pt__tip">Aguascalientes</span></li>
+        <li class="pt" style="--x:51.4%; --y:53.4%" data-st="zacatecas"><span class="pt__tip">Zacatecas</span></li>
+        <li class="pt" style="--x:46.1%; --y:47.0%" data-st="durango"><span class="pt__tip">Durango</span></li>
+        <li class="pt pt--obra" style="--x:37.6%; --y:44.9%" data-st="sinaloa"><span class="pt__tip">Sinaloa</span></li>
+        <li class="pt" style="--x:59.6%; --y:64.8%" data-st="queretaro"><span class="pt__tip">Querétaro</span></li>
+        <li class="pt" style="--x:58.7%; --y:55.8%" data-st="san-luis-potosi"><span class="pt__tip">San Luis Potosí</span></li>
+        <li class="pt" style="--x:28.3%; --y:23.5%" data-st="sonora"><span class="pt__tip">Sonora</span></li>
+        <li class="pt" style="--x:41.5%; --y:28.2%" data-st="chihuahua"><span class="pt__tip">Chihuahua</span></li>
+        <li class="pt" style="--x:13.6%; --y:19.4%" data-st="baja-california"><span class="pt__tip">Baja California</span></li>
+        <li class="pt pt--obra" style="--x:24.7%; --y:42.6%" data-st="baja-california-sur"><span class="pt__tip">Baja California Sur</span></li>
+        <li class="pt" style="--x:70.5%; --y:82.0%" data-st="oaxaca"><span class="pt__tip">Oaxaca</span></li>
+        <li class="pt" style="--x:60.6%; --y:79.3%" data-st="guerrero"><span class="pt__tip">Guerrero</span></li>
+        <li class="pt" style="--x:60.9%; --y:71.1%" data-st="mexico"><span class="pt__tip">México</span></li>
+        <li class="pt" style="--x:93.0%; --y:64.4%" data-st="yucatan"><span class="pt__tip">Yucatán</span></li>
+        <li class="pt" style="--x:60.3%; --y:42.1%" data-st="nuevo-leon"><span class="pt__tip">Nuevo León</span></li>
+        <li class="pt" style="--x:81.6%; --y:77.4%" data-st="tabasco"><span class="pt__tip">Tabasco</span></li>
+        </ul>
+      </div>
+
+      <ul class="radar__lista">
+      <li class="es es--base" data-st="jalisco">Jalisco<i>Base · Guadalajara</i></li>
+      <li class="es" data-st="nayarit">Nayarit<i>Cobertura</i></li>
+      <li class="es" data-st="colima">Colima<i>Cobertura</i></li>
+      <li class="es es--obra" data-st="michoacan">Michoacán<i>Obra ejecutada</i></li>
+      <li class="es es--obra" data-st="guanajuato">Guanajuato<i>Obra ejecutada</i></li>
+      <li class="es" data-st="aguascalientes">Aguascalientes<i>Cobertura</i></li>
+      <li class="es" data-st="zacatecas">Zacatecas<i>Cobertura</i></li>
+      <li class="es" data-st="durango">Durango<i>Cobertura</i></li>
+      <li class="es es--obra" data-st="sinaloa">Sinaloa<i>Obra ejecutada</i></li>
+      <li class="es" data-st="queretaro">Querétaro<i>Cobertura</i></li>
+      <li class="es" data-st="san-luis-potosi">San Luis Potosí<i>Cobertura</i></li>
+      <li class="es" data-st="sonora">Sonora<i>Cobertura</i></li>
+      <li class="es" data-st="chihuahua">Chihuahua<i>Cobertura</i></li>
+      <li class="es" data-st="baja-california">Baja California<i>Cobertura</i></li>
+      <li class="es es--obra" data-st="baja-california-sur">Baja California Sur<i>Obra ejecutada</i></li>
+      <li class="es" data-st="oaxaca">Oaxaca<i>Cobertura</i></li>
+      <li class="es" data-st="guerrero">Guerrero<i>Cobertura</i></li>
+      <li class="es" data-st="mexico">México<i>Cobertura</i></li>
+      <li class="es" data-st="yucatan">Yucatán<i>Cobertura</i></li>
+      <li class="es" data-st="nuevo-leon">Nuevo León<i>Cobertura</i></li>
+      <li class="es" data-st="tabasco">Tabasco<i>Cobertura</i></li>
       </ul>
     </div>
-
-    <ul class="radar__lista">
-        <li class="es es--base" data-st="jalisco">Jalisco<i>Base · Guadalajara</i></li>
-        <li class="es" data-st="nayarit">Nayarit<i>Cobertura</i></li>
-        <li class="es" data-st="colima">Colima<i>Cobertura</i></li>
-        <li class="es es--obra" data-st="michoacan">Michoacán<i>Obra ejecutada</i></li>
-        <li class="es es--obra" data-st="guanajuato">Guanajuato<i>Obra ejecutada</i></li>
-        <li class="es" data-st="aguascalientes">Aguascalientes<i>Cobertura</i></li>
-        <li class="es" data-st="zacatecas">Zacatecas<i>Cobertura</i></li>
-        <li class="es" data-st="durango">Durango<i>Cobertura</i></li>
-        <li class="es es--obra" data-st="sinaloa">Sinaloa<i>Obra ejecutada</i></li>
-        <li class="es" data-st="queretaro">Querétaro<i>Cobertura</i></li>
-        <li class="es" data-st="san-luis-potosi">San Luis Potosí<i>Cobertura</i></li>
-        <li class="es" data-st="sonora">Sonora<i>Cobertura</i></li>
-        <li class="es" data-st="chihuahua">Chihuahua<i>Cobertura</i></li>
-        <li class="es" data-st="baja-california">Baja California<i>Cobertura</i></li>
-        <li class="es es--obra" data-st="baja-california-sur">Baja California Sur<i>Obra ejecutada</i></li>
-        <li class="es" data-st="oaxaca">Oaxaca<i>Cobertura</i></li>
-        <li class="es" data-st="guerrero">Guerrero<i>Cobertura</i></li>
-        <li class="es" data-st="mexico">México<i>Cobertura</i></li>
-        <li class="es" data-st="yucatan">Yucatán<i>Cobertura</i></li>
-        <li class="es" data-st="nuevo-leon">Nuevo León<i>Cobertura</i></li>
-        <li class="es" data-st="tabasco">Tabasco<i>Cobertura</i></li>
-    </ul>
   
   </div>
 </section>
