@@ -371,6 +371,7 @@ if (radar) {
      poner nombre a 21 puntos sin que las etiquetas se encimen. */
   const porEstado = new Map(puntos.map(p => [p.dataset.st, p]));
   const radiales  = new Map($$('.radar__spokes line', radar).map(l => [l.dataset.st, l]));
+  const apagar    = [];   // para dejar sólo un estado encendido a la vez
   $$('.es').forEach(item => {
     const punto = porEstado.get(item.dataset.st);
     if (!punto) return;
@@ -382,11 +383,27 @@ if (radar) {
       // el delay de entrada estorbaría al resaltar; se quita al primer uso
       punto.style.transitionDelay = '0s';
     };
-    item.addEventListener('mouseenter', () => marcar(true));
-    item.addEventListener('mouseleave', () => marcar(false));
-    punto.addEventListener('mouseenter', () => marcar(true));
-    punto.addEventListener('mouseleave', () => marcar(false));
+    apagar.push(() => marcar(false));
+
+    if (HOVER) {
+      item.addEventListener('mouseenter', () => marcar(true));
+      item.addEventListener('mouseleave', () => marcar(false));
+      punto.addEventListener('mouseenter', () => marcar(true));
+      punto.addEventListener('mouseleave', () => marcar(false));
+    }
+    // En táctil no hay cursor: sin esto la sección quedaba muerta en celular.
+    // Se apaga lo demás para que sólo quede encendido el estado tocado.
+    const tocar = e => {
+      e.stopPropagation();
+      const yaEstaba = item.classList.contains('on');
+      apagar.forEach(f => f());
+      if (!yaEstaba) marcar(true);
+    };
+    item.addEventListener('click', tocar);
+    punto.addEventListener('click', tocar);
   });
+  // Tocar fuera apaga la selección
+  document.addEventListener('click', () => apagar.forEach(f => f()));
 }
 
 /* ─────────────────────────────────────────────
