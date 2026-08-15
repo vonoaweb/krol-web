@@ -129,16 +129,53 @@ Web3Forms. Hasta que lo haga, ese destinatario no recibe nada.
 ## El material del cliente está repartido, revísalo TODO
 
 Éste fue el error más caro del proyecto: se dio material por inexistente mirando
-sólo una carpeta. Está en cuatro sitios distintos:
+sólo una carpeta. Son **18 carpetas**, no cuatro como decía antes este apunte.
+Sácalas todas de un jalón antes de decir que algo falta:
+
+```
+find . -type d -exec sh -c 'printf "%4d  %s\n" "$(find "$1" -maxdepth 1 -type f | wc -l)" "$1"' _ {} \; | sort -rn
+```
+
+**Nada de `ls -R | head`**: así se listó el 15-ago y cortó la salida justo donde
+empezaba lo que faltaba.
 
 - **`Feedback v2/Imagenes y videos/`** — la entrega del 14-ago. Cuidado: varios
   archivos van **sueltos en la raíz**, no dentro de las subcarpetas.
-- **`imagenes/imagenes/`** — la entrega de julio. Aquí están las **4 agencias**
-  (Hyundai, Kia, Mercedes, Volvo), **3 fotos de O'Reilly**, los **6 logos de
-  clientes** y los de ejecución especializada, donde el propio nombre del archivo
-  identifica la **capilla**, la **escalera helicoidal** y el **Pingüinario**.
+  `AGENCIAS AUTOMOTRICES/` está **vacía de verdad** (0 archivos).
+- **`imagenes/imagenes/`** (27 archivos) — la entrega de julio. Aquí están las
+  **4 agencias** (Hyundai, Kia, Mercedes, Volvo), **3 fotos de O'Reilly**, los
+  **6 logos de clientes** y los de ejecución especializada, donde el propio
+  nombre del archivo identifica la **capilla**, la **escalera helicoidal** y el
+  **Pingüinario**.
 - **`PAGINA WEB/`** — 8 fotos de obra, la carpeta `PORTADA/` y `VIDEOS/`.
 - **`La K/`** y **`Vectores/`** — el **logo nuevo ya vectorizado** (PNG y SVG).
+- **`logo trazo y mockups/`** (18 archivos) — el **logo nuevo en sus 4 versiones**
+  (principal, negativo, una tinta blanca y negra), SVG naranja y mockups de
+  casco, lona, libreta y camioneta.
+- **`propuestas portada/`** (3) — las tres propuestas de portada: plano técnico,
+  obra a sangre y bloque naranja.
+
+### Los textos de las obras salen de dos documentos, no de las fotos
+
+Se cayó en esto el 15-ago y conviene dejarlo escrito: al partir la ficha
+agrupada se escribieron los alcances **mirando las fotos**, teniendo el dato
+puesto por escrito por el cliente en dos archivos que nadie abrió.
+
+| Documento | Qué trae |
+|---|---|
+| `PORTAFOLIO DE PROYECTOS KROL.pdf` | 11 páginas. La 8 da el alcance de cada obra especializada; la 5, **doce sucursales O'Reilly** con su alcance; la 6, las **cuatro agencias**; la 10, misión/visión/valores; la 11, los tres directivos |
+| `Cuestionario Web.txt` | El portafolio dictado por ellos, con lugar y periodo, y de donde salió el texto original de las fichas |
+| `Nuestros Servicios.pdf` | 4 páginas con la redacción larga de cada servicio, incluido concreto lanzado |
+
+Lo que decía el PDF y no se usó: el Pingüinario lleva **cisterna**, la capilla es
+**a doble altura**, y la escalera es **diseño y trazo** además de cimbrado. Ya
+está corregido, pero la regla queda: **antes de redactar una obra, se leen esos
+dos documentos.** Las fotos dicen cómo se ve, no qué se hizo.
+
+**Los PDF sí se pueden leer.** El Python del sistema (el del PATH, no el de
+ComfyUI) trae `pypdf`, `fitz`, `pdfplumber` y `pdfminer`, y además hay
+`pdftotext` en `/mingw64/bin`. Buscar sólo en el venv de ComfyUI y concluir que
+no se puede es el error que ya se cometió.
 
 ### ⚠️ Hay material generado con IA mezclado
 
@@ -326,10 +363,32 @@ sección de proceso. Vale la pena enseñársela cuando se retome ese tema.
   que falta confirmar es a qué proyecto pertenece.
 - **Fotos de la capilla**: sólo mandaron una y es de interior. Con una de fachada
   la ficha se sostiene sola.
-- **Ubicación y año** de escalera helicoidal y muros de concreto lanzado: van
-  vacíos porque nadie los ha dicho.
+- **Partir el periodo 2014 — 2026**. El cuestionario da ese rango al grupo entero
+  de ejecución especializada, no a cada obra. Ponerlo en las tres fichas diría
+  que cada una duró doce años, así que van sin año hasta que Héctor diga el de
+  cada una.
 
 ### Por hacer, con material ya disponible
+- **Fotos de las 4 agencias**: la ficha "Agencias automotrices" usa una foto
+  genérica de armado teniendo desde julio las de **Hyundai Galerías, Kia Santa
+  Anita, Mercedes Bugambilias y Volvo Acueducto**, y el PDF del portafolio da el
+  alcance de cada una. Lo de "pendientes de foto" del feedback v2 se refiere a
+  fotos *nuevas*, no a que no haya.
+- **Las 12 sucursales de O'Reilly** están nombradas una por una en el PDF, con su
+  alcance (Federalismo, La Barca, Tepatitlán, Club Atlas, Guadalupe, Silao, Díaz
+  Ordaz, Zacapu, Mazatlán, México 68, Col Militar y La Paz). Hoy la ficha dice
+  sólo "5 estados": hay material para una galería o un listado que se vería serio.
+- **Misión y visión** están redactadas en el cuestionario *y* en el PDF, y no
+  aparecen en ninguna página.
+- **Los tres directivos** (Ing. Rubén Alfonso Acevedo Correa, dirección general;
+  Ing. Karla Minerva Acevedo Correa, gerencia administrativa; Ing. Claudia Fausto
+  Ramírez, control presupuestal). Poner nombres es justo el ángulo que se acordó
+  para **Obra vertical**, que se vende con la experiencia del equipo.
+- **Servicios que el sitio no menciona** y sí están en `Nuestros Servicios.pdf`:
+  proyectos llave en mano, obras urgentes y de ejecución rápida, gestión y
+  coordinación de obra, obras de infraestructura, y cálculo y diseño estructural.
+- ⚠️ **Dos correos distintos**: el PDF firma `KROL.Constructions@outlook.com` y el
+  sitio usa `krol.presupuestos@outlook.com`. Preguntar cuál queda.
 - **Logos de clientes**: siguen como texto en el sitio, teniendo los 6 archivos
   desde julio.
 - **Logo nuevo**: el sitio usa el viejo en PNG; hay SVG en `KROL-logo/`.
