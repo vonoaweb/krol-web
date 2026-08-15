@@ -794,9 +794,10 @@ ul{list-style:none}
 .radar__svg{position:absolute;inset:0;width:100%;height:100%}
 .radar__svg g{fill:none}
 .radar__rings circle{stroke:rgba(255,255,255,.13);stroke-width:1}
-/* Los anillos son más grandes que el marco: si la nube de estados va centrada,
-   los de 1200 y 1600 km no caben enteros. En vez de que se corten en seco, se
-   difuminan hacia los bordes, que es como se ven en un radar de verdad. */
+/* Los anillos ya caben enteros en el marco, pero un círculo cerrado de trazo
+   uniforme se ve como un aro dibujado, no como un radar. Difuminarlos hacia
+   afuera les quita ese borde duro. Ojo: el degradado va centrado en 50% 50%
+   porque ahí está el centro del radar; si se mueve el centro, se mueve aquí. */
 .radar__rings,.radar__cross{
   -webkit-mask-image:radial-gradient(circle at 50% 50%, #000 58%, rgba(0,0,0,.35) 82%, transparent 97%);
           mask-image:radial-gradient(circle at 50% 50%, #000 58%, rgba(0,0,0,.35) 82%, transparent 97%);
@@ -814,9 +815,9 @@ ul{list-style:none}
 }
 .radar.in .radar__rings circle,.radar.in .radar__cross line,.radar.in .radar__core circle,.radar.in .radar__spokes line{stroke-dashoffset:0}
 
-/* Barrido giratorio, anclado en Guadalajara (50% / 65% del marco) */
+/* Barrido giratorio, anclado en Guadalajara (centro del marco) */
 .radar__barrido{
-  position:absolute;left:50%;top:65%;width:0;height:0;pointer-events:none;opacity:0;
+  position:absolute;left:50%;top:50%;width:0;height:0;pointer-events:none;opacity:0;
   transition:opacity .8s ease .9s;
 }
 .radar.in .radar__barrido{opacity:1}
@@ -1117,16 +1118,23 @@ ul{list-style:none}
   .vcards{grid-template-columns:1fr}
 }
 
-/* El radar no cabe en pantalla angosta: pasa a listado legible */
+/* El radar en pantalla angosta.
+   El SVG se encoge con el marco, pero los puntos son elementos HTML medidos en
+   píxeles y no encogen con él: a 340 px de ancho un punto de 14 px ocupa el
+   doble de sitio relativo que en escritorio y se encima con los vecinos. Al
+   revés pasa con lo que sí va dentro del SVG: un trazo de 1 y un rótulo de 11
+   se dibujan a 0.4 y 4 px, invisibles. Así que aquí se compensan los dos. */
 @media (max-width:760px){
-  .radar{aspect-ratio:auto;max-width:none}
-  .radar__svg{display:none}
-  .radar__states{position:static;display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  .st{
-    position:static;left:auto;top:auto;opacity:1;
-    transform:none!important;white-space:normal;padding:14px 16px;text-align:left;
-  }
-  .st--core{grid-column:1/-1}
+  .radar{max-width:none}
+  .radar__rings circle,.radar__cross line{stroke-width:2}
+  .radar__spokes line{stroke-width:2;opacity:.32}
+  .radar__spokes line.on{stroke-width:4}
+  .radar__core circle{stroke-width:4}
+  .radar__kms text{font-size:25px;letter-spacing:.1em}
+  .pt{width:10px;height:10px;border-width:1.5px}
+  .pt--base{width:15px;height:15px;box-shadow:0 0 0 5px rgba(249,115,22,.22)}
+  .radar.in .pt.on{transform:translate(-50%,-50%) scale(1.9)}
+  .pt__tip{font-size:.72rem;padding:4px 9px}
 }
 
 @media (prefers-reduced-motion:reduce){

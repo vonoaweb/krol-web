@@ -83,15 +83,50 @@ Escalador 4x            C:\Fer_Doc\Comfy\models\upscale_models\4x_NMKD-Superscal
   encimado es el 38.0–41.5 s).
 - **Diagrama de la portada quitado** (lo pidió KROL). Era además lo que trababa la
   carga: ~230 trazos animándose sobre un video 1080p.
-- **Cobertura**: de 7 a **21 estados**. Radar rehecho con proporciones reales,
-  radiales a cada estado, anillos rotulados en km, barrido giratorio, clave de
-  colores y **funciona al tacto** (antes sólo con cursor: en celular estaba muerto).
+- **Cobertura**: de 7 a **21 estados**, con radiales, anillos rotulados en km,
+  barrido giratorio, clave de colores y **funciona al tacto** (antes sólo con
+  cursor: en celular estaba muerto). Ver abajo por qué **no es un mapa**.
 - **Servicios**: 4 imágenes nuevas, en inicio y en servicios.
 - **Cómo trabajamos**: título y las 4 etapas renombradas con textos e imágenes nuevas.
 - **En obra**: de un video a **seis**.
 - **Videos**: los 6 usables recomprimidos, de 48 MB a 7.4 MB.
 - **Miniaturas del portafolio**: se salían de pantalla en ventanas bajas; ahora la
   columna de la foto es `sticky` y son más grandes.
+
+---
+
+## El radar de cobertura NO es un mapa (y por qué)
+
+Costó tres intentos, así que conviene dejarlo escrito antes de que alguien
+"lo arregle" volviendo atrás.
+
+Las dos primeras versiones ponían cada estado en su **posición geográfica real**
+respecto a Guadalajara. Suena correcto y se ve mal, por un motivo sin arreglo
+dentro de esa idea: desde Guadalajara, México se reparte al noroeste (Baja,
+Sonora, Sinaloa) y al sureste (Yucatán, Tabasco), y al norte, al sur y al oeste
+**no hay nada porque es el Pacífico**. Los puntos salen en franja diagonal
+dentro de unos anillos redondos y media figura queda vacía. Sin costa dibujada
+detrás, ese vacío no se lee como océano: se lee como un diagrama roto.
+
+La versión actual es un **diagrama**, no un mapa:
+
+- **Radio** = distancia real, comprimida con `(d/DMAX)**0.60`. La compresión hace
+  falta porque 12 de los 21 estados están a menos de 500 km y sólo Baja
+  California llega a 1 670: en escala lineal se amontonaban todos en el centro.
+- **Ángulo** = reparto parejo en los 360°, **ordenado por el rumbo real**. Los
+  vecinos siguen siendo vecinos, pero se llena el disco entero.
+- Los **anillos siguen rotulados en km reales**, así que el dato no miente.
+
+Se genera con `scratchpad/gen_radar2.py` (lleva el razonamiento en la cabecera).
+Para comprobar cómo queda sin navegador: `scratchpad/ver_radar.py` dibuja la
+geometría leyéndola del propio HTML y saca un PNG de escritorio y otro de móvil.
+
+**Ojo con el móvil**: los puntos son elementos HTML medidos en píxeles y **no
+encogen con el SVG**, mientras que trazos y rótulos de dentro del SVG sí. Por eso
+hay un bloque `@media (max-width:760px)` que compensa los dos sentidos. El bloque
+anterior apuntaba a clases del radar viejo (`.radar__states`, `.st`) que ya no
+existían: escondía el SVG y dejaba los puntos flotando en un contenedor sin
+altura. Eso era el "en móvil se ve mal".
 
 ---
 
