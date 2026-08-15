@@ -792,7 +792,7 @@ ul{list-style:none}
   display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);
   gap:clamp(24px,3.5vw,52px);align-items:center;
 }
-.radar{position:relative;aspect-ratio:900/620;min-width:0}
+.radar{position:relative;aspect-ratio:900/760;min-width:0}
 .radar__svg{position:absolute;inset:0;width:100%;height:100%}
 .radar__svg g{fill:none}
 .radar__rings circle{stroke:rgba(255,255,255,.13);stroke-width:1}
