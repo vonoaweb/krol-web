@@ -63,26 +63,35 @@ un registro DNS. Mover DNS no hace falta y complica la vuelta atrás.
 
 ## Cómo verificar cambios en este equipo (lee esto antes de intentarlo)
 
-**No hay forma de tomar capturas del navegador.** Se probaron todas:
+**El panel de pruebas ya sirve** — el 15-ago funcionó de principio a fin, así que
+lo de "no hay forma de tomar capturas" que decía este apunte quedó atrás. La
+receta que funcionó:
 
-- El panel de pruebas del entorno falla toda la sesión ("Screenshot timed out",
-  y a veces carga la página vacía).
-- Edge sin ventana (`--headless=new --screenshot`) **no genera el archivo**,
-  ni con un perfil aparte.
-- No hay Chrome instalado, ni `playwright`, ni `cairosvg`.
+1. `preview_start` con el nombre **`krol-web`**, que ya está en
+   `Vonoa web/.claude/launch.json` (levanta `python -m http.server 8021` sobre
+   `krol-demo`). De ahí salen capturas, consola y red.
+2. **Servidor sí, `file://` no.** Abriendo el HTML como archivo suelto, el panel
+   lo pinta como recorte estático: sin CSS y sin imágenes. Parece que todo está
+   roto y no lo está.
+3. Las capturas salen **encogidas** cuando el ancho de ventana es grande. Para
+   ver detalle conviene el preajuste de móvil (sale a 750 px de ancho) o una
+   ventana de 1000 px.
 
-Lo que **sí** funciona, y es con lo que se validó el radar:
+Aun así, **medir gana a mirar**. Lo más útil sigue siendo preguntarle al DOM:
+`getBoundingClientRect()` sobre las tarjetas dice en qué renglón cae cada una y
+si la retícula queda con huecos, y `naturalWidth === 0` delata la imagen que no
+cargó. Así se validó el portafolio de 12 obras.
 
-1. **Comprobar la geometría por cálculo**, leyendo el HTML ya escrito: que nada
-   se salga del marco, que los puntos no se encimen, que las llaves del CSS
-   cuadren. Un descuadre de llaves ya rompió media hoja una vez y no se vio hasta
-   contar.
-2. **Dibujarlo con PIL**: `scratchpad/ver_radar.py` lee la geometría del propio
-   HTML y saca un PNG de escritorio y otro de móvil. No es el render exacto del
-   navegador, pero para juzgar composición sirve.
-3. **El visto bueno visual es de Fernando.** Hay que pedírselo explícitamente y
-   decirle que abra con `Ctrl + Shift + R`, porque la caché de GitHub Pages
-   engaña.
+Y antes de tocar el navegador:
+
+- **Comprobar por cálculo**, leyendo el HTML ya escrito: que nada se salga del
+  marco, que los puntos no se encimen, que las llaves del CSS cuadren. Un
+  descuadre de llaves ya rompió media hoja una vez y no se vio hasta contar.
+- **Dibujarlo con PIL**: `scratchpad/ver_radar.py` lee la geometría del propio
+  HTML y saca un PNG de escritorio y otro de móvil.
+- **El visto bueno visual sigue siendo de Fernando.** Hay que pedírselo
+  explícitamente y decirle que abra con `Ctrl + Shift + R`, porque la caché de
+  GitHub Pages engaña.
 
 No afirmes que algo "ya se ve bien" sin haberlo visto. En este proyecto pasó y
 costó rondas.
@@ -205,6 +214,9 @@ Escalador 4x            C:\Fer_Doc\Comfy\models\upscale_models\4x_NMKD-Superscal
 - **Videos**: los 6 usables recomprimidos, de 48 MB a 7.4 MB.
 - **Miniaturas del portafolio**: se salían de pantalla en ventanas bajas; ahora la
   columna de la foto es `sticky` y son más grandes.
+- **Portafolio de 9 a 12 obras**: la ficha agrupada "Ejecución especializada" se
+  partió en **Pingüinario**, **Escalera helicoidal** y **Capilla**, y entró
+  **Muros de concreto lanzado**. Detalle abajo.
 - **Sitio movido** fuera del dominio del cliente, con "en construcción" en su lugar.
 
 ---
@@ -242,6 +254,50 @@ altura. Eso era el "en móvil se ve mal".
 
 ---
 
+## El portafolio son 12 fichas, no 13
+
+`Feedback v2/CAMBIOS IMAGENES Y TEXTOS.txt` numera el portafolio **hasta el 13**,
+y de ahí salió el "faltan proyectos" de antes. Pero **la entrada 3 de esa lista
+está en blanco** —igual que la nota 4 del otro archivo—, así que los proyectos
+reales son doce y **doce hay**. No hace falta inventar el que falta.
+
+El orden de las fichas es **el de ese documento**, a propósito: cuando Héctor
+revise con su lista en la mano, va a ir bajando en el mismo orden.
+
+**Cómo se repartieron las fotos.** Ninguna ficha lleva dato que no se pueda
+sostener: `data-lugar` y `data-anio` van vacíos cuando no se sabe y el JS
+esconde el renglón en vez de dejarlo en blanco.
+
+| Ficha | Fotos |
+|---|---|
+| Pingüinario · Zoológico Guadalajara | acceso terminado + estructura en obra |
+| Escalera helicoidal | 5: la resanada de portada y luego cimbra, armado, descimbrada, terminada |
+| Capilla para casa de retiros | 1 (es la única que mandaron) |
+| Muros de concreto lanzado | 3: el muro terminado de portada y luego firme colado y malla armada |
+
+**Dos reglas que se ven pequeñas y no lo son:**
+
+1. **`data-fotos` se parte por comas**, y cada foto separa ruta y texto
+   alternativo con `|`. Una coma dentro de un texto alternativo parte la lista
+   mal y tira la galería. No lleven comas.
+2. **La primera foto de `data-fotos` tiene que ser la misma de la portada de la
+   ficha**: al abrir, el JS reemplaza la imagen grande con `fotos[0]`, y si no
+   coinciden el usuario pica una foto y se abre otra. Por eso las galerías abren
+   con su portada y la secuencia de obra va después, no al revés.
+
+**La tira de miniaturas ahora corre de lado.** Con cinco fotos ocupa 430 px y el
+panel en celular mide 343: como `.lb__img` recorta lo que se sale, la quinta
+quedaba escondida y sin manera de llegar a ella. Se le puso `overflow-x:auto`
+(con la barra escondida, que encima de la foto estorba) y miniaturas de 60×44 en
+pantalla angosta. **Si alguien agrega una sexta foto a alguna obra, esto ya
+aguanta**; lo que no aguanta es quitarle el `overflow`.
+
+**La escalera helicoidal es el único trabajo del que hay secuencia completa de
+una misma obra** — justo lo que KROL pidió en la junta del 30-jul para la
+sección de proceso. Vale la pena enseñársela cuando se retome ese tema.
+
+---
+
 ## Pendientes
 
 ### Espera respuesta de Fernando
@@ -249,6 +305,12 @@ altura. Eso era el "en móvil se ve mal".
   Servicios repite "02", Proyectos usa 03/04 y Contacto 04/06 para lo mismo.
   Propuesta lista: portada sin número, secciones 01, 02, 03… por página.
 - **Nota 4 del feedback está en blanco**: preguntarle a Héctor qué iba ahí.
+- **Muros de concreto lanzado quedó filtrado como "Especializados"**, por técnica,
+  igual que los muros aparentes. Con eso el filtro Especializados junta 5 de las
+  12 fichas. Si se prefiere, cabe en Industrial.
+- **Residencia Ayamonte dice "En ejecución"** donde la ficha rotula *Periodo*,
+  que fue lo que pidió KROL. Si se quiere ver sin abrir la obra, hay que
+  subirlo al renglón de la tarjeta.
 
 ### Espera material o acción de KROL
 - **Héctor tiene que verificar el correo de Web3Forms** o los avisos no llegan.
@@ -256,12 +318,18 @@ altura. Eso era el "en móvil se ve mal".
   en la junta del 30-jul: hoy son de obras distintas y ya lo notaron).
 - **Video de la escalera helicoidal**: el que mandaron es de 416×416, no sirve.
 - Confirmar si las imágenes de `PORTADA/` son obra suya o referencias.
+- **Confirmar la segunda foto del Pingüinario**. Es
+  `imagenes/imagenes/Proyectos de ejecucion especializada 3.png`, la única de esa
+  serie sin nombre: la 2 dice capilla y la 4 y 5 dicen escalera, así que por
+  descarte la 1 y la 3 son el Pingüinario, y las dos pegan (recinto con árbol,
+  cubierta metálica blanca). Es deducción, no dato. Obra de KROL es, seguro; lo
+  que falta confirmar es a qué proyecto pertenece.
+- **Fotos de la capilla**: sólo mandaron una y es de interior. Con una de fachada
+  la ficha se sostiene sola.
+- **Ubicación y año** de escalera helicoidal y muros de concreto lanzado: van
+  vacíos porque nadie los ha dicho.
 
 ### Por hacer, con material ya disponible
-- **Galerías del portafolio**: el documento pide 13 proyectos y hoy hay 9. Faltan
-  Pingüinario, Escalera helicoidal, Capilla y Muros de concreto lanzado — **los
-  cuatro tienen fotos**, hay que partir el proyecto agrupado "Ejecución
-  especializada" en sus partes. *(Es lo siguiente en la fila.)*
 - **Logos de clientes**: siguen como texto en el sitio, teniendo los 6 archivos
   desde julio.
 - **Logo nuevo**: el sitio usa el viejo en PNG; hay SVG en `KROL-logo/`.
