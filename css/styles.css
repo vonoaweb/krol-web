@@ -331,8 +331,6 @@ ul{list-style:none}
    falta es despegar el trazo del muro, no darle brillo. Va una sola vez en el
    svg y no por trazo: son ~180 elementos y con un filtro cada uno el navegador
    se arrastra. */
-/* Sin animación (movimiento reducido): el plano ya aparece dibujado */
-@keyframes trazarPlano{to{stroke-dashoffset:0}}}
 /* En celular el svg pasa a `meet` (lo hace el script) y el alzado entra
    completo, apoyado abajo. Ahí ya no es fondo sino remate al pie de la
    portada: se atenúa para que el titular siga mandando, y las cotas se van
@@ -796,9 +794,17 @@ ul{list-style:none}
 .radar__svg{position:absolute;inset:0;width:100%;height:100%}
 .radar__svg g{fill:none}
 .radar__rings circle{stroke:rgba(255,255,255,.13);stroke-width:1}
+/* Los anillos son más grandes que el marco: si la nube de estados va centrada,
+   los de 1200 y 1600 km no caben enteros. En vez de que se corten en seco, se
+   difuminan hacia los bordes, que es como se ven en un radar de verdad. */
+.radar__rings,.radar__cross{
+  -webkit-mask-image:radial-gradient(circle at 50% 65%, #000 58%, rgba(0,0,0,.35) 82%, transparent 97%);
+          mask-image:radial-gradient(circle at 50% 65%, #000 58%, rgba(0,0,0,.35) 82%, transparent 97%);
+}
 .radar__cross line{stroke:rgba(249,115,22,.22);stroke-width:1;stroke-dasharray:6 8}
 .radar__spokes line{stroke:var(--naranja);stroke-width:1.1;opacity:.4;transition:opacity .25s ease,stroke-width .25s ease}
 .radar__spokes line.on{opacity:1;stroke-width:2}
+.radar__kms{isolation:isolate}
 .radar__kms text{fill:var(--acero);font-family:var(--tecno);font-size:11px;letter-spacing:.16em;opacity:0;transition:opacity .6s ease .8s}
 .radar.in .radar__kms text{opacity:.55}
 .radar__core circle{stroke:var(--naranja);stroke-width:2;fill:none}
