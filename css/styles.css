@@ -790,7 +790,7 @@ ul{list-style:none}
   display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);
   gap:clamp(24px,3.5vw,52px);align-items:center;
 }
-.radar{position:relative;aspect-ratio:900/760;min-width:0}
+.radar{position:relative;aspect-ratio:900/700;min-width:0}
 .radar__svg{position:absolute;inset:0;width:100%;height:100%}
 .radar__svg g{fill:none}
 .radar__rings circle{stroke:rgba(255,255,255,.13);stroke-width:1}
@@ -798,8 +798,8 @@ ul{list-style:none}
    los de 1200 y 1600 km no caben enteros. En vez de que se corten en seco, se
    difuminan hacia los bordes, que es como se ven en un radar de verdad. */
 .radar__rings,.radar__cross{
-  -webkit-mask-image:radial-gradient(circle at 50% 65%, #000 58%, rgba(0,0,0,.35) 82%, transparent 97%);
-          mask-image:radial-gradient(circle at 50% 65%, #000 58%, rgba(0,0,0,.35) 82%, transparent 97%);
+  -webkit-mask-image:radial-gradient(circle at 50% 50%, #000 58%, rgba(0,0,0,.35) 82%, transparent 97%);
+          mask-image:radial-gradient(circle at 50% 50%, #000 58%, rgba(0,0,0,.35) 82%, transparent 97%);
 }
 .radar__cross line{stroke:rgba(249,115,22,.22);stroke-width:1;stroke-dasharray:6 8}
 .radar__spokes line{stroke:var(--naranja);stroke-width:1.1;opacity:.4;transition:opacity .25s ease,stroke-width .25s ease}
