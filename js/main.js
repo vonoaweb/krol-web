@@ -435,31 +435,61 @@ const lb = $('#lb');
 let ultimoFoco = null;
 
 if (lb) {
+const lbImg = $('#lbImg'), lbVid = $('#lbVid');
+
+/* El video se suelta al salir de él, no sólo se pausa: si se queda cargado
+   sigue corriendo detrás de la foto siguiente y mantiene el archivo en memoria
+   aunque la ficha ya se haya cerrado. */
+function soltarVideo() {
+  if (lbVid.hidden) return;
+  lbVid.pause();
+  lbVid.removeAttribute('src');
+  lbVid.load();
+  lbVid.hidden = true;
+}
+
+/* Pone en el hueco grande la pieza que toca, sea foto o video. */
+function verPieza([src, alt, poster]) {
+  if (/\.mp4$/i.test(src)) {
+    lbVid.poster = poster || '';
+    lbVid.src = src;
+    lbVid.hidden = false;
+    lbImg.hidden = true;
+    // Con movimiento reducido no arranca solo: se queda el póster.
+    if (!CALMA) lbVid.play().catch(() => {});
+  } else {
+    soltarVideo();
+    lbImg.src = src;
+    lbImg.alt = alt || '';
+    lbImg.hidden = false;
+  }
+}
+
 obras.forEach(o => o.addEventListener('click', () => {
   ultimoFoco = o;
   const img = $('img', o);
-  $('#lbImg').src = img.src;
-  $('#lbImg').alt = img.alt;
+  verPieza([img.src, img.alt]);
 
-  /* Galería: las obras con varias fotos las declaran en data-fotos, separadas
-     por coma, y cada una lleva su texto alternativo después de una barra. Las
-     que traen una sola foto no muestran miniaturas. */
+  /* Galería: las obras con varias piezas las declaran en data-fotos, separadas
+     por coma, y cada una lleva su texto alternativo después de una barra. Si la
+     pieza es un .mp4, el tercer campo es el póster —y es lo que se ve en la
+     miniatura, porque un video no sirve de miniatura—. Las obras de una sola
+     pieza no muestran miniaturas. */
   const tiras = $('#lbTiras');
-  const fotos = (o.dataset.fotos || '').split(',').filter(Boolean).map(f => f.split('|'));
+  const piezas = (o.dataset.fotos || '').split(',').filter(Boolean).map(f => f.split('|'));
   tiras.innerHTML = '';
-  tiras.hidden = fotos.length < 2;
+  tiras.hidden = piezas.length < 2;
   if (!tiras.hidden) {
-    $('#lbImg').src = fotos[0][0];
-    $('#lbImg').alt = fotos[0][1] || '';
-    fotos.forEach(([src, alt], i) => {
+    verPieza(piezas[0]);
+    piezas.forEach((pieza, i) => {
+      const [src, , poster] = pieza;
       const b = document.createElement('button');
       b.type = 'button';
       b.className = 'lb__tira' + (i ? '' : ' on');
-      b.setAttribute('aria-label', `Ver foto ${i + 1} de ${fotos.length}`);
-      b.innerHTML = `<img src="${src}" alt="" loading="lazy" />`;
+      b.setAttribute('aria-label', `Ver ${i + 1} de ${piezas.length}`);
+      b.innerHTML = `<img src="${poster || src}" alt="" loading="lazy" />`;
       b.addEventListener('click', () => {
-        $('#lbImg').src = src;
-        $('#lbImg').alt = alt || '';
+        verPieza(pieza);
         $$('.lb__tira', tiras).forEach(x => x.classList.remove('on'));
         b.classList.add('on');
       });
@@ -484,6 +514,7 @@ obras.forEach(o => o.addEventListener('click', () => {
 }));
 
 function cerrarLb() {
+  soltarVideo();
   lb.classList.remove('open');
   lb.setAttribute('aria-hidden', 'true');
   document.body.style.overflow = '';

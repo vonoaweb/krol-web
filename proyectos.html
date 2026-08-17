@@ -103,7 +103,8 @@
 
       <article class="obra" data-cat="industrial" data-reveal
         data-desc="Cimentación profunda para bodega industrial: excavación, armado de zapatas y dados, y preparación de anclajes para estructura metálica."
-        data-lugar="El Salto, Jalisco" data-anio="" data-alcance="Excavación · Zapatas · Dados de anclaje">
+        data-lugar="El Salto, Jalisco" data-anio="" data-alcance="Excavación · Zapatas · Dados de anclaje"
+        data-fotos="img/acatlan.jpg|Cimentación de bodega industrial en El Salto,video/bodega-salto.mp4|Colado del piso de concreto bajo la nave|img/bodega-salto-poster.jpg,video/bodega-salto-interior.mp4|Recorrido por la nave con los tableros de piso ya colados|img/bodega-salto-interior-poster.jpg">
         <div class="obra__img pour"><picture><source srcset="img/acatlan.avif" type="image/avif" /><img src="img/acatlan.jpg" alt="Cimentación de bodega industrial en El Salto" loading="lazy" /></picture></div>
         <div class="obra__meta"><span class="obra__cat">Industrial</span><h3>Cimentación bodega El Salto</h3><p>Excavación · Zapatas · Dados de anclaje</p></div>
         <span class="obra__go">↗</span>
@@ -206,7 +207,10 @@
     <button class="lb__x" data-close aria-label="Cerrar">✕</button>
     <div class="lb__img">
       <img id="lbImg" alt="" />
-      <!-- Miniaturas: sólo aparecen si la obra trae más de una foto -->
+      <!-- Las obras que tienen video lo muestran en este mismo hueco, en lugar
+           de la foto. Va sin controles, como los de "En obra". -->
+      <video id="lbVid" muted loop playsinline preload="none" hidden></video>
+      <!-- Miniaturas: sólo aparecen si la obra trae más de una pieza -->
       <div class="lb__tiras" id="lbTiras" hidden></div>
     </div>
     <div class="lb__body">
