@@ -634,10 +634,24 @@ ul{list-style:none}
 .etapa{
   width:clamp(300px,40vw,540px);flex:none;position:relative;
   border-top:1px solid rgba(255,255,255,.16);padding-top:16px;
-  display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:clamp(10px,1.6vh,18px);
+  display:grid;grid-template-rows:minmax(0,1fr) auto;gap:clamp(10px,1.6vh,18px);
 }
-.etapa__n{font-family:var(--disp);font-size:clamp(1.9rem,3.6vw,3rem);color:transparent;-webkit-text-stroke:1.3px var(--acero);line-height:.9}
+/* El número va montado sobre la foto y no en renglón propio. El carril mide
+   100svh y no puede crecer, así que ese renglón más su hueco eran ~50 px que le
+   faltaban a la imagen —lo que la gente viene a ver—. Va dentro de .etapa__media
+   en el HTML, no suelto en la tarjeta: así se acomoda contra el borde de la foto
+   y no contra el padding, que lo dejaba asomado por arriba. Lleva velo para que
+   el trazo se lea igual sobre cielo que sobre concreto. */
+.etapa__n{
+  position:absolute;top:12px;left:14px;z-index:2;
+  font-family:var(--disp);font-size:clamp(1.9rem,3.6vw,3rem);
+  color:transparent;-webkit-text-stroke:1.3px var(--acero);line-height:.9;
+}
 .etapa__media{min-height:0;overflow:hidden;position:relative}
+.etapa__media::before{
+  content:'';position:absolute;inset:0 0 auto 0;height:110px;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(13,17,23,.85),rgba(13,17,23,.5) 45%,transparent);
+}
 .etapa__media img{width:100%;height:100%;object-fit:cover}
 .etapa__body h3{font-family:var(--cond);font-weight:700;text-transform:uppercase;font-size:clamp(1.15rem,2vw,1.6rem);color:var(--papel);letter-spacing:.02em;margin-bottom:8px}
 .etapa__body p{color:var(--cimbra);font-size:.92em;line-height:1.6;margin-bottom:12px}
@@ -646,6 +660,18 @@ ul{list-style:none}
   font-family:var(--cond);font-weight:500;text-transform:uppercase;font-size:.75rem;
   letter-spacing:.08em;color:var(--durazno);background:var(--naranja-suave);
   border:1px solid transparent;padding:5px 12px;
+}
+/* Ventana baja: el carril está clavado a 100svh, así que todo lo que no se le
+   quite al texto se le quita a la foto. En un portátil de 680 px de alto la
+   imagen quedaba en franja de 2.6:1; apretando el texto vuelve a proporción de
+   foto. Sólo con pin, o sea de 861 px de ancho en adelante. */
+@media (min-width:861px) and (max-height:820px){
+  .proceso__pin{padding-top:clamp(78px,10vh,110px);padding-bottom:clamp(22px,3vh,40px)}
+  .proceso__head{margin-bottom:clamp(12px,1.6vh,22px)}
+  .proceso__head .title{font-size:clamp(1.6rem,2.9vw,2.4rem)}
+  .etapa__body h3{font-size:clamp(1.05rem,1.7vw,1.35rem);margin-bottom:5px}
+  .etapa__body p{margin-bottom:9px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .etapa__body li{font-size:.7rem;padding:4px 10px}
 }
 
 /* ─── Reveal "colado" ─── */
