@@ -785,34 +785,49 @@ ul{list-style:none}
 .lb.open .lb__panel{transform:none}
 .lb__x{position:absolute;top:12px;right:12px;z-index:3;width:40px;height:40px;background:var(--naranja);color:var(--tinta);font-size:1rem}
 /* La columna de la foto se queda fija mientras el texto hace scroll: así las
-   miniaturas, que van pegadas abajo, nunca se salen de la pantalla. */
-.lb__img{position:sticky;top:0;align-self:start;max-height:88svh;overflow:hidden}
-/* El video ocupa el mismo hueco que la foto, pero entero: los clips del cliente
-   están grabados en vertical y recortarlos al ancho de la columna se comía un
-   tercio de la toma. Se deja completo y las bandas de los lados van del color
-   del panel, para que se lean como marco y no como error. */
-.lb__img > img,.lb__img > video{width:100%;height:100%;min-height:280px;max-height:88svh}
-.lb__img > img{object-fit:cover}
-.lb__img > video{display:block;object-fit:contain;background:var(--tinta)}
-/* Miniaturas de la obra, sobre la foto grande.
-   La escalera helicoidal trae cinco fotos: 5×74 + 4 huecos + los lados dan
-   430px, más de lo que mide el panel en celular, y como .lb__img recorta lo
-   que se sale, la última quedaba escondida sin manera de llegar a ella. Por eso
-   la tira corre de lado; la barra se oculta porque estorba encima de la foto. */
+   miniaturas, que van debajo, nunca se salen de la pantalla. */
+.lb__img{position:sticky;top:0;align-self:start;overflow:hidden;background:var(--tinta)}
+/* Marco fijo, y la pieza entera dentro. Las galerías mezclan fotos apaisadas de
+   1.78 con verticales de celular de 0.75 y videos de 0.56; recortándolas todas
+   al alto de la columna, cada cambio de miniatura reencuadraba la escena y
+   parecía otra obra. Con marco fijo lo único que cambia al pasar de una a otra
+   es la foto. El cuadrado es el reparto parejo: apaisadas y verticales ceden la
+   misma banda, y ninguna se recorta. */
+.lb__img > img,.lb__img > video{
+  display:block;width:100%;aspect-ratio:1/1;max-height:74svh;
+  object-fit:contain;background:var(--tinta);
+}
+/* El display:block de arriba pisaba el atributo hidden, así que la pieza que no
+   se está viendo —el video cuando toca foto, o al revés— seguía apartando su
+   hueco y abría un vacío del alto del marco entre la foto y las miniaturas. */
+.lb__img > [hidden]{display:none}
+/* Cuántas piezas trae la obra y en cuál va. Con trece fotos, sin esto no se
+   sabe si queda mucho por ver. Va arriba a la izquierda porque la ✕ ocupa la
+   otra esquina. */
+.lb__cuenta{
+  position:absolute;top:12px;left:12px;z-index:2;
+  font-family:var(--tecno);font-size:10px;letter-spacing:.14em;
+  color:var(--papel);background:rgba(13,17,23,.72);
+  border:1px solid var(--borde);padding:5px 9px;
+}
+/* Miniaturas debajo de la foto, no encima: iban montadas sobre la imagen y
+   tapaban el bajo justo cuando hay que compararlas. La escalera helicoidal trae
+   trece, así que la tira corre de lado; la barra se oculta por estorbo. */
 .lb__tiras{
-  position:absolute;left:0;right:0;bottom:0;z-index:1;
-  display:flex;gap:8px;padding:14px;
+  display:flex;gap:9px;padding:12px 14px;
   overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;
-  background:linear-gradient(0deg,rgba(13,17,23,.92) 45%,transparent);
+  background:var(--tinta);border-top:1px solid var(--borde);
 }
 .lb__tiras::-webkit-scrollbar{display:none}
 .lb__tira{
-  width:74px;height:54px;flex:none;padding:0;overflow:hidden;cursor:pointer;
-  border:2px solid rgba(255,255,255,.35);border-radius:5px;opacity:.85;
+  width:104px;height:76px;flex:none;padding:0;overflow:hidden;cursor:pointer;
+  border:2px solid rgba(255,255,255,.22);border-radius:5px;opacity:.72;
   transition:opacity .25s ease,border-color .25s ease,transform .25s ease;
 }
 .lb__tira:hover{transform:translateY(-2px)}
-.lb__tira img{width:100%;height:100%;object-fit:cover;display:block}
+/* La miniatura enseña la foto entera, igual que el marco grande. Recortada
+   prometía un encuadre y al picarla salía otro, que era justo la queja. */
+.lb__tira img{width:100%;height:100%;object-fit:contain;display:block;background:#0c0f14}
 .lb__tira:hover{opacity:1}
 .lb__tira.on{opacity:1;border-color:var(--naranja)}
 .lb__body{padding:clamp(24px,3vw,42px)}
@@ -1083,7 +1098,9 @@ ul{list-style:none}
   .cobertura__grid{grid-template-columns:1fr;gap:clamp(20px,4vw,34px)}
   .radar{max-width:560px;margin-inline:auto;width:100%}
   .lb__panel{grid-template-columns:1fr;max-height:90svh}
-  .lb__img{position:relative;max-height:46svh}
+  /* Sin tope en .lb__img: ahora la tira de miniaturas va dentro y en flujo, y
+     un max-height aquí se la comería. El tope se le pone sólo a la pieza. */
+  .lb__img{position:relative;max-height:none}
   .lb__img > img,.lb__img > video{max-height:46svh}
   .footer__grid{grid-template-columns:1fr 1fr}
   .serv{flex-basis:calc((100% - clamp(14px,1.8vw,26px)) / 2)}
@@ -1160,7 +1177,7 @@ ul{list-style:none}
   .vcards{grid-template-columns:1fr}
   /* Miniaturas más chicas: con tres caben sin correr la tira y con cinco al
      menos se ve que hay más y hacia dónde arrastrar. */
-  .lb__tira{width:60px;height:44px}
+  .lb__tira{width:84px;height:62px}
 }
 
 /* El radar en pantalla angosta.

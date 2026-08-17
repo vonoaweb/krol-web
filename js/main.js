@@ -465,6 +465,22 @@ function verPieza([src, alt, poster]) {
   }
 }
 
+/* Galería abierta: piezas y en cuál vamos. Hace falta guardarlo porque ahora
+   también se navega con las flechas, no sólo picando miniaturas. */
+let piezas = [], enPieza = 0;
+
+function irAPieza(i) {
+  if (piezas.length < 2) return;
+  enPieza = (i + piezas.length) % piezas.length;      // da la vuelta en los topes
+  verPieza(piezas[enPieza]);
+  const botones = $$('.lb__tira', $('#lbTiras'));
+  botones.forEach((b, j) => b.classList.toggle('on', j === enPieza));
+  // Con trece fotos la tira no cabe entera: la activa se trae a la vista sola.
+  botones[enPieza]?.scrollIntoView({ block: 'nearest', inline: 'nearest',
+                                     behavior: CALMA ? 'auto' : 'smooth' });
+  $('#lbCuenta').textContent = `${enPieza + 1} / ${piezas.length}`;
+}
+
 obras.forEach(o => o.addEventListener('click', () => {
   ultimoFoco = o;
   const img = $('img', o);
@@ -474,27 +490,24 @@ obras.forEach(o => o.addEventListener('click', () => {
      por coma, y cada una lleva su texto alternativo después de una barra. Si la
      pieza es un .mp4, el tercer campo es el póster —y es lo que se ve en la
      miniatura, porque un video no sirve de miniatura—. Las obras de una sola
-     pieza no muestran miniaturas. */
+     pieza no muestran miniaturas ni contador. */
   const tiras = $('#lbTiras');
-  const piezas = (o.dataset.fotos || '').split(',').filter(Boolean).map(f => f.split('|'));
+  piezas = (o.dataset.fotos || '').split(',').filter(Boolean).map(f => f.split('|'));
   tiras.innerHTML = '';
   tiras.hidden = piezas.length < 2;
+  $('#lbCuenta').hidden = piezas.length < 2;
   if (!tiras.hidden) {
-    verPieza(piezas[0]);
     piezas.forEach((pieza, i) => {
       const [src, , poster] = pieza;
       const b = document.createElement('button');
       b.type = 'button';
-      b.className = 'lb__tira' + (i ? '' : ' on');
+      b.className = 'lb__tira';
       b.setAttribute('aria-label', `Ver ${i + 1} de ${piezas.length}`);
       b.innerHTML = `<img src="${poster || src}" alt="" loading="lazy" />`;
-      b.addEventListener('click', () => {
-        verPieza(pieza);
-        $$('.lb__tira', tiras).forEach(x => x.classList.remove('on'));
-        b.classList.add('on');
-      });
+      b.addEventListener('click', () => irAPieza(i));
       tiras.appendChild(b);
     });
+    irAPieza(0);   // abre en la portada, marca su miniatura y pone el contador
   }
   $('#lbCat').textContent   = $('.obra__cat', o).textContent;
   $('#lbTitle').textContent = $('h3', o).textContent;
@@ -521,7 +534,14 @@ function cerrarLb() {
   if (ultimoFoco) ultimoFoco.focus?.();
 }
 $$('[data-close]', lb).forEach(el => el.addEventListener('click', cerrarLb));
-addEventListener('keydown', e => { if (e.key === 'Escape' && lb.classList.contains('open')) cerrarLb(); });
+addEventListener('keydown', e => {
+  if (!lb.classList.contains('open')) return;
+  if (e.key === 'Escape') return cerrarLb();
+  // Con trece fotos, ir de una en una con las flechas es más cómodo que apuntarle
+  // a la miniatura correcta.
+  if (e.key === 'ArrowRight') { e.preventDefault(); irAPieza(enPieza + 1); }
+  if (e.key === 'ArrowLeft')  { e.preventDefault(); irAPieza(enPieza - 1); }
+});
 }   // fin: sólo la página de proyectos trae lightbox
 
 /* ─────────────────────────────────────────────
