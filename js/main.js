@@ -594,7 +594,12 @@ if (!CALMA && !(navigator.connection && navigator.connection.saveData)) {
       if (e.isIntersecting) { v.preload = 'auto'; v.play?.().catch(() => {}); }
       else v.pause?.();
     }), { threshold: .25 });
-    $$('video').forEach(v => ioVid.observe(v));
+    // El video del visor queda fuera a propósito: de ése manda la galería, que
+    // lo arranca al elegirlo y lo suelta al salir. Si además lo vigilara este
+    // observador, tendría dos dueños peleándose —al mostrarlo pasa de
+    // display:none a visible, y ese salto genera una entrada de "no se ve" que
+    // llegaría a destiempo—. Un elemento, un dueño.
+    $$('video:not(#lbVid)').forEach(v => ioVid.observe(v));
   };
   if (document.readyState === 'complete') verVideos();
   else addEventListener('load', verVideos, { once: true });
