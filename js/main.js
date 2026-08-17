@@ -469,17 +469,46 @@ function verPieza([src, alt, poster]) {
    también se navega con las flechas, no sólo picando miniaturas. */
 let piezas = [], enPieza = 0;
 
+/* Marca el desvanecido del final mientras quede tira por recorrer. */
+function marcarDesborde() {
+  const t = $('#lbTiras');
+  t.classList.toggle('hay-mas', t.scrollWidth - t.clientWidth - t.scrollLeft > 4);
+}
+
 function irAPieza(i) {
   if (piezas.length < 2) return;
   enPieza = (i + piezas.length) % piezas.length;      // da la vuelta en los topes
   verPieza(piezas[enPieza]);
-  const botones = $$('.lb__tira', $('#lbTiras'));
+
+  const tiras = $('#lbTiras');
+  const botones = $$('.lb__tira', tiras);
   botones.forEach((b, j) => b.classList.toggle('on', j === enPieza));
-  // Con trece fotos la tira no cabe entera: la activa se trae a la vista sola.
-  botones[enPieza]?.scrollIntoView({ block: 'nearest', inline: 'nearest',
-                                     behavior: CALMA ? 'auto' : 'smooth' });
+
+  /* Con trece fotos la tira no cabe entera, así que la activa se centra sola.
+     Se mueve el scrollLeft a mano y no con scrollIntoView suave: el suave
+     depende de que el navegador esté animando y, cuando no lo está, se queda
+     sin hacer nada y la miniatura marcada acaba fuera de la vista. */
+  const b = botones[enPieza];
+  if (b) {
+    const centro = b.offsetLeft - (tiras.clientWidth - b.offsetWidth) / 2;
+    tiras.scrollLeft = Math.max(0, Math.min(centro, tiras.scrollWidth - tiras.clientWidth));
+  }
+
   $('#lbCuenta').textContent = `${enPieza + 1} / ${piezas.length}`;
+  marcarDesborde();
 }
+
+$('#lbAnt').addEventListener('click', () => irAPieza(enPieza - 1));
+$('#lbSig').addEventListener('click', () => irAPieza(enPieza + 1));
+$('#lbTiras').addEventListener('scroll', marcarDesborde);
+/* La tira se mueve de lado con la rueda: en un ratón normal no hay gesto
+   horizontal, y la barra va escondida porque encima de la foto estorba. */
+$('#lbTiras').addEventListener('wheel', e => {
+  const t = e.currentTarget;
+  if (t.scrollWidth <= t.clientWidth || Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
+  e.preventDefault();
+  t.scrollLeft += e.deltaY;
+}, { passive: false });
 
 obras.forEach(o => o.addEventListener('click', () => {
   ultimoFoco = o;
@@ -494,8 +523,11 @@ obras.forEach(o => o.addEventListener('click', () => {
   const tiras = $('#lbTiras');
   piezas = (o.dataset.fotos || '').split(',').filter(Boolean).map(f => f.split('|'));
   tiras.innerHTML = '';
-  tiras.hidden = piezas.length < 2;
-  $('#lbCuenta').hidden = piezas.length < 2;
+  const sola = piezas.length < 2;
+  tiras.hidden = sola;
+  $('#lbCuenta').hidden = sola;
+  $('#lbAnt').hidden = sola;
+  $('#lbSig').hidden = sola;
   if (!tiras.hidden) {
     piezas.forEach((pieza, i) => {
       const [src, , poster] = pieza;

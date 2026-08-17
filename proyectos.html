@@ -206,11 +206,15 @@
   <div class="lb__panel">
     <button class="lb__x" data-close aria-label="Cerrar">✕</button>
     <div class="lb__img">
-      <img id="lbImg" alt="" />
-      <!-- Las obras que tienen video lo muestran en este mismo hueco, en lugar
-           de la foto. Va sin controles, como los de "En obra". -->
-      <video id="lbVid" muted loop playsinline preload="none" hidden></video>
-      <span class="lb__cuenta" id="lbCuenta" hidden></span>
+      <div class="lb__marco">
+        <img id="lbImg" alt="" />
+        <!-- Las obras que tienen video lo muestran en este mismo hueco, en lugar
+             de la foto. Va sin controles, como los de "En obra". -->
+        <video id="lbVid" muted loop playsinline preload="none" hidden></video>
+        <span class="lb__cuenta" id="lbCuenta" hidden></span>
+        <button class="lb__nav lb__nav--ant" id="lbAnt" type="button" hidden aria-label="Anterior">‹</button>
+        <button class="lb__nav lb__nav--sig" id="lbSig" type="button" hidden aria-label="Siguiente">›</button>
+      </div>
       <!-- Miniaturas: sólo aparecen si la obra trae más de una pieza -->
       <div class="lb__tiras" id="lbTiras" hidden></div>
     </div>
