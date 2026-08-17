@@ -350,9 +350,31 @@ apaisadas y verticales ceden la misma banda y ninguna se recorta.
 **Las miniaturas van debajo de la foto, no encima**, y enseñan la foto entera
 igual que el marco grande — recortadas prometían un encuadre y al picarlas salía
 otro, que era justo la queja. Miden 104×76 (84×62 en celular) y la tira corre de
-lado con `overflow-x:auto`, la barra escondida. Con trece piezas hay además
-**contador `n / 13`** y **flechas ← →**, que dan la vuelta en los topes y
-arrastran la tira para que la miniatura activa siempre se vea.
+lado con `overflow-x:auto`, la barra escondida.
+
+**Cómo se avanza.** Con trece fotos y la barra escondida, la primera versión no
+daba ninguna pista: sólo servían las teclas, que nadie adivina. Hay cuatro vías,
+y conviene no quitar ninguna:
+
+- **Flechas ‹ › sobre la foto**, centradas dentro del marco. Dan la vuelta en los
+  topes. Es la única pista visible, así que es la que no se toca.
+- **Teclas ← →**, para quien ya sabe.
+- **Rueda del ratón sobre la tira**: un ratón normal no tiene gesto horizontal,
+  así que el `deltaY` se traduce a `scrollLeft`.
+- **Contador `n / 13`** arriba a la izquierda, para saber cuánto falta.
+
+Mientras quede tira por recorrer, el final se **desvanece** (clase `hay-mas`):
+cinco miniaturas alineadas y cortadas a ras parecían ser todas las que había.
+
+⚠️ **La miniatura activa se centra moviendo `scrollLeft` a mano, no con
+`scrollIntoView` suave.** El desplazamiento suave depende de que el navegador
+esté animando; cuando no lo está —pestaña de fondo, o el panel de pruebas de
+este equipo— se queda sin hacer nada y la miniatura marcada acaba fuera de la
+vista sin que nadie lo note. Así se comprobó que sí funciona.
+
+Foto y video viven dentro de `.lb__marco`, no sueltos en `.lb__img`: las flechas
+tienen que colocarse contra la imagen, y contra la columna quedaban centradas
+sobre las miniaturas.
 
 ⚠️ **Trampa que ya mordió una vez**: la regla que da `display:block` a la foto y
 al video **pisa el atributo `hidden`**, así que la pieza que no se está viendo
