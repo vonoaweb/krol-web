@@ -418,6 +418,18 @@ a 540×960 sin audio como sus hermanos (2.2 MB → 818 KB).
   que falta confirmar es a qué proyecto pertenece.
 - **Fotos de la capilla**: sólo mandaron una y es de interior. Con una de fachada
   la ficha se sostiene sola.
+- **Dos de las cuatro fotos de "Cómo trabajamos" son verticales de celular** y por
+  eso esa sección nunca se va a ver como ellos quieren. KROL pidió el 16-ago que
+  las imágenes se vieran más grandes y señaló `PLANEACION.jpeg` (1536×1024, 3:2)
+  como la referencia. El marco ya se llevó a 1.56:1, así que de PLANEACION se ve
+  el 96% y de `CIMBRADO Y COLADO` el 88% — pero `Armado 2.jpeg` (960×1280) y
+  `MURO DE CONCRETO CENTRO LOGISTICO DE ACATLAN.jpeg` (1086×1448) se quedan en el
+  **48%**, porque son verticales metidas en un marco apaisado. No hay CSS que lo
+  arregle: **hay que pedir esas dos en horizontal**, o cambiarlas por otras. Vale
+  la pena enseñarle la comparación, porque la referencia que él mismo eligió es
+  justo la única de las cuatro que ya venía en 3:2.
+- **`CIMBRADO Y COLADO.jpeg` llegó en 507×371** y está publicada escalada con IA.
+  Si tienen el original a tamaño real, mejor.
 - **Partir el periodo 2014 — 2026**. El cuestionario da ese rango al grupo entero
   de ejecución especializada, no a cada obra. Ponerlo en las tres fichas diría
   que cada una duró doce años, así que van sin año hasta que Héctor diga el de
