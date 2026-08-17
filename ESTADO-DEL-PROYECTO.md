@@ -320,7 +320,7 @@ esconde el renglón en vez de dejarlo en blanco.
 | Ficha | Fotos |
 |---|---|
 | Pingüinario · Zoológico Guadalajara | acceso terminado + estructura en obra |
-| Escalera helicoidal | 5: la resanada de portada y luego cimbra, armado, descimbrada, terminada |
+| Escalera helicoidal | **13**: la resanada de portada y luego toda la obra en orden — cimbra, armado, descimbrada, terminada y el vestíbulo |
 | Capilla para casa de retiros | 1 (es la única que mandaron) |
 | Muros de concreto lanzado | 3: el muro terminado de portada y luego firme colado y malla armada |
 
@@ -334,12 +334,30 @@ esconde el renglón en vez de dejarlo en blanco.
    coinciden el usuario pica una foto y se abre otra. Por eso las galerías abren
    con su portada y la secuencia de obra va después, no al revés.
 
-**La tira de miniaturas ahora corre de lado.** Con cinco fotos ocupa 430 px y el
-panel en celular mide 343: como `.lb__img` recorta lo que se sale, la quinta
-quedaba escondida y sin manera de llegar a ella. Se le puso `overflow-x:auto`
-(con la barra escondida, que encima de la foto estorba) y miniaturas de 60×44 en
-pantalla angosta. **Si alguien agrega una sexta foto a alguna obra, esto ya
-aguanta**; lo que no aguanta es quitarle el `overflow`.
+### El visor tiene marco fijo, y es a propósito
+
+KROL se quejó el 16-ago de que al cambiar de miniatura **"cambia radicalmente la
+imagen y confunde al usuario"**. Tenía razón y la causa era el recorte: las
+galerías mezclan fotos apaisadas de 1.78 con verticales de celular de 0.75 y
+videos de 0.56, y al recortarlas todas al alto de la columna, cada pieza se
+reencuadraba distinto. Parecían obras diferentes.
+
+Ahora el marco es **fijo y cuadrado**, con la pieza entera dentro
+(`object-fit:contain`). Lo único que cambia al pasar de una a otra es la foto.
+El cuadrado no es capricho: con ese rango de proporciones es el reparto parejo,
+apaisadas y verticales ceden la misma banda y ninguna se recorta.
+
+**Las miniaturas van debajo de la foto, no encima**, y enseñan la foto entera
+igual que el marco grande — recortadas prometían un encuadre y al picarlas salía
+otro, que era justo la queja. Miden 104×76 (84×62 en celular) y la tira corre de
+lado con `overflow-x:auto`, la barra escondida. Con trece piezas hay además
+**contador `n / 13`** y **flechas ← →**, que dan la vuelta en los topes y
+arrastran la tira para que la miniatura activa siempre se vea.
+
+⚠️ **Trampa que ya mordió una vez**: la regla que da `display:block` a la foto y
+al video **pisa el atributo `hidden`**, así que la pieza que no se está viendo
+sigue apartando su hueco y abre un vacío del alto del marco entre la foto y las
+miniaturas. Por eso existe `.lb__img > [hidden]{display:none}`. No quitarla.
 
 **La escalera helicoidal es el único trabajo del que hay secuencia completa de
 una misma obra** — justo lo que KROL pidió en la junta del 30-jul para la
