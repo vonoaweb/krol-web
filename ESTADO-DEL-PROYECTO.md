@@ -2,7 +2,7 @@
 
 Apunte de traspaso para quien retome esto sin haber estado antes — otra persona,
 otro chat, o yo mismo dentro de un mes.
-Última actualización: **15 de agosto de 2026**.
+Última actualización: **16 de agosto de 2026**.
 
 ---
 
@@ -77,10 +77,20 @@ receta que funcionó:
    ver detalle conviene el preajuste de móvil (sale a 750 px de ancho) o una
    ventana de 1000 px.
 
-Aun así, **medir gana a mirar**. Lo más útil sigue siendo preguntarle al DOM:
+⚠️ **Las capturas no siempre están.** El 16-ago el servidor, la consola, la red y
+el DOM respondieron perfecto, pero cada captura murió con *"Screenshot timed out:
+the Browser pane is not displayed"*: si el panel no está visible en pantalla, la
+página no compone cuadros y no hay nada que fotografiar. **No es que el cambio
+esté roto** — es que no hay imagen. Se sigue con lo de abajo, que no depende de
+que el panel se vea.
+
+Y sí: **medir gana a mirar**. Lo más útil sigue siendo preguntarle al DOM:
 `getBoundingClientRect()` sobre las tarjetas dice en qué renglón cae cada una y
 si la retícula queda con huecos, y `naturalWidth === 0` delata la imagen que no
-cargó. Así se validó el portafolio de 12 obras.
+cargó. Así se validó el portafolio de 12 obras, y así se validaron los videos de
+la ficha de El Salto: abrir la ficha desde el propio JS, picar cada miniatura y
+preguntar si el `<video>` quedó visible, con qué `src`, si está corriendo
+(`paused === false`) y cuánto mide su caja contra la del panel.
 
 Y antes de tocar el navegador:
 
@@ -254,6 +264,8 @@ Escalador 4x            C:\Fer_Doc\Comfy\models\upscale_models\4x_NMKD-Superscal
 - **Portafolio de 9 a 12 obras**: la ficha agrupada "Ejecución especializada" se
   partió en **Pingüinario**, **Escalera helicoidal** y **Capilla**, y entró
   **Muros de concreto lanzado**. Detalle abajo.
+- **Las fichas ya pueden llevar video**, no sólo fotos. La primera que lo usa es
+  **Cimentación bodega El Salto**, con los dos clips de la bodega. Detalle abajo.
 - **Sitio movido** fuera del dominio del cliente, con "en construcción" en su lugar.
 
 ---
@@ -333,6 +345,36 @@ aguanta**; lo que no aguanta es quitarle el `overflow`.
 una misma obra** — justo lo que KROL pidió en la junta del 30-jul para la
 sección de proceso. Vale la pena enseñársela cuando se retome ese tema.
 
+### Una ficha también puede llevar video
+
+Lo estrenó **Cimentación bodega El Salto**, que abre con la foto y luego dos
+clips de la obra. En `data-fotos`, la pieza que **termina en `.mp4`** se muestra
+en `<video>` y usa un **tercer campo** para el póster:
+
+```
+video/bodega-salto.mp4|Colado del piso de concreto bajo la nave|img/bodega-salto-poster.jpg
+```
+
+Ese póster no es adorno: **es lo que se ve en la miniatura**, porque un video no
+sirve de miniatura. Si se agrega un video sin póster, la tira queda con un hueco.
+
+Dos decisiones que conviene no deshacer:
+
+- **Al salir de un video se suelta, no se pausa** (`removeAttribute('src')` +
+  `load()`). Pausarlo nada más lo deja cargado: sigue corriendo detrás de la foto
+  siguiente y guarda el archivo aunque ya se haya cerrado la ficha.
+- **Los videos van con `object-fit:contain`, las fotos siguen en `cover`.** Los
+  clips del cliente están grabados en vertical; recortarlos al ancho de la
+  columna se comía un tercio de la toma. Las bandas de los lados van del color
+  del panel para que se lean como marco.
+
+**El clip que ya estaba no se volvió a comprimir.** `BODEGA EL SALTO.mp4` del
+cliente es el mismo que ya vivía en `video/bodega-salto.mp4` — se comprueba con
+`cropdetect`, da el mismo `crop=608:1080:656:0` de siempre. El nuevo es
+`Bodega el salto video.mp4`, que venía con **giro de -90° en los metadatos**
+dentro de un lienzo de 1280×720: ffmpeg lo endereza solo al recodificar, y sale
+a 540×960 sin audio como sus hermanos (2.2 MB → 818 KB).
+
 ---
 
 ## Pendientes
@@ -348,6 +390,19 @@ sección de proceso. Vale la pena enseñársela cuando se retome ese tema.
 - **Residencia Ayamonte dice "En ejecución"** donde la ficha rotula *Periodo*,
   que fue lo que pidió KROL. Si se quiere ver sin abrir la obra, hay que
   subirlo al renglón de la tarjeta.
+- **El clip de El Salto sale dos veces en la misma página**: en la ficha del
+  proyecto y suelto en "En obra". No estorba —son dos contextos distintos y la
+  sección de videos es una muestra general—, pero si molesta, lo que se quita es
+  el mosaico de "En obra": ahí el video no dice de qué obra es y en la ficha sí.
+  Ojo: esa cuadrícula está pensada para seis, con cinco queda hueco.
+- **¿La foto de portada de El Salto es de esa obra?** La ficha se titula
+  *Cimentación bodega El Salto*, pero su foto (`img/acatlan.jpg`) enseña una
+  fachada terminada de tableros de concreto con el rótulo **CENTRO LOGÍSTICO**, y
+  el archivo del cliente del que salió se llama `MURO DE CONCRETO CENTRO
+  LOGISTICO DE ACATLAN.jpeg`. Los dos videos que ahora cuelgan de esa ficha son
+  de una nave de estructura metálica en obra: puede ser el mismo desarrollo en
+  otra etapa, o pueden ser dos obras distintas. **No se tocó nada**, porque
+  cambiar la portada sin saber es peor. Preguntárselo a Héctor.
 
 ### Espera material o acción de KROL
 - **Héctor tiene que verificar el correo de Web3Forms** o los avisos no llegan.
