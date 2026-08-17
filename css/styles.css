@@ -851,6 +851,15 @@ ul{list-style:none}
 .lb__tira img{width:100%;height:100%;object-fit:contain;display:block;background:#0c0f14}
 .lb__tira:hover{opacity:1}
 .lb__tira.on{opacity:1;border-color:var(--naranja)}
+/* Marca de reproducción: la miniatura de un video es su póster, una foto
+   quieta, y sin esto no se distingue de las demás. */
+.lb__tira--video{position:relative}
+.lb__tira--video::after{
+  content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:0;height:0;border-style:solid;border-width:9px 0 9px 15px;
+  border-color:transparent transparent transparent var(--papel);
+  filter:drop-shadow(0 1px 3px rgba(13,17,23,.9));
+}
 .lb__body{padding:clamp(24px,3vw,42px)}
 .lb__body h3{font-family:var(--cond);font-weight:800;text-transform:uppercase;font-size:clamp(1.4rem,2.4vw,2rem);line-height:1.05;color:var(--papel);margin-bottom:14px}
 .lb__desc{color:var(--cimbra);font-size:.95em;margin-bottom:24px}

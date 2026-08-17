@@ -531,10 +531,13 @@ obras.forEach(o => o.addEventListener('click', () => {
   if (!tiras.hidden) {
     piezas.forEach((pieza, i) => {
       const [src, , poster] = pieza;
+      const esVideo = /\.mp4$/i.test(src);
       const b = document.createElement('button');
       b.type = 'button';
-      b.className = 'lb__tira';
-      b.setAttribute('aria-label', `Ver ${i + 1} de ${piezas.length}`);
+      // La miniatura de un video es su póster, o sea una foto quieta: sin la
+      // marca no hay manera de saber cuál de las catorce se va a mover.
+      b.className = 'lb__tira' + (esVideo ? ' lb__tira--video' : '');
+      b.setAttribute('aria-label', `${esVideo ? 'Ver video' : 'Ver foto'} ${i + 1} de ${piezas.length}`);
       b.innerHTML = `<img src="${poster || src}" alt="" loading="lazy" />`;
       b.addEventListener('click', () => irAPieza(i));
       tiras.appendChild(b);
