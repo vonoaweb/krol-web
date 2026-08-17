@@ -448,7 +448,16 @@ a 540×960 sin audio como sus hermanos (2.2 MB → 818 KB).
 - **Héctor tiene que verificar el correo de Web3Forms** o los avisos no llegan.
 - Fotos **timelapse de una misma obra** para los 4 pasos del proceso (lo pidieron
   en la junta del 30-jul: hoy son de obras distintas y ya lo notaron).
-- **Video de la escalera helicoidal**: el que mandaron es de 416×416, no sirve.
+- **Video de la escalera helicoidal: quitarle la marca de InShot.** Ya está
+  publicado —Fernando lo pidió el 16-ago— pero conviene mirarlo antes de
+  enseñárselo a nadie: es un reel que armaron con la app **InShot y trae su marca
+  de agua abajo a la derecha los 80 segundos**, lo cual en el sitio de un cliente
+  se ve mal. Además cierra con **tarjeta del logo viejo**, el que se está
+  cambiando. Lo ideal es que Héctor exporte el mismo reel desde InShot de pago,
+  sin marca; si no, se puede recortar el cierre, pero la marca corre todo el
+  video y no hay recorte que la quite sin comerse la imagen. Lo de los 416×416 no
+  tiene arreglo: se deja así porque escalar video no inventa detalle, y como el
+  marco del visor es cuadrado lo llena exacto.
 - Confirmar si las imágenes de `PORTADA/` son obra suya o referencias.
 - **Confirmar la segunda foto del Pingüinario**. Es
   `imagenes/imagenes/Proyectos de ejecucion especializada 3.png`, la única de esa
