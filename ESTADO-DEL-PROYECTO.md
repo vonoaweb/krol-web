@@ -77,12 +77,23 @@ receta que funcionó:
    ver detalle conviene el preajuste de móvil (sale a 750 px de ancho) o una
    ventana de 1000 px.
 
-⚠️ **Las capturas no siempre están.** El 16-ago el servidor, la consola, la red y
-el DOM respondieron perfecto, pero cada captura murió con *"Screenshot timed out:
-the Browser pane is not displayed"*: si el panel no está visible en pantalla, la
-página no compone cuadros y no hay nada que fotografiar. **No es que el cambio
-esté roto** — es que no hay imagen. Se sigue con lo de abajo, que no depende de
-que el panel se vea.
+⚠️ **Con el panel oculto no hay capturas — y tampoco hay video.** El 16-ago el
+servidor, la consola, la red y el DOM respondieron perfecto, pero cada captura
+murió con *"Screenshot timed out: the Browser pane is not displayed"*. La causa
+es que `document.visibilityState` vale **`hidden`**, y de ahí salen tres cosas
+que parecen fallos y no lo son:
+
+1. No hay capturas: sin composición no hay cuadro que fotografiar.
+2. **Los `<video>` no se reproducen.** El navegador suspende el medio en una
+   página oculta: se ve `play()` sin error, luego `waiting`, `suspend` y `pause`
+   en el segundo cero, **sin que ningún JS haya llamado a `pause()`**. Se
+   comprueba envolviendo `HTMLMediaElement.prototype.pause` y mirando la pila.
+   Costó un diagnóstico equivocado; que no vuelva a costar otro.
+3. No corre el scroll, ni IntersectionObserver, ni las transiciones CSS, ni
+   `scrollTo` con `behavior:'smooth'`.
+
+**Lo que sí se puede medir con el panel oculto**: geometría, `naturalWidth`,
+clases, atributos, `scrollLeft` asignado a mano, y red con `fetch`.
 
 Y sí: **medir gana a mirar**. Lo más útil sigue siendo preguntarle al DOM:
 `getBoundingClientRect()` sobre las tarjetas dice en qué renglón cae cada una y
@@ -316,6 +327,23 @@ revise con su lista en la mano, va a ir bajando en el mismo orden.
 **Cómo se repartieron las fotos.** Ninguna ficha lleva dato que no se pueda
 sostener: `data-lugar` y `data-anio` van vacíos cuando no se sabe y el JS
 esconde el renglón en vez de dejarlo en blanco.
+
+**Cada obra lleva TODO su material, videos incluidos.** Lo pidió Fernando el
+16-ago: *"no pusiste todas las imágenes y los que son video los pusiste aparte"*.
+Son **62 piezas** repartidas por proyecto, y **la sección "En obra" ya no existe**
+—sus seis videos están ahora en la ficha de su obra, que es donde se entiende de
+qué obra son—. Su CSS (`.obravid`, `.ovid`) se dejó intacto por si se quiere
+volver atrás: basta con reponer el bloque HTML.
+
+| Ficha | Piezas |
+|---|---|
+| O'Reilly | 4: la aérea nocturna y tres sucursales |
+| Agencias automotrices | 8: tres de armado, **video** de la escalera, y las cuatro agencias |
+| Cimentación bodega El Salto | 4: la foto, **dos videos** y el muro del centro logístico |
+| Muros de concreto aparente | 10: terminados, armado, cimbra, descimbrado y accesos |
+| Casa habitación | 6: patio, fachada, cocina, muro de duela y su textura |
+| Habilitado y armado de losa | 4: tres de armado y el **video** de la dobladora |
+| Muros de concreto lanzado | 7: tres fotos y **cuatro videos**, alternados en orden de obra |
 
 | Ficha | Fotos |
 |---|---|
