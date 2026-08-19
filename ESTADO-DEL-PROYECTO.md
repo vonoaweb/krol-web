@@ -352,6 +352,42 @@ conserva sus 7 fotos buenas de `PAGINA WEB/` y `Feedback v1/` y se le sumaron
 las que faltaban de su carpeta. Si algún día se quiere lo contrario, es
 recortar, no rehacer.
 
+## Las láminas de presentación no son fotos
+
+En `imagenes/imagenes/` hay archivos que **parecen fotos y son recortes de una
+presentación**: `Oreilly.png`, `Oreilly 2.png`, `Oreilly 3.png` y las cuatro de
+`Agencias …`. Miden **entre 419 y 537 px de ancho** y varias traen los gráficos
+de la lámina pegados dentro del propio archivo del cliente: barras naranjas en
+los bordes de las de O'Reilly, y un recuadro blanco con restos de texto en
+`Oreilly 2.png`.
+
+Se habían publicado ampliadas 3.2× hasta 1600 px. El resultado se nota: los
+cristales de la agencia Volvo ondulan, las letras se deshacen y las ramas de los
+árboles quedan como pintadas. **Fernando las sacó del sitio el 19-ago**: no se
+publican imágenes que no sean foto de verdad.
+
+Hoy quedan así:
+
+- **O'Reilly**: sólo la toma de dron al anochecer, que sí es foto real y viene de
+  `Feedback v2/…/O'reilly/AGENCIA OREILLY.jpeg`. Sin galería.
+- **Agencias automotrices**: las tres fotos de obra reales. Sin las cuatro
+  fachadas.
+
+Los siete archivos siguen en `img/` (`oreilly-1/2/3`, `agencia-hyundai/kia/
+mercedes/volvo`) **sin que ninguna página los use**, por si llegan los
+originales y sirven de referencia. No los borres pensando que sobran, y no los
+vuelvas a enlazar sin material mejor.
+
+⚠️ **Lo que hay que pedirle a Héctor**: los archivos originales de esas fotos —
+si armó la presentación, los tiene sueltos y en tamaño bueno. Es distinto de las
+fotos nuevas que el ingeniero no ha tomado; esas ya las tenía anotadas el
+cliente en su propio feedback.
+
+⚠️ **Detalle a revisar**: las tres fotos que quedan en Agencias son de 2023
+(`PAGINA WEB/WhatsApp Image 2023-05-07…`) y la ficha dice 2024 — 2026. Son
+tomas genéricas de armado, no de una agencia. Conviene sustituirlas cuando
+lleguen las buenas.
+
 ## La sección "En obra"
 
 Desapareció al mover los videos dentro de cada ficha, y por eso KROL apuntó que
