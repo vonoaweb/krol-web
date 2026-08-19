@@ -19,7 +19,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;500;600;700;800&family=Michroma&family=Black+Ops+One&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="css/styles.css" />
+<link rel="stylesheet" href="css/styles.css?v=20260819" />
 <link rel="preload" as="image" href="img/muro-contencion.jpg" fetchpriority="high" />
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230D1117'/%3E%3Cpath transform='translate(4.104 26.284) scale(0.0155 -0.0155)' fill='%23F97316' d='M627 188V833L937 1327H1397ZM117 0V1327H559V0ZM940 0 790 309 1052 702 1418 0Z'/%3E%3C/svg%3E" />
 </head>
@@ -95,9 +95,8 @@
 
       <article class="obra" data-cat="comercial" data-reveal
         data-desc="Cimentación, obra civil, pisos de concreto y muros de contención en agencias automotrices, así como adecuaciones, ampliaciones y preparaciones para instalación de infraestructura."
-        data-lugar="Jalisco" data-anio="2024 — 2026" data-alcance="Cimentación · Pisos · Adecuaciones"
-        data-fotos="img/armado-losa2.jpg|Armado de losa en agencia automotriz,img/armado-losa.jpg|Armado de la losa de entrepiso antes del colado,img/armado-vertical.jpg|Armado vertical de muros y castillos">
-        <div class="obra__img pour"><img src="img/armado-losa2.jpg" alt="Armado de losa en agencia automotriz" loading="lazy" /></div>
+        data-lugar="Jalisco" data-anio="2024 — 2026" data-alcance="Cimentación · Pisos · Adecuaciones">
+        <div class="obra__img obra__img--pend pour" role="img" aria-label="Pendiente de fotografía"><span>Pendiente de fotografía</span></div>
         <div class="obra__meta"><span class="obra__cat">Comercial</span><h3>Agencias automotrices</h3><p>Jalisco · 2024 — 2026</p></div>
         <span class="obra__go">↗</span>
       </article>
@@ -215,6 +214,9 @@
         <!-- Las obras que tienen video lo muestran en este mismo hueco, en lugar
              de la foto. Va sin controles, como los de "En obra". -->
         <video id="lbVid" muted loop playsinline preload="none" hidden></video>
+        <!-- Obras que todavía esperan fotografía: el panel abre con el aviso
+             en lugar de dejar el hueco en negro. -->
+        <div class="lb__pend" id="lbPend" hidden><span>Pendiente de fotografía</span></div>
         <span class="lb__cuenta" id="lbCuenta" hidden></span>
         <button class="lb__nav lb__nav--ant" id="lbAnt" type="button" hidden aria-label="Anterior">‹</button>
         <button class="lb__nav lb__nav--sig" id="lbSig" type="button" hidden aria-label="Siguiente">›</button>
@@ -340,6 +342,6 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="js/main.js"></script>
+<script src="js/main.js?v=20260819"></script>
 </body>
 </html>

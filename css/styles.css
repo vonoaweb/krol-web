@@ -779,6 +779,20 @@ ul{list-style:none}
 .obra--wide .obra__img{aspect-ratio:16/9}
 .obra__img img{width:100%;height:100%;object-fit:cover;transition:transform 1.5s var(--ease),clip-path 1.15s var(--ease)}
 .obra:hover .obra__img img{transform:scale(1.05)}
+/* Obra que aún espera fotografía. Se dice en la tarjeta en vez de rellenar
+   con una imagen que no es de esa obra. */
+.obra__img--pend{
+  display:grid;place-items:center;background:var(--tarjeta);
+  border:1px dashed rgba(255,255,255,.18);
+}
+.obra__img--pend span,.lb__pend span{
+  font-family:var(--tecno);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--cimbra);text-align:center;padding:0 18px;line-height:1.9;
+}
+.lb__pend{
+  display:grid;place-items:center;background:var(--tarjeta);
+  min-height:280px;height:100%;
+}
 .obra__meta{padding-top:18px}
 .obra__cat{
   display:inline-block;font-family:var(--tecno);font-size:8.5px;letter-spacing:.2em;

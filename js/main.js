@@ -435,7 +435,7 @@ const lb = $('#lb');
 let ultimoFoco = null;
 
 if (lb) {
-const lbImg = $('#lbImg'), lbVid = $('#lbVid');
+const lbImg = $('#lbImg'), lbVid = $('#lbVid'), lbPend = $('#lbPend');
 
 /* El video se suelta al salir de él, no sólo se pausa: si se queda cargado
    sigue corriendo detrás de la foto siguiente y mantiene el archivo en memoria
@@ -449,7 +449,16 @@ function soltarVideo() {
 }
 
 /* Pone en el hueco grande la pieza que toca, sea foto o video. */
+/* Obra sin fotografía todavía: ni foto ni video, sólo el aviso. */
+function verPendiente() {
+  soltarVideo();
+  lbImg.hidden = true;
+  lbVid.hidden = true;
+  if (lbPend) lbPend.hidden = false;
+}
+
 function verPieza([src, alt, poster]) {
+  if (lbPend) lbPend.hidden = true;
   if (/\.mp4$/i.test(src)) {
     lbVid.poster = poster || '';
     lbVid.src = src;
@@ -513,7 +522,8 @@ $('#lbTiras').addEventListener('wheel', e => {
 obras.forEach(o => o.addEventListener('click', () => {
   ultimoFoco = o;
   const img = $('img', o);
-  verPieza([img.src, img.alt]);
+  // Las fichas pendientes de fotografía no traen <img>: abren con el aviso.
+  if (img) verPieza([img.src, img.alt]); else verPendiente();
 
   /* Galería: las obras con varias piezas las declaran en data-fotos, separadas
      por coma, y cada una lleva su texto alternativo después de una barra. Si la
