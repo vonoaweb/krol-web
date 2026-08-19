@@ -352,6 +352,38 @@ conserva sus 7 fotos buenas de `PAGINA WEB/` y `Feedback v1/` y se le sumaron
 las que faltaban de su carpeta. Si algún día se quiere lo contrario, es
 recortar, no rehacer.
 
+## Obras "pendientes de fotografía"
+
+**Agencias automotrices** no tiene ni una foto suya. Las tres que le quedaban
+eran de 2023, tomas genéricas de armado, y la ficha dice 2024 — 2026. El
+criterio de Fernando: **antes de rellenar con material que no es de la obra, se
+dice que falta la foto.**
+
+Cómo está resuelto, por si hay que aplicarlo a otra ficha:
+
+- La tarjeta **no lleva `<img>`**: lleva
+  `<div class="obra__img obra__img--pend pour" role="img" aria-label="Pendiente de fotografía">`
+  con el aviso dentro. Mantiene el 4/3 y la misma altura que las vecinas.
+- El panel tiene su propio aviso, `#lbPend`, y se abre con él en lugar del hueco
+  negro. La descripción, la ubicación y el alcance **se siguen viendo**: la ficha
+  no pierde su información por no tener foto.
+- ⚠️ **El JS necesitó una guardia.** El manejador hacía `img.src` sin comprobar
+  que la obra tuviera imagen, así que una ficha sin foto **tiraba el panel
+  entero**. Si alguien crea otra obra sin fotografía, esa guardia ya está; si la
+  quita, vuelve el fallo.
+
+## El CSS y el JS van versionados
+
+`styles.css?v=20260819` y `main.js?v=20260819` en las seis páginas. **Al tocar
+CSS o JS hay que subir ese número**, o los navegadores se quedan con el archivo
+viejo.
+
+Se puso porque pasó de verdad: tras editar `main.js` el navegador siguió
+ejecutando el anterior aun recargando a la fuerza, y el diagnóstico se fue por
+donde no era. Es el mismo problema que obligaba a pedirle a Héctor que abriera
+con `Ctrl + Shift + R`. Con la versión puesta, **eso ya no hace falta para CSS y
+JS** — para el HTML y las imágenes sí puede seguir haciendo falta.
+
 ## Las láminas de presentación no son fotos
 
 En `imagenes/imagenes/` hay archivos que **parecen fotos y son recortes de una
