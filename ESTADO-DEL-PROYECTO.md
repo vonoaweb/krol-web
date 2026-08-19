@@ -314,6 +314,57 @@ altura. Eso era el "en móvil se ve mal".
 
 ---
 
+## De qué carpeta sale cada obra (y cómo se comprueba)
+
+KROL pidió, obra por obra, "imágenes de la carpeta con el mismo nombre". El
+**19-ago** se auditó comparando **contenido**, no nombres de archivo: huella
+perceptual contra las 133 imágenes del cliente, más comparación píxel a píxel
+para los empates.
+
+**La trampa del rastreo.** Los PNG de la entrega de julio (`imagenes/imagenes/`)
+traen **marco blanco**. El marco descuadra la huella entera, así que seis fotos
+de agencias y O'Reilly salían como "sin origen" siendo idénticas a su archivo.
+Hay que **recortar el marco antes de comparar**; si no, se persiguen fantasmas.
+
+Lo que encontró la auditoría:
+
+- **`CIMENTACION BODEGA EL SALTO/` no tiene ni una foto**, sólo dos videos. La
+  ficha abría con `acatlan.jpg`, que es en realidad
+  `MURO DE CONCRETO CENTRO LOGISTICO DE ACATLAN` —el muro de otra obra— y
+  encima estaba repetido en la misma galería con otro nombre. Ahora la ficha
+  lleva sus dos videos y la portada sale de un cuadro del propio video.
+- **Fotos repetidas** bajo distinto nombre: `acatlan`/`centro-logistico` y
+  `patio-concreto`/`concreto-aparente-casa`. Vale la pena volver a correr la
+  comprobación de duplicados al agregar material.
+- El muro de Acatlán se fue a **Muros de concreto aparente**, que es la carpeta
+  donde el cliente lo tiene guardado.
+- **`LOSA ANTES.jpeg`** venía inclinada 33° y con un dedo en la esquina. Se
+  enderezó y se recortó al **rectángulo máximo inscrito** —la fórmula, no un
+  recorte a ojo, que se comió la imagen en el primer intento—.
+
+**Las carpetas del cliente mezclan obras.** `MUROS DE CONCRETO APARENTE/`
+guarda también AYAMONTE, CASA MURO DE DUELA y CASA RESERVA REAL, que son de
+otras fichas. "De su carpeta" no quiere decir "todo lo que hay dentro".
+
+**Criterio con el que se trabajó**: la indicación del cliente dice *dónde
+buscar el material*, no "sólo esto". Así que Muros de concreto aparente
+conserva sus 7 fotos buenas de `PAGINA WEB/` y `Feedback v1/` y se le sumaron
+las que faltaban de su carpeta. Si algún día se quiere lo contrario, es
+recortar, no rehacer.
+
+## La sección "En obra"
+
+Desapareció al mover los videos dentro de cada ficha, y por eso KROL apuntó que
+el video de la escalera "no está". Volvió el 19-ago con **ese video solo**: es
+el único que no pertenece a ninguna de las 13 obras del portafolio, y repetir
+los demás sería duplicar lo que ya está en las fichas.
+
+Va **a dos columnas** —texto y clip— y no en la cuadrícula de tres que tenía
+antes: con un solo video quedaba un recuadro suelto en medio de una franja
+vacía. Ojo si alguien la retoca: la regla `.obravid__grid` se reescribe en una
+media query posterior, así que una regla de una sola clase puesta antes **no
+gana**; por eso el bloque nuevo usa su propia clase.
+
 ## El portafolio son 12 fichas, no 13
 
 `Feedback v2/CAMBIOS IMAGENES Y TEXTOS.txt` numera el portafolio **hasta el 13**,
