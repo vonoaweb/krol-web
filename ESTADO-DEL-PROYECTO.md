@@ -365,12 +365,14 @@ eso se veían pastosas —`duela-textura` pesaba 543 KB para mostrar una imagen 
 
 ## Obras "pendientes de fotografía"
 
-Dos fichas están así hoy: **Agencias automotrices** y **Pingüinario del
-Zoológico Guadalajara**. El criterio de Fernando: **antes de rellenar con
+Tres fichas están así hoy: **Agencias automotrices**, **Pingüinario del
+Zoológico Guadalajara** y **Capilla para casa de retiros**. El criterio de Fernando: **antes de rellenar con
 material que no es de la obra o que no da la talla, se dice que falta la foto.**
 
 - *Agencias*: las tres que le quedaban eran de 2023, tomas genéricas de armado,
   y la ficha dice 2024 — 2026.
+- *Capilla*: su única imagen salía de un recorte de lámina de 844×423 estirado
+  a 1600, y encima iba en tarjeta ancha, que es donde más se nota.
 - *Pingüinario*: sus dos imágenes salían de recortes de lámina de 493×493 y
   481×722 ampliados hasta 1600 — la misma familia de material que ya se había
   retirado de O'Reilly y Agencias. Además la segunda nunca se confirmó que fuera
