@@ -258,9 +258,18 @@ Escalador 4x            C:\Fer_Doc\Comfy\models\upscale_models\4x_NMKD-Superscal
 ## Lo que se hizo
 
 - **Formulario de contacto** conectado de verdad (arriba el detalle).
-- **Portada**: se cambió la casa generada por obra real (dron sobre losa, sale del
-  promocional `ANUNCIO.mp4` del cliente; el único tramo sin texto ni logo viejo
-  encimado es el 38.0–41.5 s).
+- **Portada**: primero se cambió la casa generada por obra real (dron sobre losa,
+  del promocional `ANUNCIO.mp4` del cliente; el único tramo sin texto ni logo
+  viejo encimado es el 38.0–41.5 s). **El 19-ago KROL pidió volver a una foto
+  fija**: `CASA RESERVA REAL.png` de `PAGINA WEB/PORTADA/`, que es una de las
+  cinco marcadas abajo como probablemente generadas. Se le avisó a Fernando y
+  aun así se puso, por petición suya. El video `hero.mp4` sigue en `video/` sin
+  usarse, así que volver atrás es cambiar una etiqueta.
+  Dos cosas que hubo que ajustar al cambiar: el `filter` de la portada llevaba
+  `brightness(1.2)` porque la toma de dron era de atardecer y salía apagada —con
+  una foto de mediodía quemaba el concreto, ahora va neutro—, y se comprobó por
+  cálculo que el titular blanco sigue teniendo **4.1:1** de contraste sobre la
+  foto con el velo puesto.
 - **Diagrama de la portada quitado** (lo pidió KROL). Era además lo que trababa la
   carga: ~230 trazos animándose sobre un video 1080p.
 - **Cobertura**: de 7 a **21 estados**, con radiales, anillos rotulados en km,

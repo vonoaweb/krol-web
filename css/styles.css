@@ -289,10 +289,11 @@ ul{list-style:none}
 .hero__media video{
   position:absolute;left:0;top:-9%;
   width:100%;height:118%;object-fit:cover;display:block;
-  /* El cliente pidió que la portada no se viera oscura, así que el video sube
-     de brillo en vez de bajar. Se le quita algo de color para que no compita
-     con el naranja del plano, pero se queda claro. */
-  filter:brightness(1.2) contrast(1.02) saturate(.72);
+  /* El realce de brillo venía de cuando la portada era una toma de dron al
+     atardecer, que salía apagada. La foto de ahora es de mediodía con cielo
+     abierto y con brightness(1.2) se quemaba el concreto: se deja neutra. Se
+     le sigue quitando color para que no compita con el naranja del plano. */
+  filter:brightness(1.02) contrast(1.04) saturate(.72);
   will-change:transform;
 }
 /* El video ya trae su propio acercamiento: no se le encima el zoom del GSAP */

@@ -19,9 +19,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;500;600;700;800&family=Michroma&family=Black+Ops+One&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="css/styles.css?v=20260819b" />
+<link rel="stylesheet" href="css/styles.css?v=20260819c" />
 <!-- Imagen LCP de la portada: se precarga con prioridad para que aparezca de inmediato -->
-<link rel="preload" as="image" href="img/hero-poster.jpg" fetchpriority="high" />
+<link rel="preload" as="image" href="img/hero-portada.jpg" fetchpriority="high" />
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230D1117'/%3E%3Cpath transform='translate(4.104 26.284) scale(0.0155 -0.0155)' fill='%23F97316' d='M627 188V833L937 1327H1397ZM117 0V1327H559V0ZM940 0 790 309 1052 702 1418 0Z'/%3E%3C/svg%3E" />
 <script type="application/ld+json">
 {
@@ -87,13 +87,10 @@
 <!-- ══════════════ HERO ══════════════ -->
 <section class="hero" id="inicio">
   <div class="hero__media" id="heroMedia">
-    <!-- Dos capas: el video de obra como textura y el velo que lo apaga.
-         Es decorativo, el titular carga el significado. -->
-    <video poster="img/hero-poster.jpg" muted loop playsinline preload="none" aria-hidden="true" data-parallax>
-      <source src="video/hero.mp4" type="video/mp4" />
-      <!-- Alternativa si el video no puede reproducirse -->
-      <img src="img/hero-poster.jpg" alt="" fetchpriority="high" />
-    </video>
+    <!-- Dos capas: la foto de portada como textura y el velo que la apaga.
+         Es decorativa, el titular carga el significado. Antes iba un video de
+         obra; KROL pidió esta foto fija en su lugar. -->
+    <img src="img/hero-portada.jpg" alt="" aria-hidden="true" fetchpriority="high" data-parallax />
     <div class="hero__veil"></div>
   </div>
 
@@ -359,6 +356,6 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="js/main.js?v=20260819b"></script>
+<script src="js/main.js?v=20260819c"></script>
 </body>
 </html>
