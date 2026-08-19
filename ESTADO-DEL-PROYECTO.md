@@ -365,10 +365,16 @@ eso se veían pastosas —`duela-textura` pesaba 543 KB para mostrar una imagen 
 
 ## Obras "pendientes de fotografía"
 
-**Agencias automotrices** no tiene ni una foto suya. Las tres que le quedaban
-eran de 2023, tomas genéricas de armado, y la ficha dice 2024 — 2026. El
-criterio de Fernando: **antes de rellenar con material que no es de la obra, se
-dice que falta la foto.**
+Dos fichas están así hoy: **Agencias automotrices** y **Pingüinario del
+Zoológico Guadalajara**. El criterio de Fernando: **antes de rellenar con
+material que no es de la obra o que no da la talla, se dice que falta la foto.**
+
+- *Agencias*: las tres que le quedaban eran de 2023, tomas genéricas de armado,
+  y la ficha dice 2024 — 2026.
+- *Pingüinario*: sus dos imágenes salían de recortes de lámina de 493×493 y
+  481×722 ampliados hasta 1600 — la misma familia de material que ya se había
+  retirado de O'Reilly y Agencias. Además la segunda nunca se confirmó que fuera
+  de esa obra: se dedujo por el nombre del archivo.
 
 Cómo está resuelto, por si hay que aplicarlo a otra ficha:
 
