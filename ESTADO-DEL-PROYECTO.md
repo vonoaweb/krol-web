@@ -346,11 +346,22 @@ Lo que encontró la auditoría:
 guarda también AYAMONTE, CASA MURO DE DUELA y CASA RESERVA REAL, que son de
 otras fichas. "De su carpeta" no quiere decir "todo lo que hay dentro".
 
-**Criterio con el que se trabajó**: la indicación del cliente dice *dónde
-buscar el material*, no "sólo esto". Así que Muros de concreto aparente
-conserva sus 7 fotos buenas de `PAGINA WEB/` y `Feedback v1/` y se le sumaron
-las que faltaban de su carpeta. Si algún día se quiere lo contrario, es
-recortar, no rehacer.
+**Criterio, corregido el 19-ago por Fernando**: "imágenes de la carpeta con el
+mismo nombre" se lee **literal**. La ficha de **Muros de concreto aparente**
+lleva **exactamente los 11 archivos de su carpeta y ninguno más**, aunque cinco
+de ellos sean casas y no muros: si el cliente los guardó ahí, ahí van. Se le
+quitaron 7 fotos buenas que venían de `PAGINA WEB/` y `Feedback v1/`.
+
+Cuatro de esas 7 siguen usándose en otras páginas (`muro-contencion` es el
+fondo de la portada de Proyectos, `muro-armado` en Nosotros, `cimbra-muro` en
+Contacto, `cimbrado-colado` en Servicios). Las otras tres —`muro-aparente`,
+`muro-alto`, `muro-interior`— quedaron **sin usar en ninguna página**; siguen en
+`img/` por si hacen falta.
+
+Las 11 se regeneraron desde la carpeta **sin ampliar ninguna**: se publican a su
+tamaño real, que va de 1536×1024 a 432×372. Antes tres estaban ampliadas y por
+eso se veían pastosas —`duela-textura` pesaba 543 KB para mostrar una imagen de
+432 px; ahora pesa 38—.
 
 ## Obras "pendientes de fotografía"
 
