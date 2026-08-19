@@ -591,9 +591,12 @@ a 540×960 sin audio como sus hermanos (2.2 MB → 818 KB).
 - **Muros de concreto lanzado quedó filtrado como "Especializados"**, por técnica,
   igual que los muros aparentes. Con eso el filtro Especializados junta 5 de las
   12 fichas. Si se prefiere, cabe en Industrial.
-- **Residencia Ayamonte dice "En ejecución"** donde la ficha rotula *Periodo*,
-  que fue lo que pidió KROL. Si se quiere ver sin abrir la obra, hay que
-  subirlo al renglón de la tarjeta.
+- ~~Residencia Ayamonte y el rótulo *Periodo*~~ **resuelto el 19-ago**: "En
+  ejecución" salía bajo *Periodo*, y un estado no es un periodo. Ahora hay un
+  atributo propio, `data-estado`, con su renglón **Estado** en el panel, y
+  además se ve en la tarjeta como distintivo naranja sobre la foto sin tener
+  que abrirla. Sirve para cualquier otra obra: basta con ponerle
+  `data-estado="…"`.
 - **El clip de El Salto sale dos veces en la misma página**: en la ficha del
   proyecto y suelto en "En obra". No estorba —son dos contextos distintos y la
   sección de videos es una muestra general—, pero si molesta, lo que se quita es

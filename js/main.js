@@ -559,7 +559,7 @@ obras.forEach(o => o.addEventListener('click', () => {
   $('#lbDesc').textContent  = o.dataset.desc;
   // Sólo mostramos los datos que el cliente confirmó: si viene vacío, se oculta
   // la ficha completa en vez de dejar un renglón en blanco.
-  [['#lbLugar', o.dataset.lugar], ['#lbAnio', o.dataset.anio], ['#lbAlcance', o.dataset.alcance]]
+  [['#lbEstado', o.dataset.estado], ['#lbLugar', o.dataset.lugar], ['#lbAnio', o.dataset.anio], ['#lbAlcance', o.dataset.alcance]]
     .forEach(([sel, val]) => {
       const dd = $(sel);
       dd.textContent = val || '';

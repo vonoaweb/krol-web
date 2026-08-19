@@ -793,6 +793,14 @@ ul{list-style:none}
   display:grid;place-items:center;background:var(--tarjeta);
   min-height:280px;height:100%;
 }
+/* Estado de la obra sobre la foto: KROL pidió que "En ejecución" se viera,
+   y metido en el renglón de Periodo decía que el periodo era "En ejecución". */
+.obra__estado{
+  position:absolute;left:0;bottom:0;z-index:2;
+  background:var(--naranja);color:var(--tinta);
+  font-family:var(--tecno);font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;
+  padding:7px 12px;
+}
 .obra__meta{padding-top:18px}
 .obra__cat{
   display:inline-block;font-family:var(--tecno);font-size:8.5px;letter-spacing:.2em;
