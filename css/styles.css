@@ -484,10 +484,25 @@ ul{list-style:none}
 .ovid{margin:0;border:1px solid var(--borde);background:var(--tinta);overflow:hidden}
 /* Con un solo video la retícula de tres columnas lo dejaría flaco y pegado a
    la izquierda: aquí se centra y se le pone un ancho de lectura. */
-/* En obra lleva los videos que no pertenecen a ninguna ficha del portafolio.
-   Con dos, la cuadrícula base de tres dejaba un hueco al final del renglón. */
-.obravid .obravid__grid--dos{grid-template-columns:repeat(2,minmax(0,1fr))}
-@media (max-width:860px){.obravid .obravid__grid--dos{grid-template-columns:1fr}}
+/* Un solo video: a dos columnas, texto y clip, para que no quede una franja
+   con un recuadro suelto en medio. */
+.obravid__solo{display:grid;grid-template-columns:1fr minmax(0,420px);gap:clamp(28px,5vw,72px);align-items:center}
+.obravid__texto .title{margin-bottom:20px}
+.obravid__desc{color:var(--cimbra);max-width:46ch;margin-bottom:26px}
+.obravid__datos{display:flex;gap:38px;margin-bottom:30px;flex-wrap:wrap}
+.obravid__datos b{
+  display:block;font-family:var(--cond);font-weight:700;text-transform:uppercase;
+  letter-spacing:.05em;font-size:1rem;color:var(--papel);
+}
+.obravid__datos span{
+  display:block;font-family:var(--tecno);font-size:7.5px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--acero);margin-top:6px;
+}
+.ovid--grande video,.ovid--grande img{aspect-ratio:4/5}
+@media (max-width:860px){
+  .obravid__solo{grid-template-columns:1fr}
+  .ovid--grande{max-width:420px;width:100%}
+}
 .ovid video,.ovid img{
   width:100%;aspect-ratio:4/5;object-fit:cover;display:block;
   background:var(--tinta);filter:contrast(1.05) saturate(.92);
