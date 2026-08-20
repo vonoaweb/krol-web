@@ -19,7 +19,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;500;600;700;800&family=Michroma&family=Black+Ops+One&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="css/styles.css?v=20260819c" />
+<link rel="stylesheet" href="css/styles.css?v=20260819d" />
 <link rel="preload" as="image" href="img/muro-contencion.jpg" fetchpriority="high" />
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230D1117'/%3E%3Cpath transform='translate(4.104 26.284) scale(0.0155 -0.0155)' fill='%23F97316' d='M627 188V833L937 1327H1397ZM117 0V1327H559V0ZM940 0 790 309 1052 702 1418 0Z'/%3E%3C/svg%3E" />
 </head>
@@ -161,9 +161,8 @@
 
       <article class="obra" data-cat="industrial" data-reveal
         data-desc="Habilitado de acero y armado de losa de entrepiso con acero cortado y doblado en taller propio, entregado a medida de proyecto."
-        data-lugar="" data-anio="" data-alcance="Habilitado de varilla · Armado de losa"
-        data-fotos="img/armado-detalle.jpg|Detalle del armado de acero en losa,img/armado-2.jpg|Acero habilitado y armado en muros y castillos,img/estructuras-concreto.jpg|Armado de losa de entrepiso listo para colar,video/dobladora.mp4|La dobladora de varilla del taller propio|img/dobladora-poster.jpg">
-        <div class="obra__img pour"><picture><source srcset="img/armado-detalle.avif" type="image/avif" /><img src="img/armado-detalle.jpg" alt="Detalle de armado de acero en losa" loading="lazy" /></picture></div>
+        data-lugar="" data-anio="" data-alcance="Habilitado de varilla · Armado de losa">>
+        <div class="obra__img obra__img--pend pour" role="img" aria-label="Pendiente de fotografía"><span>Pendiente de fotografía</span></div>
         <div class="obra__meta"><span class="obra__cat">Industrial</span><h3>Habilitado y armado de losa</h3><p>Acero habilitado en taller propio</p></div>
         <span class="obra__go">↗</span>
       </article>
@@ -241,30 +240,36 @@
 
 
 <!-- ══════════════ VIDEO DE OBRA ══════════════
-     Los videos de cada obra viven dentro de su ficha del portafolio. Aquí
-     queda el de la escalera de concreto, que no pertenece a ninguno de los
-     proyectos del portafolio y que KROL pidió ver en un apartado de obra.
-     Va a dos columnas y no en la cuadrícula de tres: con un solo clip, la
-     cuadrícula dejaba media franja vacía. -->
+     Los videos que pertenecen a una obra viven dentro de su ficha del
+     portafolio. Aquí quedan los que no son de ninguna de las 13: la escalera
+     de concreto y la dobladora del taller propio. -->
 <section class="section obravid">
-  <div class="shell obravid__solo">
-    <div class="obravid__texto">
-      <p class="eyebrow" data-reveal><span class="eyebrow__mark"></span>En obra</p>
-      <h2 class="title" data-reveal>El trabajo,<br>mientras sucede</h2>
-      <p class="obravid__desc" data-reveal>Nada explica mejor un proceso constructivo que verlo. Ésta es una escalera de concreto colada en sitio y entregada con el acabado a la vista.</p>
-      <ul class="obravid__datos" data-reveal>
-        <li><b>Escalera de concreto</b><span>Agencia automotriz</span></li>
-        <li><b>Colado en sitio</b><span>Acabado aparente</span></li>
-      </ul>
-      <a href="contacto.html" class="btn btn--solid" data-reveal>Quiero algo así <span class="arrow" aria-hidden="true">→</span></a>
+  <div class="shell">
+    <div class="head">
+      <div>
+        <p class="eyebrow" data-reveal><span class="eyebrow__mark"></span>En obra</p>
+        <h2 class="title" data-reveal>El trabajo,<br>mientras sucede</h2>
+      </div>
+      <p class="head__desc" data-reveal>Nada explica mejor un proceso constructivo que verlo. El resto de los videos de obra están dentro de la ficha de cada proyecto.</p>
     </div>
 
-    <figure class="ovid ovid--grande" data-reveal>
-      <video poster="img/escalera-poster.jpg" muted loop playsinline preload="none" aria-label="Recorrido por una escalera de concreto terminada">
-        <source src="video/escalera.mp4" type="video/mp4" />
-        <img src="img/escalera-poster.jpg" alt="Escalera de concreto terminada" loading="lazy" />
-      </video>
-    </figure>
+    <div class="obravid__grid obravid__grid--dos">
+      <figure class="ovid" data-reveal>
+        <video poster="img/escalera-poster.jpg" muted loop playsinline preload="none" aria-label="Recorrido por una escalera de concreto terminada">
+          <source src="video/escalera.mp4" type="video/mp4" />
+          <img src="img/escalera-poster.jpg" alt="Escalera de concreto terminada" loading="lazy" />
+        </video>
+        <figcaption><b>Escalera de concreto</b><span>Colada en sitio · Acabado aparente</span></figcaption>
+      </figure>
+
+      <figure class="ovid" data-reveal>
+        <video poster="img/dobladora-poster.jpg" muted loop playsinline preload="none" aria-label="Dobladora de varilla del taller propio de KROL">
+          <source src="video/dobladora.mp4" type="video/mp4" />
+          <img src="img/dobladora-poster.jpg" alt="Dobladora de varilla en el taller de KROL" loading="lazy" />
+        </video>
+        <figcaption><b>Habilitado de varilla</b><span>Dobladora del taller propio</span></figcaption>
+      </figure>
+    </div>
   </div>
 </section>
 
@@ -342,6 +347,6 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="js/main.js?v=20260819c"></script>
+<script src="js/main.js?v=20260819d"></script>
 </body>
 </html>

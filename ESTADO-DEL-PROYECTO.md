@@ -374,8 +374,9 @@ eso se veían pastosas —`duela-textura` pesaba 543 KB para mostrar una imagen 
 
 ## Obras "pendientes de fotografía"
 
-Tres fichas están así hoy: **Agencias automotrices**, **Pingüinario del
-Zoológico Guadalajara** y **Capilla para casa de retiros**. El criterio de Fernando: **antes de rellenar con
+Cuatro fichas están así hoy: **Agencias automotrices**, **Pingüinario del
+Zoológico Guadalajara**, **Capilla para casa de retiros** y **Habilitado y
+armado de losa**. El criterio de Fernando: **antes de rellenar con
 material que no es de la obra o que no da la talla, se dice que falta la foto.**
 
 - *Agencias*: las tres que le quedaban eran de 2023, tomas genéricas de armado,
@@ -448,16 +449,23 @@ cliente en su propio feedback.
 tomas genéricas de armado, no de una agencia. Conviene sustituirlas cuando
 lleguen las buenas.
 
+**Ojo con lo que se pierde al marcar una ficha.** *Habilitado y armado de losa*
+llevaba además el video de la **dobladora del taller propio**, que es material
+real de KROL y de lo poco que enseña esa ventaja. Al vaciar la ficha se habría
+ido del sitio, así que se movió a **En obra**. Antes de vaciar una ficha,
+revisa si tiene video.
+
 ## La sección "En obra"
 
 Desapareció al mover los videos dentro de cada ficha, y por eso KROL apuntó que
-el video de la escalera "no está". Volvió el 19-ago con **ese video solo**: es
-el único que no pertenece a ninguna de las 13 obras del portafolio, y repetir
-los demás sería duplicar lo que ya está en las fichas.
+el video de la escalera "no está". Volvió el 19-ago y hoy lleva **dos videos**: el de la
+escalera de concreto y el de la dobladora del taller. Son los que no pertenecen
+a ninguna de las 13 obras del portafolio; repetir los demás sería duplicar lo
+que ya está en las fichas.
 
-Va **a dos columnas** —texto y clip— y no en la cuadrícula de tres que tenía
-antes: con un solo video quedaba un recuadro suelto en medio de una franja
-vacía. Ojo si alguien la retoca: la regla `.obravid__grid` se reescribe en una
+Va en una **cuadrícula de dos columnas**. La base son tres, así que con dos
+clips quedaba un hueco al final del renglón y con uno solo quedaba un recuadro
+suelto en una franja vacía: por eso la clase `--dos`. Ojo si alguien la retoca: la regla `.obravid__grid` se reescribe en una
 media query posterior, así que una regla de una sola clase puesta antes **no
 gana**; por eso el bloque nuevo usa su propia clase.
 
