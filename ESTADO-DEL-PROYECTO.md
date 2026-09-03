@@ -131,7 +131,7 @@ navegador → Edge Function de Supabase → guarda en BD → notifica por correo
 |---|---|
 | Endpoint | `https://ajekywhnuepmqbxflala.supabase.co/functions/v1/krol-contacto` |
 | Tabla | `public.krol_leads` (con RLS) |
-| Correo del cliente | `krol.presupuestos@outlook.com` |
+| Correo del cliente | `krol.presupuestos@outlook.com` (verificado y puesto como destinatario el 2-sep) |
 | Envío de correo | Web3Forms (dos claves, una por destinatario) |
 
 **Guarda en la base de datos ANTES de intentar el correo**, a propósito: si falla
@@ -142,8 +142,35 @@ Las claves de Web3Forms van en el código a la vista: **es así por diseño**, s
 claves públicas de destinatario, no secretos. El plan gratuito permite un solo
 destinatario por formulario, de ahí las dos claves.
 
-⚠️ **Pendiente**: falta que Héctor haga clic en el correo de verificación de
-Web3Forms. Hasta que lo haga, ese destinatario no recibe nada.
+**Resuelto el 2-sep.** Héctor verificó `krol.presupuestos@outlook.com` y el
+formulario ya le manda a él. Dos cosas que costaron entenderlo y conviene dejar
+escritas:
+
+- **El primer enlace de verificación caducó** sin que nadie lo abriera. El
+  reenvío **no se pide desde la página pública** de Web3Forms: se entra a
+  `app.web3forms.com` → *Account Settings* → **Linked Emails**, y el correo sin
+  verificar trae su botón *Resend Link* al lado. Reenviar **no cambia la clave**
+  del formulario; son dos cosas distintas —las claves viven en la pestaña *API
+  Keys*—.
+- **Verificar no basta.** Verificado, el correo sólo queda *disponible* como
+  destinatario; hay que ir además a *Settings → Email Configuration* del
+  formulario y elegirlo. El destinatario era `vonoaweb+webforms@gmail.com` y
+  hasta el 2-sep habría seguido siéndolo.
+
+⚠️ **El plan gratuito permite UN destinatario** (CC y BCC son de pago). Al
+marcar el de KROL, el de Vonoa **se quitó solo**: no se pueden los dos. Fernando
+lo decidió así el 2-sep —*"sólo quiero que les llegue a ellos"*—, y no se pierde
+nada porque cada solicitud se guarda en la base de datos antes de intentar el
+correo.
+
+Ojo con lo que dice más arriba de **"dos claves, una por destinatario"**: en el
+panel hay **un solo formulario con una sola clave**. O la segunda vive en otra
+cuenta, o nunca se llegó a hacer. No se pudo comprobar porque las claves están
+dentro de la función de Supabase.
+
+⚠️ **Pendiente**: probar un envío de punta a punta. Hasta el 2-sep el panel
+llevaba **1 sola solicitud recibida en total**, así que nadie se ha perdido
+todavía, pero tampoco hay prueba de que el aviso llegue.
 
 ---
 
