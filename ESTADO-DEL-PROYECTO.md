@@ -399,6 +399,30 @@ en las catorce fichas sin decirle cuáles eran. Sirve con cualquier `data-f`.
 parece que no funciona. Para comprobarlo hay que cargar la página dentro de un
 `<iframe>` con el hash puesto, o abrirla en un navegador de verdad.
 
+### Las fichas anchas dejan de serlo cuando hay filtro puesto
+
+Las dos fichas `obra--wide` están colocadas para que la reja completa cierre
+justa: con las catorce a la vista, los seis renglones van al 96-98%. Pero al
+filtrar cambia el reparto y quedaban huecos **a media reja**, no al final: en
+*Especializados*, dos celdas vacías arriba y una ficha ancha sola en su renglón.
+
+Se probó `grid-auto-flow:dense`, que es lo primero que se le ocurre a cualquiera,
+y **no arregla: mueve el hueco**. Medido: pasa de 64/66/98 a 96/66/66, dos celdas
+vacías en los dos casos, y encima el orden visual deja de coincidir con el de
+tabulación.
+
+Lo que sí arregla es `.obras.filtrado .obra--wide{grid-column:span 1}`: con
+filtro puesto todas valen lo mismo y sólo queda el renglón incompleto del final.
+Comprobado: los cinco filtros cierran limpios y con "Todos" no cambia nada.
+
+### La lista va debajo de los datos de la obra
+
+Estaba entre la descripción y la tabla de *Ubicación / Periodo / Alcance*. Al
+desplegarla, veinticuatro renglones empujaban esos datos —y el botón— fuera de
+la vista, y son justo los que sirven para decidir. Ahora el orden del panel es:
+categoría, título, descripción, remate, **datos, lista** y botón. El guion no se
+enteró: todo se busca por `id`, no por posición.
+
 ### Dos trampas que costaron encontrar
 
 **`display` pisa el atributo `hidden`.** Ya estaba escrito para el marco del
@@ -550,7 +574,7 @@ Cómo está resuelto, por si hay que aplicarlo a otra ficha:
 
 ## El CSS y el JS van versionados
 
-`styles.css?v=20260902e` y `main.js?v=20260902e` en las seis páginas. **Al tocar
+`styles.css?v=20260902f` y `main.js?v=20260902f` en las seis páginas. **Al tocar
 CSS o JS hay que subir ese número**, o los navegadores se quedan con el archivo
 viejo.
 

@@ -415,6 +415,8 @@ $$('.filtro').forEach(btn => btn.addEventListener('click', () => {
   btn.classList.add('is-on');
   btn.setAttribute('aria-pressed', 'true');
   const f = btn.dataset.f;
+  // Con filtro puesto las fichas anchas dejan de serlo: ver el comentario del CSS.
+  $('#obras').classList.toggle('filtrado', f !== 'todos');
   obras.forEach(o => {
     const ver = f === 'todos' || o.dataset.cat === f;
     o.classList.toggle('hide', !ver);

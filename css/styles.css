@@ -785,6 +785,13 @@ ul{list-style:none}
 .obra.hide{display:none}
 .obra__img{aspect-ratio:4/3;overflow:hidden}
 .obra--wide .obra__img{aspect-ratio:16/9}
+/* Las dos fichas anchas están colocadas para que la reja completa cierre justo.
+   Con un filtro puesto, el reparto cambia y quedaban huecos a media reja: en
+   Especializados, dos celdas vacías arriba y una ficha ancha sola en su renglón.
+   Filtrando, todas valen lo mismo y la reja vuelve a cerrar. Con "Todos" no
+   cambia nada, que es donde el ritmo de anchas y normales sí está pensado. */
+.obras.filtrado .obra--wide{grid-column:span 1}
+.obras.filtrado .obra--wide .obra__img{aspect-ratio:4/3}
 .obra__img img{width:100%;height:100%;object-fit:cover;transition:transform 1.5s var(--ease),clip-path 1.15s var(--ease)}
 .obra:hover .obra__img img{transform:scale(1.05)}
 /* Obra que aún espera fotografía. Se dice en la tarjeta en vez de rellenar
@@ -825,7 +832,8 @@ ul{list-style:none}
 
 /* Las fichas ya se abren con Intro, así que su foco tiene que verse: sin esto
    quien navega con teclado avanza catorce veces a ciegas. */
-.obra:focus-visible{outline:2px solid var(--naranja);outline-offset:3px}
+.obra:focus-visible{outline:2px solid var(--naranja);outline-offset:2px}
+.obra:active{transform:scale(.985)}
 .lb__lista__d summary:focus-visible{outline:2px solid var(--naranja);outline-offset:2px}
 
 /* ══════════════ LIGHTBOX ══════════════ */
@@ -924,7 +932,7 @@ ul{list-style:none}
    sola ficha. El ingeniero pidió que se vea que han sido varias, pero soltar
    veinticuatro renglones de golpe empuja el alcance y el botón fuera de la
    vista: va plegada y el renglón, con el número, hace el trabajo. */
-.lb__lista{margin:-4px 0 24px}
+.lb__lista{margin:0 0 24px}
 .lb__lista__d{border-top:1px solid var(--borde);border-bottom:1px solid var(--borde)}
 .lb__lista__d summary{
   list-style:none;cursor:pointer;padding:13px 0;
@@ -941,7 +949,7 @@ ul{list-style:none}
   content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--naranja);
 }
 .lb__lista__d summary i::before{width:10px;height:1px}
-.lb__lista__d summary i::after{width:1px;height:10px;transition:opacity .2s ease}
+.lb__lista__d summary i::after{width:1px;height:10px;transition:opacity .25s ease}
 .lb__lista__d[open] summary i::after{opacity:0}
 .lb__grupos{columns:2;column-gap:22px;padding:2px 0 16px}
 .lb__grupo{break-inside:avoid;margin-bottom:14px}
