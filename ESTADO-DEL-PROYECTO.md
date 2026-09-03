@@ -533,7 +533,7 @@ Cómo está resuelto, por si hay que aplicarlo a otra ficha:
 
 ## El CSS y el JS van versionados
 
-`styles.css?v=20260902c` y `main.js?v=20260902c` en las seis páginas. **Al tocar
+`styles.css?v=20260902d` y `main.js?v=20260902d` en las seis páginas. **Al tocar
 CSS o JS hay que subir ese número**, o los navegadores se quedan con el archivo
 viejo.
 

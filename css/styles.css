@@ -942,7 +942,10 @@ ul{list-style:none}
 .lb__grupos{columns:2;column-gap:22px;padding:2px 0 16px}
 .lb__grupo{break-inside:avoid;margin-bottom:14px}
 .lb__grupo--largo{column-span:all}
-.lb__grupo--largo ul{columns:2;column-gap:22px}
+/* Dos columnas mientras quepan 170 px cada una. Puesto a pelo, en un celular
+   quedaban de 147 px y seis de las veinticuatro agencias se partían en dos
+   renglones; con el ancho mínimo se pasa solo a una columna. */
+.lb__grupo--largo ul{columns:170px 2;column-gap:22px}
 .lb__grupo--largo li{break-inside:avoid}
 .lb__grupo h4{
   font-family:var(--tecno);font-size:8px;letter-spacing:.2em;text-transform:uppercase;
@@ -1195,7 +1198,7 @@ ul{list-style:none}
 .footer__brand img{height:42px;width:auto;margin-bottom:18px}
 .footer__slogan{font-family:var(--cond);font-style:italic;font-weight:700;text-transform:uppercase;color:var(--naranja);letter-spacing:.05em;margin-bottom:12px}
 .footer__brand p{font-size:.9em;color:var(--acero);max-width:38ch}
-.footer__col h4{font-family:var(--tecno);font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--papel);margin-bottom:18px}
+.footer__col h3{font-family:var(--tecno);font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--papel);margin-bottom:18px}
 .footer__col a{display:block;font-size:.92em;color:var(--acero);padding-block:6px;transition:color .3s,transform .3s var(--ease)}
 .footer__col a:hover{color:var(--naranja);transform:translateX(4px)}
 .footer__bot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;padding-block:22px;border-top:1px solid rgba(255,255,255,.1)}
