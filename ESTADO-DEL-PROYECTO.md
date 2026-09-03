@@ -399,6 +399,35 @@ en las catorce fichas sin decirle cuáles eran. Sirve con cualquier `data-f`.
 parece que no funciona. Para comprobarlo hay que cargar la página dentro de un
 `<iframe>` con el hash puesto, o abrirla en un navegador de verdad.
 
+### La numeración de secciones y el titular que salía dos veces
+
+Era la **nota 2 de KROL** y llevaba pendiente desde agosto. Fernando lo vio el
+2-sep en Servicios: el "02" salía dos veces seguidas. Pero el número era lo de
+menos: **la portada de la página y la sección de abajo decían exactamente lo
+mismo**, titular y párrafo palabra por palabra, uno debajo del otro. Pasaba en
+Servicios, en Proyectos y en Contacto.
+
+Los números venían de cuando esto era una sola página larga: Servicios era la
+02 del recorrido completo, y al partirlo en hojas cada una se quedó con el
+número que tenía en aquella lista. Por eso Proyectos usaba 03 y 04 para lo mismo
+y Contacto, 04 y 06.
+
+La regla, que es la que `obra-vertical.html` ya seguía bien sin que nadie lo
+notara:
+
+- **La portada de página lleva etiqueta, no número.** Es el encabezado de la
+  hoja, no una sección: "Servicios", "Portafolio", "Contacto", "Especialidad".
+- **Las secciones van 01, 02, 03…**, empezando de nuevo en cada página.
+- **El bloque de cierre "Contacto" va sin número**: es un remate y se repite
+  igual en las cinco páginas.
+
+Y para que la sección deje de repetir la portada, se le puso encabezado propio:
+*Lo que ejecutamos* en Servicios, *Proyecto por proyecto* en Proyectos y *Dónde
+encontrarnos* en Contacto —esa columna es la de WhatsApp, correo y dirección, y
+nunca fue "Hablemos de tu obra"—. En Servicios además se quitó la bajada, que
+era el mismo párrafo de la portada. **Son tres títulos escritos por nosotros, no
+por KROL**: si Héctor prefiere otros, se cambian y ya.
+
 ### Las fichas anchas dejan de serlo cuando hay filtro puesto
 
 Las dos fichas `obra--wide` están colocadas para que la reja completa cierre
@@ -779,9 +808,7 @@ a 540×960 sin audio como sus hermanos (2.2 MB → 818 KB).
 ## Pendientes
 
 ### Espera respuesta de Fernando
-- **Numeración de subsecciones** (nota 2 de KROL): hoy es inconsistente —
-  Servicios repite "02", Proyectos usa 03/04 y Contacto 04/06 para lo mismo.
-  Propuesta lista: portada sin número, secciones 01, 02, 03… por página.
+- ~~Numeración de subsecciones~~ **resuelto el 2-sep**, ver abajo.
 - **Nota 4 del feedback está en blanco**: preguntarle a Héctor qué iba ahí.
 - **Muros de concreto lanzado quedó filtrado como "Especializados"**, por técnica,
   igual que los muros aparentes. Con eso el filtro Especializados junta 5 de las
