@@ -321,11 +321,13 @@ El ingeniero pidió "una lista con las obras de O'Reilly y las agencias que hemo
 realizado, para hacer énfasis en que han sido varias". Son **23 tiendas en 5
 estados** y **24 agencias**, demasiadas para soltarlas en la tarjeta.
 
-Van dentro del panel de la obra, en un `<details>` **plegado**, con el número en
-el renglón que se ve sin abrir ("Las 23 tiendas que hemos construido"). Plegada
-porque desplegar veinticuatro renglones empuja el alcance y el botón fuera de la
-vista, y el número ya dice lo que el cliente quería decir. Se declara en dos
-atributos de la ficha:
+Van dentro del panel de la obra, **siempre a la vista**. Primero se pusieron
+plegadas en un `<details>`, para que veinticuatro renglones no empujaran el
+alcance y el botón fuera de la pantalla; **Fernando lo rechazó el 2-sep**: *"deja
+que siempre se vea, que no le den un clic"*. Tiene razón —la gracia de la lista
+es que se note cuántas obras son, y eso no se nota si hay que descubrirla—, y el
+problema del empujón ya estaba resuelto por otro lado, moviéndola debajo de la
+tabla de datos. Se declara en dos atributos de la ficha:
 
     data-lista-lb="Las 23 tiendas que hemos construido"
     data-lista="Jalisco>Federalismo;Club Atlas|Michoacán>Zacapu"
@@ -603,7 +605,7 @@ Cómo está resuelto, por si hay que aplicarlo a otra ficha:
 
 ## El CSS y el JS van versionados
 
-`styles.css?v=20260902f` y `main.js?v=20260902f` en las seis páginas. **Al tocar
+`styles.css?v=20260902g` y `main.js?v=20260902g` en las seis páginas. **Al tocar
 CSS o JS hay que subir ese número**, o los navegadores se quedan con el archivo
 viejo.
 

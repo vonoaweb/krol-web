@@ -834,7 +834,6 @@ ul{list-style:none}
    quien navega con teclado avanza catorce veces a ciegas. */
 .obra:focus-visible{outline:2px solid var(--naranja);outline-offset:2px}
 .obra:active{transform:scale(.985)}
-.lb__lista__d summary:focus-visible{outline:2px solid var(--naranja);outline-offset:2px}
 
 /* ══════════════ LIGHTBOX ══════════════ */
 .lb{position:fixed;inset:0;z-index:1600;display:grid;place-items:center;opacity:0;visibility:hidden;transition:opacity .4s ease,visibility .4s}
@@ -932,25 +931,19 @@ ul{list-style:none}
    sola ficha. El ingeniero pidió que se vea que han sido varias, pero soltar
    veinticuatro renglones de golpe empuja el alcance y el botón fuera de la
    vista: va plegada y el renglón, con el número, hace el trabajo. */
-.lb__lista{margin:0 0 24px}
-.lb__lista__d{border-top:1px solid var(--borde);border-bottom:1px solid var(--borde)}
-.lb__lista__d summary{
-  list-style:none;cursor:pointer;padding:13px 0;
-  display:flex;align-items:center;justify-content:space-between;gap:12px;
+.lb__lista{
+  margin:0 0 24px;
+  border-top:1px solid var(--borde);border-bottom:1px solid var(--borde);
+}
+/* Iba plegada tras un botón de más y menos. Fernando pidió el 2-sep que se vea
+   sin picarle: la gracia de la lista es que se note cuántas obras son, y eso no
+   se nota si hay que descubrirla. El renglón queda de titular, ya no dispara
+   nada. */
+.lb__lista__t{
+  padding:13px 0 4px;
   font-family:var(--cond);font-weight:600;text-transform:uppercase;letter-spacing:.04em;
-  font-size:.96rem;color:var(--papel);transition:color .25s ease;
+  font-size:.96rem;color:var(--papel);
 }
-.lb__lista__d summary::-webkit-details-marker{display:none}
-.lb__lista__d summary:hover{color:var(--naranja)}
-/* Más y menos dibujados: el triángulo del navegador cambia de forma en cada uno
-   y aquí todo lo demás es cuadrado. */
-.lb__lista__d summary i{flex:none;width:22px;height:22px;position:relative;border:1px solid var(--borde)}
-.lb__lista__d summary i::before,.lb__lista__d summary i::after{
-  content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--naranja);
-}
-.lb__lista__d summary i::before{width:10px;height:1px}
-.lb__lista__d summary i::after{width:1px;height:10px;transition:opacity .25s ease}
-.lb__lista__d[open] summary i::after{opacity:0}
 .lb__grupos{columns:2;column-gap:22px;padding:2px 0 16px}
 .lb__grupo{break-inside:avoid;margin-bottom:14px}
 .lb__grupo--largo{column-span:all}

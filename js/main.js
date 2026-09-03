@@ -631,12 +631,10 @@ obras.forEach(o => o.addEventListener('click', () => {
          se valida antes de usarlo: un "|" de más dejaba `obritas` en undefined,
          la excepción salía de este manejador y la ficha se volvía muda —ni
          abría el panel ni avisaba de nada—. Ahora el grupo malo se salta. */
-      const d = document.createElement('details');
-      d.className = 'lb__lista__d';
-      const resumen = document.createElement('summary');
-      resumen.append(o.dataset.listaLb || 'Ver la lista');
-      resumen.appendChild(document.createElement('i')).setAttribute('aria-hidden', 'true');
-      d.appendChild(resumen);
+      const titulo = document.createElement('p');
+      titulo.className = 'lb__lista__t';
+      titulo.textContent = o.dataset.listaLb || '';
+      lista.appendChild(titulo);
       const cajon = document.createElement('div');
       cajon.className = 'lb__grupos';
       o.dataset.lista.split('|').forEach(grupo => {
@@ -658,8 +656,7 @@ obras.forEach(o => o.addEventListener('click', () => {
         s.append(h, ul);
         cajon.appendChild(s);
       });
-      d.appendChild(cajon);
-      lista.appendChild(d);
+      lista.appendChild(cajon);
     }
   }
   // Sólo mostramos los datos que el cliente confirmó: si viene vacío, se oculta
