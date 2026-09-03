@@ -168,6 +168,9 @@ panel hay **un solo formulario con una sola clave**. O la segunda vive en otra
 cuenta, o nunca se llegó a hacer. No se pudo comprobar porque las claves están
 dentro de la función de Supabase.
 
+✅ **Cerrado el 3-sep: Héctor confirmó que el correo le llegó.** La cadena
+completa —sitio → base de datos → Web3Forms → Outlook— funciona.
+
 **Probado de punta a punta el 3-sep.** Se llenó el formulario en el sitio
 publicado con una solicitud marcada como prueba y recorrió la cadena entera: el
 sitio devolvió *"Solicitud registrada"*, la fila quedó en la base de datos —su
