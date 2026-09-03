@@ -439,31 +439,31 @@ en las catorce fichas sin decirle cuáles eran. Sirve con cualquier `data-f`.
 parece que no funciona. Para comprobarlo hay que cargar la página dentro de un
 `<iframe>` con el hash puesto, o abrirla en un navegador de verdad.
 
-### ⚠️ Torre Perla: el texto y las fotos no cuadran
+### Las dos torres llegaron con los nombres cruzados
 
-El **3-sep** Héctor mandó, textual, *"el texto para Torre Perla sería"* y un texto
-nuevo que **sustituye al del PDF**. El del PDF hablaba de *"una torre de 5 niveles
-y una cisterna de 40,000 litros"*; el nuevo, de la **adecuación estructural de un
-penthouse en los niveles 14, 15 y azotea** de una torre que ya estaba en proceso
-de entrega. Se puso el nuevo, por instrucción de Fernando.
+El **3-sep** Héctor mandó un texto diciendo *"el texto para Torre Perla sería"*:
+la adecuación estructural de un penthouse en los **niveles 14, 15 y azotea** de
+una torre que ya estaba en proceso de entrega. Se puso en Torre Perla, tal cual
+lo pidió, y se le avisó de la contradicción. Ese mismo día contestó: **era el de
+Torre Jónico, se le confundieron los nombres.** Ya está en su sitio.
 
-**Pero las fotos de esa ficha son de un edificio de cinco pisos.** Se cuentan en
-`img/torre-perla.jpg`: cuatro plantas de balcones y la azotea. Y las otras dos,
-las de obra, son de una estructura baja. **En ese edificio no hay un nivel 14.**
-La torre alta del portafolio es la otra, `img/torre-jonico.jpg`, de unos diez u
-once niveles.
+Lo que delató el cruce, por si vuelve a pasar con otra obra —vale la pena mirar
+las fotos antes de pegar un texto—:
 
-Hay dos señales más de que algo se cruzó: el texto dice que intervinieron *"una
-torre que ya se encontraba en proceso de entrega"* —o sea que KROL no la
-construyó— y el alcance que mandó es *"cimentación, estructuras de concreto,
-obra civil"*, que es el de levantar un edificio entero, no el de adaptar un
-penthouse en un piso 14.
+- **`img/torre-perla.jpg` es un edificio de cinco pisos**: se cuentan cuatro
+  plantas de balcones y la azotea, y las otras dos fotos son de una estructura
+  baja. En ese edificio **no hay un nivel 14**. La torre alta del portafolio es
+  `img/torre-jonico.jpg`, de unos diez u once niveles.
+- El texto decía que intervinieron *"una torre que ya se encontraba en proceso
+  de entrega"* —o sea que KROL no la construyó—, y sin embargo el alcance que lo
+  acompañaba era *"cimentación, estructuras de concreto, obra civil"*, el de
+  levantar un edificio entero.
+- En el mismo mensaje seguía pidiéndole al Ing el texto de Jónico, así que el
+  que mandaba no podía ser de esa obra… salvo que fuera justo al revés.
 
-**La sospecha es que el texto es de Torre Jónico** y que Héctor cruzó los
-nombres, sobre todo porque en el mismo mensaje seguía pidiéndole al Ing el texto
-de Jónico. Si se confirma, el arreglo es mover el bloque `data-desc`,
-`data-lema`, `data-alcance` y el rótulo de una ficha a la otra: diez minutos.
-**Está publicado tal cual lo pidió el cliente**, y avisado.
+**Torre Jónico ya no lleva la descripción provisional** que le habíamos escrito
+nosotros. Torre Perla se quedó con su texto del PDF, el de los cinco niveles y
+la cisterna de 40,000 litros, que es el que cuadra con sus fotos.
 
 ### La numeración de secciones y el titular que salía dos veces
 
