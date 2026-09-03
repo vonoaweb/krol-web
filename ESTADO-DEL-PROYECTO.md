@@ -2,7 +2,7 @@
 
 Apunte de traspaso para quien retome esto sin haber estado antes — otra persona,
 otro chat, o yo mismo dentro de un mes.
-Última actualización: **2 de septiembre de 2026**.
+Última actualización: **3 de septiembre de 2026**.
 
 ---
 
@@ -131,7 +131,7 @@ navegador → Edge Function de Supabase → guarda en BD → notifica por correo
 |---|---|
 | Endpoint | `https://ajekywhnuepmqbxflala.supabase.co/functions/v1/krol-contacto` |
 | Tabla | `public.krol_leads` (con RLS) |
-| Correo del cliente | `krol.presupuestos@outlook.com` (verificado y puesto como destinatario el 2-sep) |
+| Correo del cliente | `krol.presupuestos@outlook.com` (verificado y puesto como destinatario el 3-sep) |
 | Envío de correo | Web3Forms (dos claves, una por destinatario) |
 
 **Guarda en la base de datos ANTES de intentar el correo**, a propósito: si falla
@@ -142,7 +142,7 @@ Las claves de Web3Forms van en el código a la vista: **es así por diseño**, s
 claves públicas de destinatario, no secretos. El plan gratuito permite un solo
 destinatario por formulario, de ahí las dos claves.
 
-**Resuelto el 2-sep.** Héctor verificó `krol.presupuestos@outlook.com` y el
+**Resuelto el 3-sep.** Héctor verificó `krol.presupuestos@outlook.com` y el
 formulario ya le manda a él. Dos cosas que costaron entenderlo y conviene dejar
 escritas:
 
@@ -155,11 +155,11 @@ escritas:
 - **Verificar no basta.** Verificado, el correo sólo queda *disponible* como
   destinatario; hay que ir además a *Settings → Email Configuration* del
   formulario y elegirlo. El destinatario era `vonoaweb+webforms@gmail.com` y
-  hasta el 2-sep habría seguido siéndolo.
+  hasta el 3-sep habría seguido siéndolo.
 
 ⚠️ **El plan gratuito permite UN destinatario** (CC y BCC son de pago). Al
 marcar el de KROL, el de Vonoa **se quitó solo**: no se pueden los dos. Fernando
-lo decidió así el 2-sep —*"sólo quiero que les llegue a ellos"*—, y no se pierde
+lo decidió así el 3-sep —*"sólo quiero que les llegue a ellos"*—, y no se pierde
 nada porque cada solicitud se guarda en la base de datos antes de intentar el
 correo.
 
@@ -168,9 +168,17 @@ panel hay **un solo formulario con una sola clave**. O la segunda vive en otra
 cuenta, o nunca se llegó a hacer. No se pudo comprobar porque las claves están
 dentro de la función de Supabase.
 
-⚠️ **Pendiente**: probar un envío de punta a punta. Hasta el 2-sep el panel
-llevaba **1 sola solicitud recibida en total**, así que nadie se ha perdido
-todavía, pero tampoco hay prueba de que el aviso llegue.
+**Probado de punta a punta el 3-sep.** Se llenó el formulario en el sitio
+publicado con una solicitud marcada como prueba y recorrió la cadena entera: el
+sitio devolvió *"Solicitud registrada"*, la fila quedó en la base de datos —su
+id sale en la columna *ID Base De Datos* del panel— y la solicitud aparece en el
+**Inbox** de Web3Forms, no en Spam. Falta que Héctor confirme que le llegó el
+correo a Outlook; **que revise también el correo no deseado**, que es lo primero
+que recibe ese buzón desde Web3Forms.
+
+⚠️ **Quedan dos filas de prueba** en `krol_leads`: la del 11-ago y la del 3-sep.
+Conviene borrarlas antes de entregar, para que el cliente no vea prospectos que
+no existen. No se pudo hacer desde aquí: hace falta el acceso a Supabase.
 
 ---
 
@@ -317,7 +325,7 @@ Escalador 4x            C:\Fer_Doc\Comfy\models\upscale_models\4x_NMKD-Superscal
 
 ---
 
-## Feedback v3 (2-sep): la ronda grande
+## Feedback v3 (3-sep): la ronda grande
 
 Llegó en `Krol constructions/Feedback v3/Feedback v3/`, con **CAMBIOS.pdf** y
 **54 archivos** de material. A diferencia de las rondas anteriores, **el PDF sí
@@ -350,7 +358,7 @@ estados** y **24 agencias**, demasiadas para soltarlas en la tarjeta.
 
 Van dentro del panel de la obra, **siempre a la vista**. Primero se pusieron
 plegadas en un `<details>`, para que veinticuatro renglones no empujaran el
-alcance y el botón fuera de la pantalla; **Fernando lo rechazó el 2-sep**: *"deja
+alcance y el botón fuera de la pantalla; **Fernando lo rechazó el 3-sep**: *"deja
 que siempre se vea, que no le den un clic"*. Tiene razón —la gracia de la lista
 es que se note cuántas obras son, y eso no se nota si hay que descubrirla—, y el
 problema del empujón ya estaba resuelto por otro lado, moviéndola debajo de la
@@ -431,7 +439,7 @@ parece que no funciona. Para comprobarlo hay que cargar la página dentro de un
 ### La numeración de secciones y el titular que salía dos veces
 
 Era la **nota 2 de KROL** y llevaba pendiente desde agosto. Fernando lo vio el
-2-sep en Servicios: el "02" salía dos veces seguidas. Pero el número era lo de
+3-sep en Servicios: el "02" salía dos veces seguidas. Pero el número era lo de
 menos: **la portada de la página y la sección de abajo decían exactamente lo
 mismo**, titular y párrafo palabra por palabra, uno debajo del otro. Pasaba en
 Servicios, en Proyectos y en Contacto.
@@ -837,7 +845,7 @@ a 540×960 sin audio como sus hermanos (2.2 MB → 818 KB).
 ## Pendientes
 
 ### Espera respuesta de Fernando
-- ~~Numeración de subsecciones~~ **resuelto el 2-sep**, ver abajo.
+- ~~Numeración de subsecciones~~ **resuelto el 3-sep**, ver abajo.
 - **Nota 4 del feedback está en blanco**: preguntarle a Héctor qué iba ahí.
 - **Muros de concreto lanzado quedó filtrado como "Especializados"**, por técnica,
   igual que los muros aparentes. Con eso el filtro Especializados junta 5 de las
