@@ -439,6 +439,32 @@ en las catorce fichas sin decirle cuáles eran. Sirve con cualquier `data-f`.
 parece que no funciona. Para comprobarlo hay que cargar la página dentro de un
 `<iframe>` con el hash puesto, o abrirla en un navegador de verdad.
 
+### ⚠️ Torre Perla: el texto y las fotos no cuadran
+
+El **3-sep** Héctor mandó, textual, *"el texto para Torre Perla sería"* y un texto
+nuevo que **sustituye al del PDF**. El del PDF hablaba de *"una torre de 5 niveles
+y una cisterna de 40,000 litros"*; el nuevo, de la **adecuación estructural de un
+penthouse en los niveles 14, 15 y azotea** de una torre que ya estaba en proceso
+de entrega. Se puso el nuevo, por instrucción de Fernando.
+
+**Pero las fotos de esa ficha son de un edificio de cinco pisos.** Se cuentan en
+`img/torre-perla.jpg`: cuatro plantas de balcones y la azotea. Y las otras dos,
+las de obra, son de una estructura baja. **En ese edificio no hay un nivel 14.**
+La torre alta del portafolio es la otra, `img/torre-jonico.jpg`, de unos diez u
+once niveles.
+
+Hay dos señales más de que algo se cruzó: el texto dice que intervinieron *"una
+torre que ya se encontraba en proceso de entrega"* —o sea que KROL no la
+construyó— y el alcance que mandó es *"cimentación, estructuras de concreto,
+obra civil"*, que es el de levantar un edificio entero, no el de adaptar un
+penthouse en un piso 14.
+
+**La sospecha es que el texto es de Torre Jónico** y que Héctor cruzó los
+nombres, sobre todo porque en el mismo mensaje seguía pidiéndole al Ing el texto
+de Jónico. Si se confirma, el arreglo es mover el bloque `data-desc`,
+`data-lema`, `data-alcance` y el rótulo de una ficha a la otra: diez minutos.
+**Está publicado tal cual lo pidió el cliente**, y avisado.
+
 ### La numeración de secciones y el titular que salía dos veces
 
 Era la **nota 2 de KROL** y llevaba pendiente desde agosto. Fernando lo vio el
