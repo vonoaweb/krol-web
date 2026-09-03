@@ -619,6 +619,13 @@ ul{list-style:none}
 .serv__img{position:relative;aspect-ratio:4/3;overflow:hidden;margin-bottom:18px}
 .serv__img img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s var(--ease),clip-path 1.15s var(--ease)}
 .serv:hover .serv__img img{transform:scale(1.06)}
+/* Dos de las fotos que mandó KROL traen lo importante fuera del centro, y el
+   recorte de la tarjeta se quedaba justo con lo que no toca: la de obra civil
+   guarda la rampa de concreto abajo —en medio sólo se ve el anuncio de la
+   agencia— y la de terracerías tiene la máquina y el corte del terreno arriba,
+   con la sombra del fotógrafo abajo. */
+.serv__img img[src$="serv-obra-civil.jpg"]{object-position:50% 100%}
+.serv__img img[src$="serv-terracerias.jpg"]{object-position:50% 22%}
 .serv__n{
   position:absolute;top:0;left:0;z-index:2;
   font-family:var(--disp);font-size:.95rem;color:var(--tinta);
@@ -816,6 +823,11 @@ ul{list-style:none}
 }
 .obra:hover .obra__go{opacity:1;transform:translateY(0)}
 
+/* Las fichas ya se abren con Intro, así que su foco tiene que verse: sin esto
+   quien navega con teclado avanza catorce veces a ciegas. */
+.obra:focus-visible{outline:2px solid var(--naranja);outline-offset:3px}
+.lb__lista__d summary:focus-visible{outline:2px solid var(--naranja);outline-offset:2px}
+
 /* ══════════════ LIGHTBOX ══════════════ */
 .lb{position:fixed;inset:0;z-index:1600;display:grid;place-items:center;opacity:0;visibility:hidden;transition:opacity .4s ease,visibility .4s}
 .lb.open{opacity:1;visibility:visible}
@@ -904,9 +916,56 @@ ul{list-style:none}
   border-color:transparent transparent transparent var(--papel);
   filter:drop-shadow(0 1px 3px rgba(13,17,23,.9));
 }
+/* Las obras que se repiten —23 tiendas O'Reilly, 24 agencias— viven bajo una
+   sola ficha. El ingeniero pidió que se vea que han sido varias, pero soltar
+   veinticuatro renglones de golpe empuja el alcance y el botón fuera de la
+   vista: va plegada y el renglón, con el número, hace el trabajo. */
+.lb__lista{margin:-4px 0 24px}
+.lb__lista__d{border-top:1px solid var(--borde);border-bottom:1px solid var(--borde)}
+.lb__lista__d summary{
+  list-style:none;cursor:pointer;padding:13px 0;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  font-family:var(--cond);font-weight:600;text-transform:uppercase;letter-spacing:.04em;
+  font-size:.96rem;color:var(--papel);transition:color .25s ease;
+}
+.lb__lista__d summary::-webkit-details-marker{display:none}
+.lb__lista__d summary:hover{color:var(--naranja)}
+/* Más y menos dibujados: el triángulo del navegador cambia de forma en cada uno
+   y aquí todo lo demás es cuadrado. */
+.lb__lista__d summary i{flex:none;width:22px;height:22px;position:relative;border:1px solid var(--borde)}
+.lb__lista__d summary i::before,.lb__lista__d summary i::after{
+  content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--naranja);
+}
+.lb__lista__d summary i::before{width:10px;height:1px}
+.lb__lista__d summary i::after{width:1px;height:10px;transition:opacity .2s ease}
+.lb__lista__d[open] summary i::after{opacity:0}
+.lb__grupos{columns:2;column-gap:22px;padding:2px 0 16px}
+.lb__grupo{break-inside:avoid;margin-bottom:14px}
+.lb__grupo--largo{column-span:all}
+.lb__grupo--largo ul{columns:2;column-gap:22px}
+.lb__grupo--largo li{break-inside:avoid}
+.lb__grupo h4{
+  font-family:var(--tecno);font-size:8px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--acero);margin-bottom:6px;display:flex;gap:8px;align-items:baseline;
+}
+.lb__grupo h4 i{font-style:normal;color:var(--naranja)}
+.lb__grupo ul{list-style:none;margin:0;padding:0}
+.lb__grupo li{color:var(--cimbra);font-size:.86rem;line-height:1.6;padding-left:12px;position:relative}
+.lb__grupo li::before{content:'';position:absolute;left:0;top:.72em;width:5px;height:1px;background:var(--acero)}
+@media (max-width:560px){.lb__grupos{columns:1}}
 .lb__body{padding:clamp(24px,3vw,42px)}
 .lb__body h3{font-family:var(--cond);font-weight:800;text-transform:uppercase;font-size:clamp(1.4rem,2.4vw,2rem);line-height:1.05;color:var(--papel);margin-bottom:14px}
 .lb__desc{color:var(--cimbra);font-size:.95em;margin-bottom:24px}
+.lb__desc p{margin:0 0 .85em}
+.lb__desc p:last-child{margin-bottom:0}
+/* Remate: la frase con la que KROL cierra varias de sus obras. Metida en el
+   párrafo se perdía; aquí cierra el bloque y de paso corta el ladrillo de
+   texto que dejaban las descripciones largas. */
+.lb__lema{
+  margin-top:1.1em;padding-left:14px;border-left:2px solid var(--naranja);
+  font-family:var(--cond);font-weight:600;text-transform:uppercase;
+  letter-spacing:.04em;font-size:1rem;line-height:1.3;color:var(--papel);
+}
 .lb__specs{display:grid;gap:1px;background:rgba(255,255,255,.14);margin-bottom:26px}
 .lb__specs div{background:var(--tinta);padding:13px 0 13px 14px}
 .lb__specs dt{font-family:var(--tecno);font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--acero);margin-bottom:4px}

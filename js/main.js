@@ -411,8 +411,9 @@ if (radar) {
    ───────────────────────────────────────────── */
 const obras = $$('.obra');
 $$('.filtro').forEach(btn => btn.addEventListener('click', () => {
-  $$('.filtro').forEach(b => b.classList.remove('is-on'));
+  $$('.filtro').forEach(b => { b.classList.remove('is-on'); b.setAttribute('aria-pressed', 'false'); });
   btn.classList.add('is-on');
+  btn.setAttribute('aria-pressed', 'true');
   const f = btn.dataset.f;
   obras.forEach(o => {
     const ver = f === 'todos' || o.dataset.cat === f;
@@ -427,6 +428,16 @@ $$('.filtro').forEach(btn => btn.addEventListener('click', () => {
   });
   if (GS) ScrollTrigger.refresh();
 }));
+
+/* Se puede llegar al portafolio ya filtrado: proyectos.html#vertical. Lo usa la
+   nota de obra vertical, que promete "ver las dos torres" y antes soltaba al
+   visitante en la reja completa, con catorce fichas y sin decirle cuáles son. */
+if ($('.filtro')) {
+  const pedido = decodeURIComponent(location.hash.slice(1));
+  const btn = $$('.filtro').find(b => b.dataset.f === pedido);
+  if (btn) btn.click();
+  $$('.filtro').forEach(b => b.setAttribute('aria-pressed', String(b.classList.contains('is-on'))));
+}
 
 /* ─────────────────────────────────────────────
    13 · Lightbox de obra
@@ -461,6 +472,7 @@ function verPieza([src, alt, poster]) {
   if (lbPend) lbPend.hidden = true;
   if (/\.mp4$/i.test(src)) {
     lbVid.poster = poster || '';
+    lbVid.setAttribute('aria-label', alt || '');   // va escrito en data-fotos
     lbVid.src = src;
     lbVid.hidden = false;
     lbImg.hidden = true;
@@ -519,6 +531,19 @@ $('#lbTiras').addEventListener('wheel', e => {
   t.scrollLeft += e.deltaY;
 }, { passive: false });
 
+/* Las fichas son <article>, así que ni reciben foco ni responden al teclado por
+   su cuenta: con ratón se abría todo y con teclado no se abría nada. Se les da
+   el papel de botón y se atiende Intro y espacio como haría un botón. */
+obras.forEach(o => {
+  o.tabIndex = 0;
+  o.setAttribute('role', 'button');
+  o.addEventListener('keydown', e => {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    e.preventDefault();
+    o.click();
+  });
+});
+
 obras.forEach(o => o.addEventListener('click', () => {
   ultimoFoco = o;
   const img = $('img', o);
@@ -548,7 +573,20 @@ obras.forEach(o => o.addEventListener('click', () => {
       // marca no hay manera de saber cuál de las catorce se va a mover.
       b.className = 'lb__tira' + (esVideo ? ' lb__tira--video' : '');
       b.setAttribute('aria-label', `${esVideo ? 'Ver video' : 'Ver foto'} ${i + 1} de ${piezas.length}`);
-      b.innerHTML = `<img src="${poster || src}" alt="" loading="lazy" />`;
+      /* La miniatura tira de img/mini/, no del archivo bueno. Antes una obra de
+         trece fotos bajaba trece imágenes de hasta 645 KB para pintarlas a 104
+         píxeles: la tira entera pesaba 14 MB y ahora pesa 611 KB. Si a alguna
+         pieza le falta su mini, la etiqueta se queda con la foto grande y se ve
+         igual, sólo que pesada. */
+      const grande = poster || src;
+      const mini = document.createElement('img');
+      mini.alt = ''; mini.loading = 'lazy';
+      mini.addEventListener('error', function reponer() {
+        mini.removeEventListener('error', reponer);
+        mini.src = grande;
+      });
+      mini.src = 'img/mini/' + grande.split('/').pop();
+      b.appendChild(mini);
       b.addEventListener('click', () => irAPieza(i));
       tiras.appendChild(b);
     });
@@ -556,7 +594,68 @@ obras.forEach(o => o.addEventListener('click', () => {
   }
   $('#lbCat').textContent   = $('.obra__cat', o).textContent;
   $('#lbTitle').textContent = $('h3', o).textContent;
-  $('#lbDesc').textContent  = o.dataset.desc;
+  /* La descripción venía de una sola pieza y quedaba un ladrillo de doce
+     renglones. Los textos que dictó KROL traen párrafos, marcados con " // ", y
+     algunos cierran con un remate corto que va aparte y con su propio peso. */
+  const desc = $('#lbDesc');
+  desc.innerHTML = '';
+  (o.dataset.desc || '').split(' // ').forEach(parrafo => {
+    const e = document.createElement('p');
+    e.textContent = parrafo.trim();
+    desc.appendChild(e);
+  });
+  if (o.dataset.lema) {
+    const e = document.createElement('p');
+    e.className = 'lb__lema';
+    e.textContent = o.dataset.lema;
+    desc.appendChild(e);
+  }
+
+  /* O'Reilly y las agencias son decenas de obras bajo una sola ficha, y el
+     ingeniero pidió que se note. La lista va plegada: desplegar veinticuatro
+     renglones empuja el alcance y el botón fuera de la vista, y el renglón con
+     el número ya dice lo que hay que decir. */
+  const lista = $('#lbLista');
+  if (lista) {
+    lista.innerHTML = '';
+    lista.hidden = !o.dataset.lista;
+    if (o.dataset.lista) {
+      /* Se arma con nodos y no con innerHTML: los nombres los escribe una
+         persona en el HTML y un "Acme & Co" rompería el marcado. Y cada grupo
+         se valida antes de usarlo: un "|" de más dejaba `obritas` en undefined,
+         la excepción salía de este manejador y la ficha se volvía muda —ni
+         abría el panel ni avisaba de nada—. Ahora el grupo malo se salta. */
+      const d = document.createElement('details');
+      d.className = 'lb__lista__d';
+      const resumen = document.createElement('summary');
+      resumen.append(o.dataset.listaLb || 'Ver la lista');
+      resumen.appendChild(document.createElement('i')).setAttribute('aria-hidden', 'true');
+      d.appendChild(resumen);
+      const cajon = document.createElement('div');
+      cajon.className = 'lb__grupos';
+      o.dataset.lista.split('|').forEach(grupo => {
+        const [donde, obritas] = grupo.split('>');
+        if (!donde || !obritas) return;
+        const partes = obritas.split(';').filter(Boolean);
+        if (!partes.length) return;
+        const s = document.createElement('section');
+        /* Un grupo grande se queda con todo el ancho y reparte sus renglones en
+           dos columnas él solo. Sin esto, las 24 agencias —que van todas bajo
+           Jalisco— formaban una única tira de 24 renglones: el reparto en dos
+           columnas del cajón no puede partir un grupo por la mitad. */
+        s.className = 'lb__grupo' + (partes.length > 8 ? ' lb__grupo--largo' : '');
+        const h = document.createElement('h4');
+        h.append(donde);
+        h.appendChild(document.createElement('i')).textContent = partes.length;
+        const ul = document.createElement('ul');
+        partes.forEach(x => { ul.appendChild(document.createElement('li')).textContent = x; });
+        s.append(h, ul);
+        cajon.appendChild(s);
+      });
+      d.appendChild(cajon);
+      lista.appendChild(d);
+    }
+  }
   // Sólo mostramos los datos que el cliente confirmó: si viene vacío, se oculta
   // la ficha completa en vez de dejar un renglón en blanco.
   [['#lbEstado', o.dataset.estado], ['#lbLugar', o.dataset.lugar], ['#lbAnio', o.dataset.anio], ['#lbAlcance', o.dataset.alcance]]
@@ -582,6 +681,17 @@ $$('[data-close]', lb).forEach(el => el.addEventListener('click', cerrarLb));
 addEventListener('keydown', e => {
   if (!lb.classList.contains('open')) return;
   if (e.key === 'Escape') return cerrarLb();
+  /* El panel se anuncia como diálogo, pero tabulando se salía a las fichas de
+     atrás y ya no había forma de volver. Aquí el foco da la vuelta dentro. */
+  if (e.key === 'Tab') {
+    const dentro = $$('button, [href], input, select, textarea, summary, [tabindex]:not([tabindex="-1"])', lb)
+      .filter(el => el.offsetParent !== null);
+    if (!dentro.length) return;
+    const primero = dentro[0], ultimo = dentro[dentro.length - 1];
+    if (e.shiftKey && document.activeElement === primero) { e.preventDefault(); ultimo.focus(); }
+    else if (!e.shiftKey && document.activeElement === ultimo) { e.preventDefault(); primero.focus(); }
+    return;
+  }
   // Con trece fotos, ir de una en una con las flechas es más cómodo que apuntarle
   // a la miniatura correcta.
   if (e.key === 'ArrowRight') { e.preventDefault(); irAPieza(enPieza + 1); }

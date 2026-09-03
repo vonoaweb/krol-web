@@ -2,7 +2,7 @@
 
 Apunte de traspaso para quien retome esto sin haber estado antes — otra persona,
 otro chat, o yo mismo dentro de un mes.
-Última actualización: **16 de agosto de 2026**.
+Última actualización: **2 de septiembre de 2026**.
 
 ---
 
@@ -290,6 +290,132 @@ Escalador 4x            C:\Fer_Doc\Comfy\models\upscale_models\4x_NMKD-Superscal
 
 ---
 
+## Feedback v3 (2-sep): la ronda grande
+
+Llegó en `Krol constructions/Feedback v3/Feedback v3/`, con **CAMBIOS.pdf** y
+**54 archivos** de material. A diferencia de las rondas anteriores, **el PDF sí
+suelta su texto**: `pypdf` lo extrae limpio. Lo que trajo:
+
+**Servicios: de 8 a 12.** El cliente lo pidió así de literal —"que queden 3 filas
+con 4 servicios"— y así queda: `.servs` es `repeat(4,1fr)` en escritorio, o sea
+tres filas exactas. Los nuevos son **09 Obra vertical**, **10 Gerencia de obra**,
+**11 Terracerías y excavación** y **12 Concreto lanzado**. Además **Obra civil se
+separó** de excavaciones y de concreto lanzado, que ahora tienen ficha propia, y
+cambiaron los textos de **Habilitado de varilla** y **Ejecución especializada**.
+Ojo: **la reja de servicios está duplicada** en `index.html` y en
+`servicios.html`, y el cliente pidió los cambios "en la sección inicio y en
+servicios". Hay que tocar las dos o quedan distintas.
+
+**Portafolio: de 12 fichas a 14.** Entraron **Torre Perla** y **Torre Jónico**,
+con una categoría y un filtro nuevos, `vertical`. Ya no hay ninguna ficha
+"pendiente de fotografía": Agencias, Pingüinario, Capilla y Habilitado
+recibieron sus fotos. Son **77 piezas** repartidas por obra.
+
+**Ninguna obra se quedó sin su material.** Los 54 archivos del cliente están
+usados. La escalera helicoidal **sustituyó** sus fotos por las de la carpeta, en
+el orden de la carpeta —lo pidió así—, y conserva su video al final.
+
+### Las listas de O'Reilly y de agencias
+
+El ingeniero pidió "una lista con las obras de O'Reilly y las agencias que hemos
+realizado, para hacer énfasis en que han sido varias". Son **23 tiendas en 5
+estados** y **24 agencias**, demasiadas para soltarlas en la tarjeta.
+
+Van dentro del panel de la obra, en un `<details>` **plegado**, con el número en
+el renglón que se ve sin abrir ("Las 23 tiendas que hemos construido"). Plegada
+porque desplegar veinticuatro renglones empuja el alcance y el botón fuera de la
+vista, y el número ya dice lo que el cliente quería decir. Se declara en dos
+atributos de la ficha:
+
+    data-lista-lb="Las 23 tiendas que hemos construido"
+    data-lista="Jalisco>Federalismo;Club Atlas|Michoacán>Zacapu"
+
+Los estados se separan con `|`, el estado de sus obras con `>`, y las obras
+entre sí con `;`. **Comillas dobles no**, que el atributo va entre comillas.
+El guion lo arma en la sección 13 de `main.js` y cuenta los renglones solo: el
+número naranja junto a cada estado no está escrito a mano.
+
+### La descripción del panel lleva párrafos y remate
+
+Antes `data-desc` se volcaba con `textContent` y salía un ladrillo de doce
+renglones. Los textos que dicta KROL traen párrafos, y varios cierran con un
+remate corto —"Ingeniería que se contempla. Concreto que trasciende."—.
+
+- Los párrafos se separan **dentro del atributo con ` // `**. El guion parte por
+  ahí y pinta un `<p>` por trozo.
+- El remate va en su propio atributo, **`data-lema`**, y se pinta con
+  `.lb__lema`: mayúsculas condensadas y una regla naranja a la izquierda.
+- Por eso `#lbDesc` **ya no es un `<p>`, es un `<div>`**: un `<p>` no puede
+  contener otros `<p>`.
+
+Al copiar un texto del cliente conviene pegarlo **entero**: en la primera pasada
+se perdieron el último párrafo de la Capilla, dos de Torre Perla y tres remates,
+y sólo se notaron al comparar palabra por palabra contra el PDF. Vale la pena
+hacer esa comparación siempre, normalizando acentos y signos.
+
+### Dos fotos recortadas por su lado bueno
+
+`OBRA CIVIL.jpeg` guarda la rampa de concreto **abajo** —en el centro sólo se ve
+el anuncio de una agencia Renault, con teléfonos de terceros incluidos— y
+`TERRACERIAS.jpeg` tiene la máquina y el corte del terreno **arriba**, con la
+sombra del fotógrafo abajo. Como la tarjeta recorta al centro, las dos salían
+con lo que no toca. Se corrigió con `object-position` por selector de atributo
+en `styles.css`, sin tocar el HTML —que está duplicado en dos páginas—.
+
+### Las miniaturas tiran de `img/mini/`, no del archivo bueno
+
+La tira de la galería pintaba **la foto completa** en un recuadro de 104 px. Con
+la Capilla eso eran trece imágenes de hasta 645 KB para nada: **la tira entera
+pesaba 14 MB y ahora pesa 611 KB**.
+
+`img/mini/` tiene una copia de 220 px de cada pieza, con **el mismo nombre**, y
+el guion arma la ruta por regla. Si a una pieza le falta su mini, la etiqueta se
+queda con la foto grande y se ve igual, sólo que pesada.
+
+⚠️ **Al agregar una foto a `data-fotos` hay que generarle su mini**, o esa
+miniatura se baja a tamaño completo. El guion que las hace recorre los
+`data-fotos` de `proyectos.html` y usa el **póster** cuando la pieza es video.
+
+### Teclado y foco
+
+Las fichas son `<article>`, así que ni recibían foco ni respondían a Intro: todo
+el portafolio existía sólo para quien usa ratón. Ahora el guion les pone
+`tabindex` y `role="button"` y atiende Intro y espacio, con su contorno naranja
+en `:focus-visible`. Y el panel, que se anuncia como diálogo, **encierra el
+foco**: tabulando ya no se sale a las fichas de atrás.
+
+⚠️ **En este equipo no se puede comprobar**: con el panel del navegador oculto,
+`document.hasFocus()` es `false` y `.focus()` no mueve nada. Se verificó que la
+lista de elementos enfocables del panel sale bien (11, en orden); tabular de
+verdad hay que probarlo en un navegador normal.
+
+### Se puede llegar al portafolio ya filtrado
+
+`proyectos.html#vertical` abre la reja con el filtro puesto. Lo usa el botón
+"Ver las dos torres" de la nota de obra vertical, que antes soltaba al visitante
+en las catorce fichas sin decirle cuáles eran. Sirve con cualquier `data-f`.
+
+⚠️ El navegador de pruebas del panel **se come el `#` al navegar**, así que
+parece que no funciona. Para comprobarlo hay que cargar la página dentro de un
+`<iframe>` con el hash puesto, o abrirla en un navegador de verdad.
+
+### Un grupo largo se lleva todo el ancho
+
+Las 24 agencias van todas bajo "Jalisco", y el reparto en dos columnas del cajón
+**no puede partir un grupo por la mitad**: quedaba una tira de 24 renglones. Los
+grupos de más de 8 llevan `lb__grupo--largo`, que ocupa el ancho completo y
+reparte sus propios renglones en dos columnas.
+
+### La nota de transparencia de obra vertical cambió de sentido
+
+Decía "aquí no vas a ver fotos de edificios ajenos". **Ya no es cierto**: el
+ingeniero consiguió permiso para publicar Torre Perla y Torre Jónico. La nota
+ahora dice que sólo se publica la obra vertical autorizada, nombra las dos y
+enlaza al portafolio; el resto sigue bajo confidencialidad. Si entra una tercera
+torre, hay que actualizar esa nota también.
+
+---
+
 ## El radar de cobertura NO es un mapa (y por qué)
 
 Costó tres intentos, así que conviene dejarlo escrito antes de que alguien
@@ -374,10 +500,14 @@ eso se veían pastosas —`duela-textura` pesaba 543 KB para mostrar una imagen 
 
 ## Obras "pendientes de fotografía"
 
-Cuatro fichas están así hoy: **Agencias automotrices**, **Pingüinario del
-Zoológico Guadalajara**, **Capilla para casa de retiros** y **Habilitado y
-armado de losa**. El criterio de Fernando: **antes de rellenar con
-material que no es de la obra o que no da la talla, se dice que falta la foto.**
+⚠️ **Hoy no queda ninguna.** El **Feedback v3** trajo fotos de las cuatro que
+lo estaban —Agencias, Pingüinario, Capilla y Habilitado— y todas tienen ya su
+galería. Lo que sigue vale igual: el mecanismo está montado y es lo que hay que
+usar si entra otra obra sin material.
+
+El criterio de Fernando: **antes de rellenar con material que no es de la obra o
+que no da la talla, se dice que falta la foto.** Así estaban esas cuatro y por
+qué:
 
 - *Agencias*: las tres que le quedaban eran de 2023, tomas genéricas de armado,
   y la ficha dice 2024 — 2026.
@@ -403,7 +533,7 @@ Cómo está resuelto, por si hay que aplicarlo a otra ficha:
 
 ## El CSS y el JS van versionados
 
-`styles.css?v=20260819` y `main.js?v=20260819` en las seis páginas. **Al tocar
+`styles.css?v=20260902c` y `main.js?v=20260902c` en las seis páginas. **Al tocar
 CSS o JS hay que subir ese número**, o los navegadores se quedan con el archivo
 viejo.
 
@@ -472,7 +602,7 @@ y pidió volver a ésta. Ojo si alguien la retoca: la regla `.obravid__grid` se 
 media query posterior, así que una regla de una sola clase puesta antes **no
 gana**; por eso el bloque nuevo usa su propia clase.
 
-## El portafolio son 12 fichas, no 13
+## El portafolio: doce fichas del v2, catorce desde el v3
 
 `Feedback v2/CAMBIOS IMAGENES Y TEXTOS.txt` numera el portafolio **hasta el 13**,
 y de ahí salió el "faltan proyectos" de antes. Pero **la entrada 3 de esa lista
@@ -488,7 +618,9 @@ esconde el renglón en vez de dejarlo en blanco.
 
 **Cada obra lleva TODO su material, videos incluidos.** Lo pidió Fernando el
 16-ago: *"no pusiste todas las imágenes y los que son video los pusiste aparte"*.
-Son **62 piezas** repartidas por proyecto, y **la sección "En obra" ya no existe**
+Eran **62 piezas** entonces; con el Feedback v3 son **77 en 14 fichas**, y la
+tabla de abajo es la del v2 —sirve para entender el criterio, no como inventario
+al día—. Un rato **la sección "En obra" no existió**
 —sus seis videos están ahora en la ficha de su obra, que es donde se entiende de
 qué obra son—. Su CSS (`.obravid`, `.ovid`) se dejó intacto por si se quiere
 volver atrás: basta con reponer el bloque HTML.
