@@ -399,6 +399,23 @@ en las catorce fichas sin decirle cuáles eran. Sirve con cualquier `data-f`.
 parece que no funciona. Para comprobarlo hay que cargar la página dentro de un
 `<iframe>` con el hash puesto, o abrirla en un navegador de verdad.
 
+### Dos trampas que costaron encontrar
+
+**`display` pisa el atributo `hidden`.** Ya estaba escrito para el marco del
+visor, y volvió a pasar con la tira de miniaturas: `.lb__tiras` lleva
+`display:flex`, y una regla del autor siempre gana a la hoja del navegador. En
+la única obra de una sola foto —Residencia Ayamonte— la tira se ocultaba con
+`hidden` y aun así dejaba una franja oscura de 25 px con su línea de separación
+colgando bajo la imagen. **Cualquier elemento del visor que se apague con
+`hidden` necesita su propia regla `[hidden]{display:none}`.**
+
+**`decodeURIComponent` lanza con un porcentaje suelto.** El filtro por hash
+decodifica `location.hash`, y `proyectos.html#%` tira `URIError`. Como eso corre
+en el cuerpo del guion **antes** de armar el visor, la excepción se llevaba por
+delante todo lo que venía después: ninguna ficha volvía a abrirse, ni con ratón
+ni con teclado, y en la consola sólo quedaba un error suelto. Va dentro de un
+`try`, y si no se puede decodificar se usa el texto tal cual.
+
 ### Un grupo largo se lleva todo el ancho
 
 Las 24 agencias van todas bajo "Jalisco", y el reparto en dos columnas del cajón
@@ -533,7 +550,7 @@ Cómo está resuelto, por si hay que aplicarlo a otra ficha:
 
 ## El CSS y el JS van versionados
 
-`styles.css?v=20260902d` y `main.js?v=20260902d` en las seis páginas. **Al tocar
+`styles.css?v=20260902e` y `main.js?v=20260902e` en las seis páginas. **Al tocar
 CSS o JS hay que subir ese número**, o los navegadores se quedan con el archivo
 viejo.
 

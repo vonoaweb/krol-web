@@ -890,6 +890,10 @@ ul{list-style:none}
   background:var(--tinta);border-top:1px solid var(--borde);
 }
 .lb__tiras::-webkit-scrollbar{display:none}
+/* Misma trampa que en el marco: el display de arriba pisa el atributo hidden.
+   En la única obra de una sola foto la tira vacía dejaba una franja oscura
+   con su línea de separación colgando bajo la imagen. */
+.lb__tiras[hidden]{display:none}
 /* Desvanecido al final de la tira mientras quede algo por ver. Sin barra y sin
    esto, cinco miniaturas alineadas parecen ser todas las que hay. */
 .lb__tiras.hay-mas{

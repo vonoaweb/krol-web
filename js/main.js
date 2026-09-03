@@ -433,7 +433,11 @@ $$('.filtro').forEach(btn => btn.addEventListener('click', () => {
    nota de obra vertical, que promete "ver las dos torres" y antes soltaba al
    visitante en la reja completa, con catorce fichas y sin decirle cuáles son. */
 if ($('.filtro')) {
-  const pedido = decodeURIComponent(location.hash.slice(1));
+  /* decodeURIComponent lanza con un porcentaje suelto —proyectos.html#% — y
+     esto corre antes de armar el visor: la excepción se llevaba por delante
+     el resto del guion y ninguna ficha volvía a abrirse. */
+  let pedido = location.hash.slice(1);
+  try { pedido = decodeURIComponent(pedido); } catch (e) { /* se usa tal cual */ }
   const btn = $$('.filtro').find(b => b.dataset.f === pedido);
   if (btn) btn.click();
   $$('.filtro').forEach(b => b.setAttribute('aria-pressed', String(b.classList.contains('is-on'))));
