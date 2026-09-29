@@ -2,7 +2,7 @@
 
 Apunte de traspaso para quien retome esto sin haber estado antes — otra persona,
 otro chat, o yo mismo dentro de un mes.
-Última actualización: **3 de septiembre de 2026**.
+Última actualización: **28 de septiembre de 2026** (ronda 4 del cliente).
 
 ---
 
@@ -32,8 +32,8 @@ Sitio estático de varias páginas: HTML, CSS y JS a mano, **sin compilación**
 —se edita y se sube—. Animaciones con GSAP + ScrollTrigger, siempre con
 degradación: si GSAP no carga, el contenido se ve igual.
 
-Páginas: `index` · `nosotros` · `servicios` · `proyectos` · `contacto` ·
-`obra-vertical`.
+Páginas: `index` · `nosotros` · `servicios` · `proyectos` · `galeria` ·
+`contacto`. `obra-vertical.html` ya sólo redirige a `servicios.html#obra-vertical`.
 
 ---
 
@@ -325,6 +325,119 @@ Escalador 4x            C:\Fer_Doc\Comfy\models\upscale_models\4x_NMKD-Superscal
 - **Las fichas ya pueden llevar video**, no sólo fotos. La primera que lo usa es
   **Cimentación bodega El Salto**, con los dos clips de la bodega. Detalle abajo.
 - **Sitio movido** fuera del dominio del cliente, con "en construcción" en su lugar.
+
+---
+
+## Ronda 4 del cliente (28-sep)
+
+El cliente la llama "ronda de cambios 4"; por nuestra cuenta es la octava (ver
+**Cobro**). Llegó a Descargas y se copió a
+`Krol constructions/Ronda de cambios 4/`: la lista en
+`PENDIENTE RONDA CAMBIOS 4.txt`, `TEXTOS SERVICIOS.docx`,
+`REACOMODO PROYECTOS.docx` y las carpetas `IMAGENES/`, `obra vertical/` y
+`VIDEOS GALERIA/`.
+
+**El Word del reacomodo no tiene texto**: son capturas de las tarjetas
+acomodadas a mano. Se lee exportándolo a PDF con el Word del equipo (COM,
+`ExportAsFixedFormat`) y mirando la página. Los `.docx` no se abren con
+`python-docx` (no está instalado): se descomprimen y se lee `word/document.xml`.
+
+### Lo que se hizo, punto por punto de la lista
+
+1. **Video "Después de un año" en Quiénes somos** (inicio). Dura 1:31 y trae voz:
+   no arranca solo como los clips mudos. Póster + botón; al picarlo salen los
+   controles y suena, y si se baja con el video corriendo se pausa. Lleva
+   `data-manual` para que el observador de videos (sección 14 del JS) no lo toque.
+2. **Logo nuevo.** Es un render 3D con las letras en **gris oscuro**: sobre el
+   `#0D1117` del sitio quedaban a ~1.6:1 y casi no se veían. Se hizo la versión
+   en negativo: el edificio tal cual y las letras aclaradas **conservando el
+   sombreado** (a cada gris se le aplica `178 + L·0.42`; el naranja no se toca),
+   en horizontal como el logo anterior: `img/logo-krol-nuevo.{avif,webp,png}`.
+   El guion es `scratchpad/logo_negativo.py`. El apilado completo no se usa: a
+   alto de cabecera "Edificación estructural" sale de 5 px. Fernando la
+   aprobó el 29-sep y él se la presenta a KROL.
+   Con el logo más ancho y Galería en el menú, **el botón "Solicitar
+   presupuesto" de la cabecera se oculta por debajo de 1180 px** (se partía en
+   dos renglones); se midió que nada se encima de 1440 a 862.
+3. **Orden de servicios**: el de la lista "ORDEN" del docx. "Pisos de concreto
+   industriales" pasó a "Pisos de concreto", que es como lo nombra el docx.
+4. **Ficha a fondo de cada servicio.** Toda la tarjeta abre una ventana con el
+   mismo panel del portafolio; el control accesible es el botón "Ver más".
+   - El texto largo vive **una sola vez**, en `servicios.html`, escondido dentro
+     de cada tarjeta (`<div class="serv__mas" hidden data-rel="…">`). El inicio
+     repite la reja sin ese texto y lo pide a `servicios.html` con `fetch` la
+     primera vez. **Si se corrige un texto, se corrige sólo ahí.**
+   - Se generó con un guion desde el docx y se comprobó renglón por renglón:
+     **165 de 165** están en la página tal cual.
+   - "Servicios relacionados" son botones que cambian de ficha sin cerrar.
+   - `servicios.html#cimentaciones` abre esa ficha al cargar: lo usa el pie de
+     todas las páginas.
+5. **Fotos de servicios**: Ejecución especializada lleva ahora la escalera
+   helicoidal (`helicoidal-portada.jpg`) y Estructuras de concreto la foto
+   `ESTRUCTURAS DE CONCRETO.jpeg` (`serv-estructuras-concreto.jpg`).
+6. **Obra vertical se fundió con Servicios.** La página se quitó; de ella sólo
+   se trajo el bloque que señaló el cliente, "Lo que ya hacemos, ahora en
+   altura", que es la sección 02 de `servicios.html` (`#altura`). Se fueron con
+   la página: *De dónde viene*, la nota de transparencia y las cuatro
+   modalidades. El menú ya no tiene submenú.
+7. **Galería** (`galeria.html`, donde estaba obra vertical). Cinco grupos
+   —Nosotros, Comercial, Habitacional, Industrial, Vertical— con el **mismo
+   visor del portafolio**. Los videos que traen voz llevan un **cuarto campo
+   `sonido`** en `data-fotos`: salen con controles, sin bucle y sonando; los
+   clips de obra siguen mudos y en bucle. **Vertical no tiene videos**: por
+   ahora son las cinco fotos de las torres y así lo dice la descripción.
+8. **O'Reilly**: la nocturna es `OREILLY 0.jpeg`, **los mismos bytes** que
+   `AGENCIA OREILLY.jpeg` del v2 (`img/agencia-oreilly.jpg`). Va de portada, de
+   primera foto y también en la obra destacada del inicio. "Las repetidas" eran
+   las seis de la misma tienda con el mismo encuadre: quedan dos (una cercana,
+   una abierta) más Belisario y Lázaro Cárdenas.
+9. **Agencias**: entran GAC, Mercedes, Jetour, Volvo y los dos talleres Subaru.
+   Jetour es una captura de Google Street View, con "© 2026 Google" a media
+   fachada. Primero se dejó fuera por eso; **Fernando pidió el 29-sep ponerla**
+   ("por algo la pusieron"). Se le recortó sólo la franja derecha, donde estaban
+   los botones de Maps; la leyenda de Google se queda.
+10. **Orden del portafolio**: el del Word, leído de izquierda a derecha. Casa
+    habitación pasó a ficha ancha: con ella las 16 cierran en siete renglones de
+    tres (medido). A dos columnas las anchas valen una celda.
+11. **Muros de concreto lanzado**: la lista de obras con longitud y altura va en
+    tabla (`data-medidas="Obra|longitud|altura;…"`), con el total sumado por el
+    guion: 7 obras, 825 m.
+12. **Muro de duela**, ficha nueva ("Muro de concreto aparente con modulación de
+    duela"). `MURO DE DUELA 0` y `7` son **los mismos bytes** que
+    `DESCIMBRADO Y ENTREGA.jpeg` y `Cimbra.jpeg` de la carpeta de muros aparentes:
+    ése era "el par de imágenes" que el ingeniero quería separar. Salieron de
+    Muros de concreto aparente (queda con 9) y entraron aquí con las otras seis.
+    **El texto es provisional, escrito por nosotros** con frases del servicio de
+    concreto aparente.
+13. **Estacionamiento Aeropuerto**, ficha nueva con su único video. **Texto
+    provisional**: describe lo que se ve y nada más; faltan alcance, lugar y
+    periodo. Se arregló de paso el visor: una ficha de una sola pieza enseñaba
+    la foto de la tarjeta, y con un solo video se quedaba en el póster quieto.
+14. **Residencia Ayamonte** recibió los tres videos `AYAMONTE…`. Venían dentro
+    de la carpeta `Muro de duela`, y la carpeta `AYAMONTE` llegó **vacía**: se
+    leyó como que iban ahí. **Supuesto a confirmar.**
+15. **Hacienda La Herradura** (no venía en la lista, pero llegó su carpeta): la
+    "imagen inicial" es la nueva portada, y ella y las otras dos, ya con el
+    estacionamiento terminado, van primero.
+
+### Videos de esta ronda
+
+Todos a H.264 con `+faststart`, 30 fps y sin ampliar. Los de obra van sin audio
+como sus hermanos; los cuatro de la empresa conservan el audio (AAC 96k). De
+~450 MB a ~48 MB. Los dos `AYAMONTE COLADO` traían otra vez **video vertical
+metido en lienzo horizontal**: `cropdetect` da `crop=604:1080:658:0`.
+
+### El panel de pruebas corre a 3 cuadros por segundo
+
+Con la ventana de la app en segundo plano el panel dibuja ~3 cuadros por
+segundo, y GSAP, por su *lag smoothing*, estira cada animación de entrada
+treinta veces: el titular de la portada tarda un minuto en aparecer y parece
+roto. No lo está. Para revisar: `gsap.ticker.lagSmoothing(0)` en la consola de
+la pestaña. Y la primera captura después de abrir un panel suele salir negra
+(la transición de opacidad): se toma otra.
+
+La entrada `krol-web` había desaparecido de `Vonoa web/.claude/launch.json`; se
+repuso el 28-sep.
 
 ---
 
@@ -669,7 +782,7 @@ Cómo está resuelto, por si hay que aplicarlo a otra ficha:
 
 ## El CSS y el JS van versionados
 
-`styles.css?v=20260902g` y `main.js?v=20260902g` en las seis páginas. **Al tocar
+`styles.css?v=20260928a` y `main.js?v=20260928a` en las seis páginas. **Al tocar
 CSS o JS hay que subir ese número**, o los navegadores se quedan con el archivo
 viejo.
 
@@ -900,6 +1013,12 @@ a 540×960 sin audio como sus hermanos (2.2 MB → 818 KB).
   cambiar la portada sin saber es peor. Preguntárselo a Héctor.
 
 ### Espera material o acción de KROL
+- **De la ronda 4 (28-sep)** —detalle arriba, en su sección—:
+  - **Datos de Estacionamiento Aeropuerto** (alcance, ubicación, periodo) y
+    **texto del Muro de duela**: los dos van con texto provisional nuestro.
+  - Confirmar que los **tres videos de Ayamonte** son de esa ficha (llegaron en
+    la carpeta del muro de duela).
+  - **Videos de obra vertical** para la galería: hoy ese grupo son fotos.
 - **Héctor tiene que verificar el correo de Web3Forms** o los avisos no llegan.
 - Fotos **timelapse de una misma obra** para los 4 pasos del proceso (lo pidieron
   en la junta del 30-jul: hoy son de obras distintas y ya lo notaron).
@@ -986,3 +1105,10 @@ razonables, y varias eran fallos reales nuestros (el formulario que no enviaba,
 material del cliente sin usar). El sitio está mucho más cerca del cierre por
 haberlas atendido. Dicho eso, el límite de rondas sí conviene ponerlo por escrito
 de aquí en adelante.
+
+**28-sep: llegó la ronda 4 del cliente** (octava por nuestra cuenta), después
+del corte que se le pasó a Héctor el 22-sep: $5,950 MXN = $4,450 de saldo +
+$1,500 de un cambio adicional que pidió el ingeniero. Esta ronda es grande
+—galería nueva, fichas a fondo de doce servicios, dos obras nuevas, logo— y
+**queda por decidir si la cubren esos $1,500 o se cotiza aparte**. Es decisión
+de Fernando; aquí sólo se deja anotado.

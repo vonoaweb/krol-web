@@ -1,6 +1,6 @@
 # KROL Edificación Estructural — demo web
 
-Demo de sitio (5 páginas) para **KROL Edificación Estructural S.A. de C.V.** (Guadalajara, Jal.)
+Demo de sitio (6 páginas) para **KROL Edificación Estructural S.A. de C.V.** (Guadalajara, Jal.)
 Preparado por **Vonoa Web** · julio 2026.
 
 ---
@@ -91,25 +91,27 @@ degrada bien si no cargan** (los reveals caen a IntersectionObserver).
 
 ## Estructura
 
-Cinco páginas, no un one-page:
+Seis páginas, no un one-page:
 
 ```
 krol-demo/
-├── index.html          # Inicio: hero, resumen + cifras, servicios, obra destacada
+├── index.html          # Inicio: hero, quiénes somos + video, servicios, obra destacada
 ├── nosotros.html       # historia, misión/visión, capacidad, flota, cobertura
-├── servicios.html      # los 8 servicios + el proceso de obra
-├── proyectos.html      # portafolio con filtros y ficha ampliada + video de obra
+├── servicios.html      # los 12 servicios con su ficha a fondo, obra vertical y el proceso
+├── proyectos.html      # portafolio (16 obras) con filtros y ficha ampliada + video de obra
+├── galeria.html        # videos por grupo: nosotros, comercial, habitacional, industrial, vertical
 ├── contacto.html       # datos y formulario
+├── obra-vertical.html  # sólo redirige a servicios.html#obra-vertical (desde la ronda 4)
 ├── css/styles.css      # variables de marca arriba del todo
 ├── js/main.js          # bloques numerados y comentados
-├── img/                # fotos de obra + logo + posters de video
-└── video/              # dobladora, flota, pickup, camión, escalera
+├── img/                # fotos de obra + logo + posters de video (img/mini: miniaturas)
+└── video/              # clips de obra y videos de la empresa
 ```
 
-**El encabezado y el pie están repetidos en las cinco páginas** (no hay build ni
+**El encabezado y el pie están repetidos en las seis páginas** (no hay build ni
 includes: es HTML plano para que GitHub Pages lo sirva tal cual y se pueda editar
 a mano). Si cambia el teléfono, el correo o un enlace del menú, hay que tocarlo en
-los cinco archivos. El enlace activo del menú va marcado en el HTML de cada página
+los seis archivos. El enlace activo del menú va marcado en el HTML de cada página
 con `class="nav__link on"` y `aria-current="page"`; el JS no lo toca.
 
 ### Videos

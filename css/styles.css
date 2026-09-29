@@ -216,7 +216,12 @@ ul{list-style:none}
 .header.nav-open{backdrop-filter:none;-webkit-backdrop-filter:none;background:transparent;border-bottom-color:transparent}
 .header.up{transform:translateY(-100%)}
 .header__inner{display:flex;align-items:center;gap:28px;padding-block:16px}
-.brand img{height:clamp(52px,6vw,72px);width:auto}
+/* Logo nuevo (ronda 4): el render 3D de KROL trae las letras en gris oscuro y
+   sobre este fondo casi desaparecían; se usa su versión en negativo, con el
+   edificio a la izquierda como el logo anterior. Es más ancho que aquél, por
+   eso baja un poco de alto: a 72 px no cabían el menú y el botón. */
+.brand{flex:none}
+.brand img{height:clamp(46px,4.6vw,62px);width:auto}
 /* Menú centrado: auto a ambos lados lo deja al centro del header */
 .nav{display:flex;gap:clamp(14px,1.9vw,34px);margin-inline:auto}
 .nav__link{
@@ -272,6 +277,11 @@ ul{list-style:none}
   border:1px solid currentColor;border-radius:4px;padding:3px 6px;flex:none;
 }
 .header__cta{padding:12px 22px;font-size:.82rem}
+/* Con el logo nuevo y Galería en el menú, logo + seis enlaces + botón piden
+   ~1,050 px: por debajo de 1180 el botón se partía en dos renglones y
+   engordaba la cabecera. Ahí se va; "Contacto" sigue en el menú y el botón de
+   WhatsApp en la esquina. */
+@media (max-width:1180px){.header__cta{display:none}}
 .burger{display:none;width:34px;height:26px;flex-direction:column;justify-content:center;gap:7px}
 .burger span{display:block;height:2px;background:var(--papel);transition:transform .35s var(--ease),opacity .25s}
 .burger.on span:nth-child(1){transform:translateY(4.5px) rotate(45deg)}
@@ -434,6 +444,31 @@ ul{list-style:none}
 .resumen .btn{margin-top:28px}
 .enlace{color:var(--naranja);border-bottom:1px solid currentColor;transition:opacity .3s}
 .enlace:hover{opacity:.7}
+/* Quiénes somos con el video de la empresa (ronda 4). El video es vertical y
+   trae voz: va a la derecha, en su proporción, y no arranca solo. */
+.resumen__grid--video{grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);align-items:center}
+.resumen__texto .title{margin-bottom:26px}
+/* 320 de ancho son 569 de alto: cabe entero en una laptop de 768 de alto. */
+.rvid{margin:0;width:100%;max-width:320px;justify-self:end}
+.rvid__marco{position:relative;aspect-ratio:9/16;overflow:hidden;background:var(--tinta);border:1px solid rgba(255,255,255,.14)}
+.rvid__marco video{width:100%;height:100%;object-fit:cover;display:block}
+.rvid__play{
+  position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;
+  gap:16px;padding-bottom:18%;color:var(--papel);
+  background:linear-gradient(180deg,rgba(13,17,23,0) 45%,rgba(13,17,23,.78));
+}
+.rvid__icono{
+  width:76px;height:76px;border-radius:50%;background:var(--naranja);display:grid;place-items:center;
+  box-shadow:0 0 0 10px rgba(249,115,22,.22);transition:transform .35s var(--ease),box-shadow .35s var(--ease);
+}
+.rvid__icono::after{content:'';margin-left:6px;border-style:solid;border-width:13px 0 13px 21px;border-color:transparent transparent transparent var(--tinta)}
+.rvid__play:hover .rvid__icono,.rvid__play:focus-visible .rvid__icono{transform:scale(1.08);box-shadow:0 0 0 14px rgba(249,115,22,.28)}
+.rvid__play:focus-visible{outline:2px solid var(--naranja);outline-offset:-4px}
+.rvid__txt{font-family:var(--cond);font-weight:700;text-transform:uppercase;letter-spacing:.12em;font-size:.86rem}
+.rvid.reproduciendo .rvid__play{display:none}
+.rvid figcaption{padding:13px 0 0}
+.rvid figcaption b{display:block;font-family:var(--cond);font-weight:700;text-transform:uppercase;letter-spacing:.05em;font-size:1rem;color:var(--papel)}
+.rvid figcaption span{display:block;font-family:var(--tecno);font-size:7.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--acero);margin-top:6px}
 
 /* ══════════════ OBRA DESTACADA (inicio) ══════════════ */
 .destacados{background:var(--fondo)}
@@ -648,6 +683,26 @@ ul{list-style:none}
 .serv__cta:hover{color:var(--naranja);border-color:var(--naranja)}
 .serv__cta:hover i{transform:translate(3px,-3px)}
 .servs .pour::after{background:var(--naranja)}
+/* Ronda 4: cada tarjeta abre su ficha a fondo. Toda la tarjeta responde al
+   clic, pero el control de verdad es "Ver más" —un <button>—, para que con
+   teclado se llegue igual y la tarjeta no sea un botón con un enlace dentro.
+   El margen de arriba es para servicios.html#id: sin él la tarjeta quedaba
+   debajo de la cabecera fija. */
+.serv[data-serv]{cursor:pointer;scroll-margin-top:120px}
+.serv__acc{margin-top:auto;display:flex;align-items:center;flex-wrap:wrap;gap:10px 24px}
+.serv__acc .serv__cta{margin-top:0}
+.serv__ver{
+  display:inline-flex;align-items:center;gap:8px;padding:0 0 3px;
+  font-family:var(--cond);font-weight:700;text-transform:uppercase;
+  font-size:.82rem;letter-spacing:.1em;color:var(--naranja);
+  border-bottom:1px solid var(--naranja);
+}
+.serv__ver i{font-style:normal;font-size:1.05em;transition:transform .4s var(--ease)}
+.serv:hover .serv__ver i,.serv__ver:focus-visible i{transform:rotate(90deg)}
+.serv__ver:focus-visible{outline:2px solid var(--naranja);outline-offset:4px}
+/* La foto de estructuras llegó vertical y con la cimbra del último nivel
+   arriba: el recorte al centro se quedaba con dos entrepisos iguales. */
+.serv__img img[src$="serv-estructuras-concreto.jpg"]{object-position:50% 30%}
 
 /* ══════════════ PROCESO (pin horizontal) ══════════════ */
 .proceso{background:var(--tinta);position:relative}
@@ -730,6 +785,7 @@ ul{list-style:none}
 .capacidad__specs div{background:var(--tarjeta);padding:20px 22px}
 .capacidad__specs b{display:block;font-family:var(--cond);font-weight:700;text-transform:uppercase;font-size:1rem;letter-spacing:.07em;color:var(--naranja);margin-bottom:5px}
 .capacidad__specs span{font-size:.88em;color:var(--acero);line-height:1.5}
+.capacidad__acc{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
 
 /* ══════════════ OBRA VERTICAL ══════════════ */
 /* Tarjetas de modalidad: sin foto a propósito — de esta línea no hay obra
@@ -794,6 +850,10 @@ ul{list-style:none}
 .obras.filtrado .obra--wide .obra__img{aspect-ratio:4/3}
 .obra__img img{width:100%;height:100%;object-fit:cover;transition:transform 1.5s var(--ease),clip-path 1.15s var(--ease)}
 .obra:hover .obra__img img{transform:scale(1.05)}
+/* La foto del muro de duela trae la marca de agua de KROL abajo a la
+   izquierda. En la tarjeta se recorta desde abajo y se va; en el visor la
+   foto sale entera, como la mandó el cliente. */
+.obra__img img[src$="descimbrado.jpg"]{object-position:50% 0}
 /* Obra que aún espera fotografía. Se dice en la tarjeta en vez de rellenar
    con una imagen que no es de esa obra. */
 .obra__img--pend{
@@ -829,6 +889,21 @@ ul{list-style:none}
   opacity:0;transform:translateY(-8px);transition:all .4s var(--ease);
 }
 .obra:hover .obra__go{opacity:1;transform:translateY(0)}
+
+/* ── Galería (ronda 4) ──
+   Cinco grupos con el mismo visor del portafolio. La marca de reproducir dice
+   de un vistazo que ahí hay video; el número de videos va en el distintivo
+   naranja de abajo, el mismo que usa "En ejecución". */
+.gal__play{
+  position:absolute;left:50%;top:50%;z-index:2;width:66px;height:66px;margin:-33px 0 0 -33px;
+  border-radius:50%;background:rgba(13,17,23,.55);border:2px solid var(--papel);
+  display:grid;place-items:center;pointer-events:none;
+  transition:transform .4s var(--ease),background .3s ease,border-color .3s ease;
+}
+.gal__play::after{content:'';margin-left:5px;border-style:solid;border-width:11px 0 11px 18px;border-color:transparent transparent transparent var(--papel);transition:border-color .3s ease}
+.gal:hover .gal__play{background:var(--naranja);border-color:var(--naranja);transform:scale(1.08)}
+.gal:hover .gal__play::after{border-left-color:var(--tinta)}
+.gal .obra__img img[src$="torre-perla.jpg"]{object-position:50% 35%}
 
 /* Las fichas ya se abren con Intro, así que su foco tiene que verse: sin esto
    quien navega con teclado avanza catorce veces a ciegas. */
@@ -978,6 +1053,45 @@ ul{list-style:none}
 .lb__specs div{background:var(--tinta);padding:13px 0 13px 14px}
 .lb__specs dt{font-family:var(--tecno);font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--acero);margin-bottom:4px}
 .lb__specs dd{font-family:var(--cond);font-weight:600;font-size:.98rem;color:var(--papel);text-transform:uppercase;letter-spacing:.04em}
+
+/* ── Medidas de concreto lanzado: obra, longitud y altura en tabla ── */
+.lb__tabla{width:100%;border-collapse:collapse;margin:4px 0 16px;font-size:.86rem}
+.lb__tabla th,.lb__tabla td{padding:7px 10px 7px 0;text-align:left;border-bottom:1px solid var(--borde);vertical-align:baseline}
+.lb__tabla thead th{
+  font-family:var(--tecno);font-size:8px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--acero);font-weight:400;padding-top:4px;
+}
+.lb__tabla tbody th{font-weight:400;color:var(--cimbra)}
+.lb__tabla td{color:var(--papel);font-family:var(--cond);font-weight:600;letter-spacing:.03em;white-space:nowrap}
+.lb__tabla tfoot th,.lb__tabla tfoot td{border-bottom:0;padding-top:10px;color:var(--naranja);font-family:var(--cond);font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+
+/* ── Ficha de servicio (ronda 4) ──
+   Reusa el panel del portafolio. La foto va recortada y no entera: aquí es
+   ilustración del servicio, no la pieza que se revisa. La columna de texto
+   gana ancho porque cada servicio trae tres párrafos y una lista. */
+.lb--serv .lb__panel{grid-template-columns:.9fr 1.1fr}
+/* 4:5 y no cuadrada: el texto de cada servicio es largo y la foto cuadrada
+   dejaba media columna vacía debajo. */
+.lb--serv .lb__marco > img{object-fit:cover;aspect-ratio:4/5}
+.sv__texto .sv__lema{margin:0 0 1.2em}
+.sv__texto h4{
+  font-family:var(--cond);font-weight:700;text-transform:uppercase;letter-spacing:.06em;
+  font-size:.95rem;color:var(--papel);margin:1.3em 0 .6em;
+}
+.sv__texto ul{margin:0 0 1.1em;padding:0;display:grid;gap:6px}
+.sv__texto li{position:relative;padding-left:18px;line-height:1.5}
+.sv__texto li::before{content:'';position:absolute;left:0;top:.62em;width:7px;height:7px;background:var(--naranja);transform:rotate(45deg)}
+.sv__extra{margin-top:1.2em}
+.sv__rel{border-top:1px solid var(--borde);padding-top:16px;margin-bottom:26px}
+.sv__rel-t{font-family:var(--tecno);font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--acero);margin-bottom:12px}
+.sv__chips{display:flex;flex-wrap:wrap;gap:8px}
+.sv__chip{
+  font-family:var(--cond);font-weight:600;text-transform:uppercase;font-size:.8rem;letter-spacing:.06em;
+  color:var(--cimbra);border:1px solid var(--borde);border-radius:999px;padding:7px 14px;
+  transition:color .25s ease,border-color .25s ease,background .25s ease;
+}
+.sv__chip:hover,.sv__chip:focus-visible{color:var(--papel);border-color:var(--naranja);background:var(--naranja-suave);outline:none}
+.sv__acc{display:flex;flex-wrap:wrap;gap:12px}
 
 /* ══════════════ COBERTURA ══════════════ */
 .cobertura{background:var(--fondo)}
@@ -1200,7 +1314,7 @@ ul{list-style:none}
 /* ══════════════ FOOTER ══════════════ */
 .footer{background:var(--fondo);padding-top:clamp(56px,7vw,90px);border-top:1px solid rgba(255,255,255,.1)}
 .footer__grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.3fr;gap:clamp(26px,4vw,56px);padding-bottom:clamp(40px,5vw,64px)}
-.footer__brand img{height:42px;width:auto;margin-bottom:18px}
+.footer__brand img{height:50px;width:auto;margin-bottom:18px}
 .footer__slogan{font-family:var(--cond);font-style:italic;font-weight:700;text-transform:uppercase;color:var(--naranja);letter-spacing:.05em;margin-bottom:12px}
 .footer__brand p{font-size:.9em;color:var(--acero);max-width:38ch}
 .footer__col h3{font-family:var(--tecno);font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--papel);margin-bottom:18px}
@@ -1233,7 +1347,20 @@ ul{list-style:none}
   .capacidad__vid{max-width:380px}
   .contacto__grid{grid-template-columns:1fr}
   .obras{grid-template-columns:repeat(2,1fr)}
-  .obra--wide{grid-column:span 2}
+  /* A dos columnas las anchas dejaban huecos: con el orden de la ronda 4, una
+     tarjeta sola entre Capilla y Escalera. Aquí todas valen una celda, como
+     con filtro, y las dieciséis cierran en ocho renglones. */
+  .obra--wide{grid-column:span 1}
+  .obra--wide .obra__img{aspect-ratio:4/3}
+  /* En la galería son cinco: la ancha a renglón completo y las otras cuatro
+     de dos en dos cierran justo. */
+  .gal__reja .obra--wide{grid-column:span 2}
+  .gal__reja .obra--wide .obra__img{aspect-ratio:16/9}
+  .rvid{justify-self:start}
+  .lb--serv .lb__panel{grid-template-columns:1fr}
+  /* Apilada, la foto del servicio es sólo portada: baja para que el texto,
+     que es lo que se viene a leer, aparezca sin tener que bajar. */
+  .lb--serv .lb__marco > img{aspect-ratio:16/10;max-height:32svh}
   /* Apilado: la foto deja de ser fija y se limita para que las miniaturas
      queden a la vista sin tener que buscarlas con scroll. */
   .cobertura__grid{grid-template-columns:1fr;gap:clamp(20px,4vw,34px)}
@@ -1306,8 +1433,8 @@ ul{list-style:none}
 }
 @media (max-width:620px){
   .obras{grid-template-columns:1fr}
-  .obra--wide{grid-column:span 1}
-  .obra--wide .obra__img{aspect-ratio:4/3}
+  .obra--wide,.gal__reja .obra--wide{grid-column:span 1}
+  .obra--wide .obra__img,.gal__reja .obra--wide .obra__img{aspect-ratio:4/3}
   .dest__grid{grid-template-columns:1fr}
   .dest--ancha .dest__img{aspect-ratio:4/3}
   .flota__grid{grid-template-columns:1fr}

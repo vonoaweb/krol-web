@@ -124,36 +124,37 @@ $$('.nav a').forEach(a => a.addEventListener('click', () => menu(false)));
 /* Botones en táctil: sin cursor no hay hover, así que el destello se lanza al
    tocar. Se quita la clase antes de volver a ponerla para reiniciar el barrido
    cuando se toca dos veces seguidas. */
-if (!HOVER) {
-  $$('.btn').forEach(b => b.addEventListener('touchstart', () => {
-    b.classList.remove('tocado');
-    void b.offsetWidth;
-    b.classList.add('tocado');
-    setTimeout(() => b.classList.remove('tocado'), 780);
-  }, { passive: true }));
-}
-
 /* Botones magnéticos: mientras el cursor está encima, el botón lo sigue. Se le
    suma la elevación para que no se pierda al escribir el transform en línea.
-   Sólo con ratón: en táctil no hay puntero al que seguir. */
-if (HOVER) {
-  // Con topes: en los botones anchos el desplazamiento libre se iba a casi
-  // 30px y el botón daba tirones al mover el cursor.
-  const tope = (v, m) => v < -m ? -m : v > m ? m : v;
-  $$('.btn').forEach(b => {
-    b.addEventListener('mouseenter', () => b.classList.add('iman'));
-    b.addEventListener('mousemove', e => {
-      const r = b.getBoundingClientRect();
-      const x = tope((e.clientX - r.left - r.width / 2) * .12, 9);
-      const y = tope((e.clientY - r.top - r.height / 2) * .18, 5) - 3;
-      b.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`;
-    });
-    b.addEventListener('mouseleave', () => {
-      b.classList.remove('iman');
-      b.style.transform = '';
-    });
+   Sólo con ratón: en táctil no hay puntero al que seguir.
+   Va en función porque la ventana de servicios arma sus botones después de
+   cargar la página, y sin esto se quedaban sin destello ni imán. */
+// Con topes: en los botones anchos el desplazamiento libre se iba a casi
+// 30px y el botón daba tirones al mover el cursor.
+const tope = (v, m) => v < -m ? -m : v > m ? m : v;
+function botonVivo(b) {
+  if (!HOVER) {
+    b.addEventListener('touchstart', () => {
+      b.classList.remove('tocado');
+      void b.offsetWidth;
+      b.classList.add('tocado');
+      setTimeout(() => b.classList.remove('tocado'), 780);
+    }, { passive: true });
+    return;
+  }
+  b.addEventListener('mouseenter', () => b.classList.add('iman'));
+  b.addEventListener('mousemove', e => {
+    const r = b.getBoundingClientRect();
+    const x = tope((e.clientX - r.left - r.width / 2) * .12, 9);
+    const y = tope((e.clientY - r.top - r.height / 2) * .18, 5) - 3;
+    b.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`;
+  });
+  b.addEventListener('mouseleave', () => {
+    b.classList.remove('iman');
+    b.style.transform = '';
   });
 }
+$$('.btn').forEach(botonVivo);
 addEventListener('keydown', e => {
   if (e.key === 'Escape' && nav.classList.contains('open')) menu(false);
 });
@@ -474,9 +475,21 @@ function verPendiente() {
   if (lbPend) lbPend.hidden = false;
 }
 
-function verPieza([src, alt, poster]) {
+/* La galería mezcla clips de obra mudos con videos de la empresa que traen voz
+   y música, y el visor ponía todo mudo, en bucle y sin controles. Los que
+   tienen audio llevan un cuarto campo en data-fotos, "sonido": salen con
+   controles, sin bucle y sonando. Como los arranca un clic de la persona, el
+   navegador los deja sonar. */
+function verPieza([src, alt, poster, extra]) {
   if (lbPend) lbPend.hidden = true;
+  // Sólo la galería trae este renglón: dice qué video se está viendo.
+  const rotulo = $('#lbPieza');
+  if (rotulo) { rotulo.textContent = alt || ''; rotulo.closest('div').hidden = !alt; }
   if (/\.mp4$/i.test(src)) {
+    const sonido = extra === 'sonido';
+    lbVid.muted = !sonido;
+    lbVid.loop = !sonido;
+    lbVid.controls = sonido;
     lbVid.poster = poster || '';
     lbVid.setAttribute('aria-label', alt || '');   // va escrito en data-fotos
     lbVid.src = src;
@@ -597,6 +610,11 @@ obras.forEach(o => o.addEventListener('click', () => {
       tiras.appendChild(b);
     });
     irAPieza(0);   // abre en la portada, marca su miniatura y pone el contador
+  } else if (piezas.length === 1) {
+    /* Una sola pieza: sin tira ni contador, pero hay que ponerla. Antes se
+       quedaba la foto de la tarjeta, y en Estacionamiento Aeropuerto —que sólo
+       trae un video— el visor enseñaba el póster quieto. */
+    verPieza(piezas[0]);
   }
   $('#lbCat').textContent   = $('.obra__cat', o).textContent;
   $('#lbTitle').textContent = $('h3', o).textContent;
@@ -624,7 +642,7 @@ obras.forEach(o => o.addEventListener('click', () => {
   const lista = $('#lbLista');
   if (lista) {
     lista.innerHTML = '';
-    lista.hidden = !o.dataset.lista;
+    lista.hidden = !o.dataset.lista && !o.dataset.medidas;
     if (o.dataset.lista) {
       /* Se arma con nodos y no con innerHTML: los nombres los escribe una
          persona en el HTML y un "Acme & Co" rompería el marcado. Y cada grupo
@@ -657,6 +675,39 @@ obras.forEach(o => o.addEventListener('click', () => {
         cajon.appendChild(s);
       });
       lista.appendChild(cajon);
+    }
+    /* Muros de concreto lanzado: el ingeniero pidió la lista de obras "como en
+       las agencias y O'Reilly", pero cada una trae longitud y altura, y en
+       renglones sueltos las cifras no se comparan. Va en tabla, con el total
+       sumado aquí para que no se desfase si alguien agrega una obra.
+       Formato: data-medidas="Obra|longitud|altura;Obra|longitud|altura". */
+    if (o.dataset.medidas) {
+      const filas = o.dataset.medidas.split(';').map(f => f.split('|')).filter(f => f.length === 3);
+      const titulo = document.createElement('p');
+      titulo.className = 'lb__lista__t';
+      titulo.textContent = o.dataset.medidasLb || '';
+      const tabla = document.createElement('table');
+      tabla.className = 'lb__tabla';
+      const celda = (fila, tag, txt, scope) => {
+        const c = fila.appendChild(document.createElement(tag));
+        c.textContent = txt;
+        if (scope) c.scope = scope;
+      };
+      const cab = tabla.createTHead().insertRow();
+      ['Obra', 'Longitud', 'Altura'].forEach(x => celda(cab, 'th', x, 'col'));
+      const cuerpo = tabla.createTBody();
+      filas.forEach(([obra, largo, alto]) => {
+        const f = cuerpo.insertRow();
+        celda(f, 'th', obra, 'row'); celda(f, 'td', largo); celda(f, 'td', alto);
+      });
+      const suma = filas.reduce((s, f) => s + (parseFloat(f[1]) || 0), 0);
+      if (suma) {
+        const pie = tabla.createTFoot().insertRow();
+        celda(pie, 'th', `${filas.length} obras`, 'row');
+        celda(pie, 'td', suma.toFixed(2) + ' m');
+        celda(pie, 'td', '');
+      }
+      lista.append(titulo, tabla);
     }
   }
   // Sólo mostramos los datos que el cliente confirmó: si viene vacío, se oculta
@@ -700,7 +751,153 @@ addEventListener('keydown', e => {
   if (e.key === 'ArrowRight') { e.preventDefault(); irAPieza(enPieza + 1); }
   if (e.key === 'ArrowLeft')  { e.preventDefault(); irAPieza(enPieza - 1); }
 });
-}   // fin: sólo la página de proyectos trae lightbox
+}   // fin: sólo proyectos y galería traen lightbox
+
+/* ─────────────────────────────────────────────
+   13b · Servicios: la ficha a fondo
+   KROL pidió (ronda 4) que cada servicio se abriera "como en portafolio" para
+   describirlo a profundidad. El texto largo vive UNA vez, escondido dentro de
+   cada tarjeta de servicios.html (.serv__mas). El inicio repite la reja sin
+   ese texto y lo pide a servicios.html la primera vez que hace falta: así no
+   hay dos copias que mantener, y el texto sigue en el HTML para los buscadores.
+   ───────────────────────────────────────────── */
+const tarjetas = $$('.serv[data-serv]');
+if (tarjetas.length) {
+  const porId = new Map(tarjetas.map(t => [t.dataset.serv, t]));
+  const aqui = $$('.serv__mas');
+  let textos = null;
+  const pedirTextos = () => {
+    if (textos) return textos;
+    textos = aqui.length
+      ? Promise.resolve(new Map(aqui.map(d => [d.closest('.serv').dataset.serv, d])))
+      : fetch('servicios.html')
+          .then(r => r.ok ? r.text() : Promise.reject(r.status))
+          .then(html => {
+            const doc = new DOMParser().parseFromString(html, 'text/html');
+            return new Map($$('.serv[data-serv] .serv__mas', doc).map(d => [d.closest('.serv').dataset.serv, d]));
+          });
+    textos.catch(() => { textos = null; });   // si falló, que el siguiente clic lo reintente
+    return textos;
+  };
+
+  // El panel reusa las clases del visor del portafolio: mismo marco, misma
+  // columna de texto, mismo cierre. Se arma aquí para no repetirlo en dos HTML.
+  const sv = document.createElement('div');
+  sv.className = 'lb lb--serv';
+  sv.id = 'sv';
+  sv.setAttribute('role', 'dialog');
+  sv.setAttribute('aria-modal', 'true');
+  sv.setAttribute('aria-hidden', 'true');
+  sv.setAttribute('aria-labelledby', 'svTitle');
+  sv.innerHTML = `
+    <div class="lb__bd" data-close></div>
+    <div class="lb__panel">
+      <button class="lb__x" type="button" data-close aria-label="Cerrar">✕</button>
+      <div class="lb__img"><div class="lb__marco"><img id="svImg" alt="" /><span class="serv__n" id="svN"></span></div></div>
+      <div class="lb__body">
+        <span class="obra__cat">Servicio</span>
+        <h3 id="svTitle"></h3>
+        <div class="lb__desc sv__texto" id="svTexto"></div>
+        <div class="sv__rel" id="svRel" hidden><p class="sv__rel-t">Servicios relacionados</p><div class="sv__chips" id="svChips"></div></div>
+        <div class="sv__acc">
+          <a href="contacto.html" class="btn btn--solid" data-close>Cotizar este servicio <span class="arrow" aria-hidden="true">→</span></a>
+          <a href="proyectos.html" class="btn btn--ghost" data-close>Ver proyectos <span class="arrow" aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </div>`;
+  document.body.appendChild(sv);
+  $$('.btn', sv).forEach(botonVivo);
+  const en = s => $(s, sv);
+
+  let volverA = null, abierto = null;
+
+  function abrir(id, desde) {
+    const t = porId.get(id);
+    if (!t) return;
+    if (desde) volverA = desde;
+    abierto = id;
+    const img = $('img', t);
+    en('#svImg').src = img.currentSrc || img.src;
+    en('#svImg').alt = img.alt;
+    en('#svN').textContent = $('.serv__n', t).textContent;
+    en('#svTitle').textContent = $('h3', t).textContent;
+    // Mientras llega el texto largo (en el inicio, la primera vez) se ve el
+    // resumen de la tarjeta, no un hueco.
+    const caja = en('#svTexto');
+    caja.replaceChildren(Object.assign(document.createElement('p'), { textContent: $('p', t).textContent }));
+    en('#svRel').hidden = true;
+    pedirTextos().then(mapa => {
+      if (abierto !== id) return;             // entretanto ya se abrió otra
+      const d = mapa.get(id);
+      if (!d) return;
+      caja.replaceChildren(...[...d.children].map(n => document.importNode(n, true)));
+      $$('[data-close]', caja).forEach(el => el.addEventListener('click', cerrar));
+      const chips = en('#svChips');
+      const rel = (d.dataset.rel || '').split(' ').filter(r => porId.has(r) && r !== id);
+      chips.replaceChildren(...rel.map(r => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'sv__chip';
+        b.textContent = $('h3', porId.get(r)).textContent;
+        b.addEventListener('click', () => abrir(r));   // cambia de ficha sin cerrar
+        return b;
+      }));
+      en('#svRel').hidden = !rel.length;
+    }).catch(() => { location.href = 'servicios.html#' + id; });   // sin red: a la página que sí lo trae
+
+    en('.lb__panel').scrollTop = 0;
+    if (!sv.classList.contains('open')) {
+      sv.classList.add('open');
+      sv.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+    en('.lb__x').focus();
+    // En servicios.html la dirección dice qué ficha está abierta, para poder
+    // compartirla: servicios.html#cimentaciones la abre al cargar.
+    if (aqui.length) history.replaceState(null, '', '#' + id);
+  }
+
+  function cerrar() {
+    if (!sv.classList.contains('open')) return;
+    sv.classList.remove('open');
+    sv.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    abierto = null;
+    if (porId.has(location.hash.slice(1))) history.replaceState(null, '', location.pathname + location.search);
+    volverA?.focus?.();
+  }
+
+  tarjetas.forEach(t => t.addEventListener('click', e => {
+    if (e.target.closest('a')) return;        // "Cotizar" sigue siendo un enlace
+    abrir(t.dataset.serv, $('.serv__ver', t));
+  }));
+  $$('[data-close]', sv).forEach(el => el.addEventListener('click', cerrar));
+
+  addEventListener('keydown', e => {
+    if (!sv.classList.contains('open')) return;
+    if (e.key === 'Escape') return cerrar();
+    if (e.key === 'Tab') {                    // el foco da la vuelta dentro, como en el portafolio
+      const dentro = $$('button, [href]', sv).filter(el => el.offsetParent !== null);
+      const primero = dentro[0], ultimo = dentro[dentro.length - 1];
+      if (e.shiftKey && document.activeElement === primero) { e.preventDefault(); ultimo.focus(); }
+      else if (!e.shiftKey && document.activeElement === ultimo) { e.preventDefault(); primero.focus(); }
+    }
+  });
+
+  // servicios.html#id abre esa ficha: lo usan el pie de todas las páginas y la
+  // vieja obra-vertical.html, que ahora redirige a servicios.html#obra-vertical.
+  const porHash = () => {
+    let id = location.hash.slice(1);
+    try { id = decodeURIComponent(id); } catch (e) { /* se usa tal cual */ }
+    if (porId.has(id)) abrir(id, $('.serv__ver', porId.get(id)));
+  };
+  porHash();
+  addEventListener('hashchange', porHash);
+
+  // En el inicio se pide el texto con la página ya cargada, para que el primer
+  // clic abra completo y no con el resumen.
+  if (!aqui.length) addEventListener('load', () => setTimeout(() => pedirTextos().catch(() => {}), 1200), { once: true });
+}
 
 /* ─────────────────────────────────────────────
    14 · Video sólo cuando se ve
@@ -722,11 +919,34 @@ if (!CALMA && !(navigator.connection && navigator.connection.saveData)) {
     // observador, tendría dos dueños peleándose —al mostrarlo pasa de
     // display:none a visible, y ese salto genera una entrada de "no se ve" que
     // llegaría a destiempo—. Un elemento, un dueño.
-    $$('video:not(#lbVid)').forEach(v => ioVid.observe(v));
+    // Los que llevan data-manual tampoco: tienen voz y sólo suenan si alguien
+    // les da reproducir (ver 14b).
+    $$('video:not(#lbVid):not([data-manual])').forEach(v => ioVid.observe(v));
   };
   if (document.readyState === 'complete') verVideos();
   else addEventListener('load', verVideos, { once: true });
 }
+
+/* ─────────────────────────────────────────────
+   14b · Video con sonido del inicio
+   "Después de un año" dura minuto y medio y trae voz: no puede arrancar solo
+   como los clips mudos. Se queda en el póster con su botón, y al picarlo se
+   ponen los controles del navegador y suena. Si alguien sigue bajando con el
+   video corriendo, se pausa: que no se quede hablando fuera de la vista.
+   ───────────────────────────────────────────── */
+$$('.rvid').forEach(f => {
+  const v = $('video', f), b = $('.rvid__play', f);
+  if (!v || !b) return;
+  b.addEventListener('click', () => {
+    f.classList.add('reproduciendo');
+    v.controls = true;
+    v.play().catch(() => {});
+    v.focus();
+  });
+  new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting && !v.paused) v.pause();
+  })).observe(v);
+});
 
 /* ─────────────────────────────────────────────
    15 · Formulario de contacto

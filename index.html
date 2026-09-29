@@ -19,7 +19,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;500;600;700;800&family=Michroma&family=Black+Ops+One&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="css/styles.css?v=20260902g" />
+<link rel="stylesheet" href="css/styles.css?v=20260928a" />
 <!-- Imagen LCP de la portada: se precarga con prioridad para que aparezca de inmediato -->
 <link rel="preload" as="image" href="img/hero-portada.jpg" fetchpriority="high" />
 <link rel="apple-touch-icon" href="img/icono-krol-180.png" />
@@ -61,21 +61,16 @@
 <header class="header" id="header">
   <div class="shell header__inner">
     <a href="index.html" class="brand" aria-label="KROL Edificación Estructural — inicio">
-      <picture><source srcset="img/logo-krol.avif" type="image/avif" /><img src="img/logo-krol.png" alt="KROL Edificación Estructural" /></picture>
+      <picture><source srcset="img/logo-krol-nuevo.avif" type="image/avif" /><source srcset="img/logo-krol-nuevo.webp" type="image/webp" /><img src="img/logo-krol-nuevo.png" alt="KROL Edificación Estructural" width="589" height="144" /></picture>
     </a>
 
     <nav class="nav" id="nav" aria-label="Principal">
       <a href="index.html" class="nav__link on" aria-current="page"><i>01</i>Inicio</a>
       <a href="nosotros.html" class="nav__link"><i>02</i>Nosotros</a>
-      <div class="nav__item">
-        <a href="servicios.html" class="nav__link"><i>03</i>Servicios</a>
-        <div class="sub"><div class="sub__in">
-          <a href="servicios.html">Todos los servicios</a>
-          <a href="obra-vertical.html">Obra vertical <span class="nuevo">Nueva</span></a>
-        </div></div>
-      </div>
+      <a href="servicios.html" class="nav__link"><i>03</i>Servicios</a>
       <a href="proyectos.html" class="nav__link"><i>04</i>Proyectos</a>
-      <a href="contacto.html" class="nav__link"><i>05</i>Contacto</a>
+      <a href="galeria.html" class="nav__link"><i>05</i>Galería</a>
+      <a href="contacto.html" class="nav__link"><i>06</i>Contacto</a>
     </nav>
 
     <a href="contacto.html" class="btn btn--solid header__cta">Solicitar presupuesto <span class="arrow" aria-hidden="true">→</span></a>
@@ -127,11 +122,11 @@
   <div class="franja__track">
     <span>Cimentaciones</span><em></em><span>Estructuras de concreto</span><em></em>
     <span>Muros de contención</span><em></em><span>Concreto aparente</span><em></em>
-    <span>Pisos industriales</span><em></em><span>Habilitado de varilla</span><em></em>
+    <span>Pisos de concreto</span><em></em><span>Habilitado de varilla</span><em></em>
     <span>Concreto lanzado</span><em></em><span>Obra civil</span><em></em>
     <span>Cimentaciones</span><em></em><span>Estructuras de concreto</span><em></em>
     <span>Muros de contención</span><em></em><span>Concreto aparente</span><em></em>
-    <span>Pisos industriales</span><em></em><span>Habilitado de varilla</span><em></em>
+    <span>Pisos de concreto</span><em></em><span>Habilitado de varilla</span><em></em>
     <span>Concreto lanzado</span><em></em><span>Obra civil</span><em></em>
   </div>
 </div>
@@ -139,15 +134,25 @@
 
 <!-- ══════════════ RESUMEN ══════════════ -->
 <section class="section resumen">
-  <div class="shell resumen__grid">
-    <div>
+  <!-- El video lo pidió KROL en la ronda 4. Trae voz y música y dura minuto y
+       medio, así que no arranca solo como los clips mudos del sitio: se queda
+       en el póster y suena sólo cuando alguien le da reproducir. -->
+  <div class="shell resumen__grid resumen__grid--video">
+    <div class="resumen__texto">
       <p class="eyebrow" data-reveal><span class="eyebrow__mark"></span>01 — Quiénes somos</p>
       <h2 class="title" data-reveal>Transformamos proyectos<br>en estructuras sólidas</h2>
-    </div>
-    <div>
       <p class="lead" data-reveal>Somos una empresa jalisciense especializada en cimentaciones, estructuras de concreto y obra civil, comprometida con ofrecer soluciones constructivas de alta calidad mediante ingeniería, experiencia y un enfoque orientado a los resultados.</p>
       <a href="nosotros.html" class="btn btn--ghost" data-reveal>Conocer la empresa <span class="arrow" aria-hidden="true">→</span></a>
     </div>
+    <figure class="rvid" data-reveal>
+      <div class="rvid__marco">
+        <video preload="none" playsinline poster="img/despues-de-un-ano-poster.jpg" data-manual aria-label="Video: Después de un año">
+          <source src="video/despues-de-un-ano.mp4" type="video/mp4" />
+        </video>
+        <button type="button" class="rvid__play" aria-label="Reproducir el video Después de un año"><span class="rvid__icono" aria-hidden="true"></span><span class="rvid__txt">Ver video · 1:31</span></button>
+      </div>
+      <figcaption><b>Después de un año</b><span>El equipo KROL, en video</span></figcaption>
+    </figure>
   </div>
 
   <div class="shell cifras">
@@ -171,88 +176,124 @@
 
     <div class="servs">
 
-        <article class="serv">
-          <div class="serv__img pour"><picture><source srcset="img/cimentacion.avif" type="image/avif" /><img src="img/cimentacion.jpg" alt="Armado de zapata y dado de cimentación en obra industrial" loading="lazy" /></picture><span class="serv__n">01</span></div>
-          <h3>Cimentaciones</h3>
-          <p>Zapatas aisladas y corridas, losas de cimentación, dados y preparación de anclajes para estructura metálica.</p>
-          <a href="contacto.html" class="serv__cta">Cotizar <i aria-hidden="true">↗</i></a>
-        </article>
-
-        <article class="serv">
-          <div class="serv__img pour"><picture><source srcset="img/estructuras-concreto.avif" type="image/avif" /><img src="img/estructuras-concreto.jpg" alt="Estructura de concreto colada en obra" loading="lazy" /></picture><span class="serv__n">02</span></div>
-          <h3>Estructuras de concreto</h3>
-          <p>Trabes, columnas, losas y entrepisos. Cimbra, armado y colado con control de calidad en cada etapa.</p>
-          <a href="contacto.html" class="serv__cta">Cotizar <i aria-hidden="true">↗</i></a>
-        </article>
-
-        <article class="serv">
-          <div class="serv__img pour"><img src="img/muro-contencion.jpg" alt="Muro de contención armado junto a un talud excavado" loading="lazy" /><span class="serv__n">03</span></div>
-          <h3>Muros de contención</h3>
-          <p>Diseño y ejecución de muros de contención para desniveles, taludes y excavaciones profundas.</p>
-          <a href="contacto.html" class="serv__cta">Cotizar <i aria-hidden="true">↗</i></a>
-        </article>
-
-        <article class="serv">
-          <div class="serv__img pour"><picture><source srcset="img/concreto-aparente-casa.avif" type="image/avif" /><img src="img/concreto-aparente-casa.jpg" alt="Casa habitación con muros de concreto aparente" loading="lazy" /></picture><span class="serv__n">04</span></div>
-          <h3>Concreto aparente</h3>
-          <p>Muros y elementos aparentes con cimbra de precisión: acabado limpio, sin repellado, listo para entregar.</p>
-          <a href="contacto.html" class="serv__cta">Cotizar <i aria-hidden="true">↗</i></a>
-        </article>
-
-        <article class="serv">
-          <div class="serv__img pour"><picture><source srcset="img/piso-concreto.avif" type="image/avif" /><img src="img/piso-concreto.jpg" alt="Piso de concreto industrial terminado" loading="lazy" /></picture><span class="serv__n">05</span></div>
-          <h3>Pisos de concreto industriales</h3>
-          <p>Firmes y pisos de alta resistencia para naves, bodegas y centros de distribución. Acabado pulido o escobillado.</p>
-          <a href="contacto.html" class="serv__cta">Cotizar <i aria-hidden="true">↗</i></a>
-        </article>
-
-        <article class="serv">
-          <div class="serv__img pour"><picture><source srcset="img/armado-detalle.avif" type="image/avif" /><img src="img/armado-detalle.jpg" alt="Detalle de varilla habilitada y amarrada en obra" loading="lazy" /></picture><span class="serv__n">06</span></div>
-          <h3>Habilitado de varilla</h3>
-          <p>Corte y doblado con equipo propio. Habilitamos y clasificamos en planta, y llegamos a obra con el acero listo para armar.</p>
-          <a href="contacto.html" class="serv__cta">Cotizar <i aria-hidden="true">↗</i></a>
-        </article>
-
-        <article class="serv">
-          <div class="serv__img pour"><picture><source srcset="img/casa-reserva.avif" type="image/avif" /><img src="img/casa-reserva.jpg" alt="Vivienda de concreto aparente de ejecución especializada" loading="lazy" /></picture><span class="serv__n">07</span></div>
-          <h3>Ejecución especializada</h3>
-          <p>Planeamos, proyectamos y ejecutamos elementos de concreto especializados, desarrollando soluciones para geometrías complejas, formas irregulares y diseños de carácter arquitectónico.</p>
-          <a href="contacto.html" class="serv__cta">Cotizar <i aria-hidden="true">↗</i></a>
-        </article>
-
-        <article class="serv">
-          <div class="serv__img pour"><img src="img/serv-obra-civil.jpg" alt="Rampa y banqueta de concreto en el acceso de una agencia automotriz" loading="lazy" /><span class="serv__n">08</span></div>
-          <h3>Obra civil</h3>
-          <p>Ejecutamos proyectos de obra civil con planeación y control, desde trabajos preliminares y movimientos de tierra hasta infraestructura y urbanización.</p>
-          <a href="contacto.html" class="serv__cta">Cotizar <i aria-hidden="true">↗</i></a>
-        </article>
-
-        <article class="serv">
-          <div class="serv__img pour"><img src="img/torre-jonico.jpg" alt="Torre de departamentos terminada con estructura de concreto" loading="lazy" /><span class="serv__n">09</span></div>
-          <h3>Obra vertical</h3>
-          <p>Desarrollamos y ejecutamos proyectos de obra vertical con una visión integral, desde la cimentación y estructura hasta los acabados. Combinamos planeación, experiencia técnica y una ejecución precisa para garantizar calidad, eficiencia y control en cada etapa del proyecto.</p>
-          <a href="contacto.html" class="serv__cta">Cotizar <i aria-hidden="true">↗</i></a>
-        </article>
-
-        <article class="serv">
-          <div class="serv__img pour"><img src="img/serv-gerencia-obra.jpg" alt="Revisión de planos y control de obra en gabinete" loading="lazy" /><span class="serv__n">10</span></div>
+        <article class="serv" id="gerencia-obra" data-serv="gerencia-obra">
+          <div class="serv__img pour"><img src="img/serv-gerencia-obra.jpg" alt="Revisión de planos y control de obra en gabinete" loading="lazy" /><span class="serv__n">01</span></div>
           <h3>Gerencia de obra</h3>
           <p>Gestionamos cada proyecto de manera integral, coordinando recursos, personal, tiempos y procesos para asegurar una ejecución eficiente y ordenada. Supervisamos cada etapa con enfoque en calidad, costos y cumplimiento, convirtiendo la planeación en resultados concretos.</p>
-          <a href="contacto.html" class="serv__cta">Cotizar <i aria-hidden="true">↗</i></a>
+          <div class="serv__acc">
+            <button type="button" class="serv__ver" aria-haspopup="dialog">Ver más <i aria-hidden="true">+</i></button>
+            <a href="contacto.html" class="serv__cta">Cotizar <i aria-hidden="true">↗</i></a>
+          </div>
         </article>
 
-        <article class="serv">
-          <div class="serv__img pour"><img src="img/serv-terracerias.jpg" alt="Terracería compactada y nivelada lista para cimentación" loading="lazy" /><span class="serv__n">11</span></div>
-          <h3>Terracerías y excavación</h3>
-          <p>Preparación y adecuación con precisión para garantizar bases sólidas y condiciones óptimas para cada proyecto.</p>
-          <a href="contacto.html" class="serv__cta">Cotizar <i aria-hidden="true">↗</i></a>
+        <article class="serv" id="obra-vertical" data-serv="obra-vertical">
+          <div class="serv__img pour"><img src="img/torre-jonico.jpg" alt="Torre de departamentos terminada con estructura de concreto" loading="lazy" /><span class="serv__n">02</span></div>
+          <h3>Obra vertical</h3>
+          <p>Desarrollamos y ejecutamos proyectos de obra vertical con una visión integral, desde la cimentación y estructura hasta los acabados. Combinamos planeación, experiencia técnica y una ejecución precisa para garantizar calidad, eficiencia y control en cada etapa del proyecto.</p>
+          <div class="serv__acc">
+            <button type="button" class="serv__ver" aria-haspopup="dialog">Ver más <i aria-hidden="true">+</i></button>
+            <a href="contacto.html" class="serv__cta">Cotizar <i aria-hidden="true">↗</i></a>
+          </div>
         </article>
 
-        <article class="serv">
-          <div class="serv__img pour"><img src="img/serv-concreto-lanzado.jpg" alt="Aplicación de concreto lanzado sobre el talud de una excavación" loading="lazy" /><span class="serv__n">12</span></div>
+        <article class="serv" id="cimentaciones" data-serv="cimentaciones">
+          <div class="serv__img pour"><picture><source srcset="img/cimentacion.avif" type="image/avif" /><img src="img/cimentacion.jpg" alt="Armado de zapata y dado de cimentación en obra industrial" loading="lazy" /></picture><span class="serv__n">03</span></div>
+          <h3>Cimentaciones</h3>
+          <p>Zapatas aisladas y corridas, losas de cimentación, dados y preparación de anclajes para estructura metálica.</p>
+          <div class="serv__acc">
+            <button type="button" class="serv__ver" aria-haspopup="dialog">Ver más <i aria-hidden="true">+</i></button>
+            <a href="contacto.html" class="serv__cta">Cotizar <i aria-hidden="true">↗</i></a>
+          </div>
+        </article>
+
+        <article class="serv" id="muros-contencion" data-serv="muros-contencion">
+          <div class="serv__img pour"><img src="img/muro-contencion.jpg" alt="Muro de contención armado junto a un talud excavado" loading="lazy" /><span class="serv__n">04</span></div>
+          <h3>Muros de contención</h3>
+          <p>Diseño y ejecución de muros de contención para desniveles, taludes y excavaciones profundas.</p>
+          <div class="serv__acc">
+            <button type="button" class="serv__ver" aria-haspopup="dialog">Ver más <i aria-hidden="true">+</i></button>
+            <a href="contacto.html" class="serv__cta">Cotizar <i aria-hidden="true">↗</i></a>
+          </div>
+        </article>
+
+        <article class="serv" id="estructuras-concreto" data-serv="estructuras-concreto">
+          <div class="serv__img pour"><img src="img/serv-estructuras-concreto.jpg" alt="Estructura de concreto de varios niveles con la cimbra del último nivel montada" loading="lazy" /><span class="serv__n">05</span></div>
+          <h3>Estructuras de concreto</h3>
+          <p>Trabes, columnas, losas y entrepisos. Cimbra, armado y colado con control de calidad en cada etapa.</p>
+          <div class="serv__acc">
+            <button type="button" class="serv__ver" aria-haspopup="dialog">Ver más <i aria-hidden="true">+</i></button>
+            <a href="contacto.html" class="serv__cta">Cotizar <i aria-hidden="true">↗</i></a>
+          </div>
+        </article>
+
+        <article class="serv" id="concreto-aparente" data-serv="concreto-aparente">
+          <div class="serv__img pour"><picture><source srcset="img/concreto-aparente-casa.avif" type="image/avif" /><img src="img/concreto-aparente-casa.jpg" alt="Casa habitación con muros de concreto aparente" loading="lazy" /></picture><span class="serv__n">06</span></div>
+          <h3>Concreto aparente</h3>
+          <p>Muros y elementos aparentes con cimbra de precisión: acabado limpio, sin repellado, listo para entregar.</p>
+          <div class="serv__acc">
+            <button type="button" class="serv__ver" aria-haspopup="dialog">Ver más <i aria-hidden="true">+</i></button>
+            <a href="contacto.html" class="serv__cta">Cotizar <i aria-hidden="true">↗</i></a>
+          </div>
+        </article>
+
+        <article class="serv" id="obra-civil" data-serv="obra-civil">
+          <div class="serv__img pour"><img src="img/serv-obra-civil.jpg" alt="Rampa y banqueta de concreto en el acceso de una agencia automotriz" loading="lazy" /><span class="serv__n">07</span></div>
+          <h3>Obra civil</h3>
+          <p>Ejecutamos proyectos de obra civil con planeación y control, desde trabajos preliminares y movimientos de tierra hasta infraestructura y urbanización.</p>
+          <div class="serv__acc">
+            <button type="button" class="serv__ver" aria-haspopup="dialog">Ver más <i aria-hidden="true">+</i></button>
+            <a href="contacto.html" class="serv__cta">Cotizar <i aria-hidden="true">↗</i></a>
+          </div>
+        </article>
+
+        <article class="serv" id="pisos-concreto" data-serv="pisos-concreto">
+          <div class="serv__img pour"><picture><source srcset="img/piso-concreto.avif" type="image/avif" /><img src="img/piso-concreto.jpg" alt="Piso de concreto industrial terminado" loading="lazy" /></picture><span class="serv__n">08</span></div>
+          <h3>Pisos de concreto</h3>
+          <p>Firmes y pisos de alta resistencia para naves, bodegas y centros de distribución. Acabado pulido o escobillado.</p>
+          <div class="serv__acc">
+            <button type="button" class="serv__ver" aria-haspopup="dialog">Ver más <i aria-hidden="true">+</i></button>
+            <a href="contacto.html" class="serv__cta">Cotizar <i aria-hidden="true">↗</i></a>
+          </div>
+        </article>
+
+        <article class="serv" id="ejecucion-especializada" data-serv="ejecucion-especializada">
+          <div class="serv__img pour"><img src="img/helicoidal-portada.jpg" alt="Escalera helicoidal de concreto terminada en el vestíbulo de una casa" loading="lazy" /><span class="serv__n">09</span></div>
+          <h3>Ejecución especializada</h3>
+          <p>Planeamos, proyectamos y ejecutamos elementos de concreto especializados, desarrollando soluciones para geometrías complejas, formas irregulares y diseños de carácter arquitectónico.</p>
+          <div class="serv__acc">
+            <button type="button" class="serv__ver" aria-haspopup="dialog">Ver más <i aria-hidden="true">+</i></button>
+            <a href="contacto.html" class="serv__cta">Cotizar <i aria-hidden="true">↗</i></a>
+          </div>
+        </article>
+
+        <article class="serv" id="habilitado-varilla" data-serv="habilitado-varilla">
+          <div class="serv__img pour"><picture><source srcset="img/armado-detalle.avif" type="image/avif" /><img src="img/armado-detalle.jpg" alt="Detalle de varilla habilitada y amarrada en obra" loading="lazy" /></picture><span class="serv__n">10</span></div>
+          <h3>Habilitado de varilla</h3>
+          <p>Corte y doblado con equipo propio. Habilitamos y clasificamos en planta, y llegamos a obra con el acero listo para armar.</p>
+          <div class="serv__acc">
+            <button type="button" class="serv__ver" aria-haspopup="dialog">Ver más <i aria-hidden="true">+</i></button>
+            <a href="contacto.html" class="serv__cta">Cotizar <i aria-hidden="true">↗</i></a>
+          </div>
+        </article>
+
+        <article class="serv" id="concreto-lanzado" data-serv="concreto-lanzado">
+          <div class="serv__img pour"><img src="img/serv-concreto-lanzado.jpg" alt="Aplicación de concreto lanzado sobre el talud de una excavación" loading="lazy" /><span class="serv__n">11</span></div>
           <h3>Concreto lanzado</h3>
           <p>Ejecutamos soluciones de concreto lanzado para estabilización, protección y refuerzo de superficies y estructuras. Combinamos precisión, experiencia técnica y control de calidad para garantizar una aplicación eficiente y un resultado durable.</p>
-          <a href="contacto.html" class="serv__cta">Cotizar <i aria-hidden="true">↗</i></a>
+          <div class="serv__acc">
+            <button type="button" class="serv__ver" aria-haspopup="dialog">Ver más <i aria-hidden="true">+</i></button>
+            <a href="contacto.html" class="serv__cta">Cotizar <i aria-hidden="true">↗</i></a>
+          </div>
+        </article>
+
+        <article class="serv" id="terracerias-excavacion" data-serv="terracerias-excavacion">
+          <div class="serv__img pour"><img src="img/serv-terracerias.jpg" alt="Terracería compactada y nivelada lista para cimentación" loading="lazy" /><span class="serv__n">12</span></div>
+          <h3>Terracerías y excavación</h3>
+          <p>Preparación y adecuación con precisión para garantizar bases sólidas y condiciones óptimas para cada proyecto.</p>
+          <div class="serv__acc">
+            <button type="button" class="serv__ver" aria-haspopup="dialog">Ver más <i aria-hidden="true">+</i></button>
+            <a href="contacto.html" class="serv__cta">Cotizar <i aria-hidden="true">↗</i></a>
+          </div>
         </article>
 
     </div>
@@ -273,7 +314,7 @@
 
     <div class="dest__grid">
       <a class="dest dest--ancha" href="proyectos.html" data-reveal>
-        <div class="dest__img pour"><img src="img/oreilly-tienda.jpg" alt="Tienda O&#39;Reilly terminada con su estacionamiento de concreto" loading="lazy" /></div>
+        <div class="dest__img pour"><img src="img/agencia-oreilly.jpg" alt="Tienda O&#39;Reilly de noche vista desde el dron" loading="lazy" /></div>
         <div class="dest__meta"><span class="obra__cat">Comercial</span><h3>O&#39;Reilly · Tiendas y centros de distribución</h3><p>23 tiendas · 5 estados</p></div>
         <span class="obra__go" aria-hidden="true">↗</span>
       </a>
@@ -349,21 +390,20 @@
 <footer class="footer">
   <div class="shell footer__grid">
     <div class="footer__brand">
-      <picture><source srcset="img/logo-krol.avif" type="image/avif" /><img src="img/logo-krol.png" alt="KROL Edificación Estructural" /></picture>
+      <picture><source srcset="img/logo-krol-nuevo.avif" type="image/avif" /><source srcset="img/logo-krol-nuevo.webp" type="image/webp" /><img src="img/logo-krol-nuevo.png" alt="KROL Edificación Estructural" width="589" height="144" loading="lazy" /></picture>
       <p class="footer__slogan">¡Construyendo soluciones!</p>
       <p>Obra civil y estructuras de concreto para proyectos industriales, comerciales y habitacionales.</p>
     </div>
     <div class="footer__col">
       <h3>Navegación</h3>
       <a href="index.html">Inicio</a><a href="nosotros.html">Nosotros</a><a href="servicios.html">Servicios</a>
-      <a href="obra-vertical.html">Obra vertical</a>
-      <a href="proyectos.html">Proyectos</a><a href="contacto.html">Contacto</a>
+      <a href="proyectos.html">Proyectos</a><a href="galeria.html">Galería</a><a href="contacto.html">Contacto</a>
     </div>
     <div class="footer__col">
       <h3>Servicios</h3>
-      <a href="servicios.html">Cimentaciones</a><a href="servicios.html">Estructuras de concreto</a>
-      <a href="servicios.html">Muros de contención</a><a href="servicios.html">Concreto aparente</a>
-      <a href="servicios.html">Pisos industriales</a><a href="obra-vertical.html">Obra vertical</a>
+      <a href="servicios.html#gerencia-obra">Gerencia de obra</a><a href="servicios.html#obra-vertical">Obra vertical</a>
+      <a href="servicios.html#cimentaciones">Cimentaciones</a><a href="servicios.html#muros-contencion">Muros de contención</a>
+      <a href="servicios.html#estructuras-concreto">Estructuras de concreto</a><a href="servicios.html#concreto-aparente">Concreto aparente</a>
     </div>
     <div class="footer__col">
       <h3>Contacto</h3>
@@ -385,6 +425,6 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="js/main.js?v=20260902g"></script>
+<script src="js/main.js?v=20260928a"></script>
 </body>
 </html>

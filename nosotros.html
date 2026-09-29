@@ -19,7 +19,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;500;600;700;800&family=Michroma&family=Black+Ops+One&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="css/styles.css?v=20260902g" />
+<link rel="stylesheet" href="css/styles.css?v=20260928a" />
 <link rel="preload" as="image" href="img/muro-armado.jpg" fetchpriority="high" />
 <link rel="apple-touch-icon" href="img/icono-krol-180.png" />
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230D1117'/%3E%3Cpath transform='translate(4.104 26.284) scale(0.0155 -0.0155)' fill='%23F97316' d='M627 188V833L937 1327H1397ZM117 0V1327H559V0ZM940 0 790 309 1052 702 1418 0Z'/%3E%3C/svg%3E" />
@@ -32,21 +32,16 @@
 <header class="header" id="header">
   <div class="shell header__inner">
     <a href="index.html" class="brand" aria-label="KROL Edificación Estructural — inicio">
-      <picture><source srcset="img/logo-krol.avif" type="image/avif" /><img src="img/logo-krol.png" alt="KROL Edificación Estructural" /></picture>
+      <picture><source srcset="img/logo-krol-nuevo.avif" type="image/avif" /><source srcset="img/logo-krol-nuevo.webp" type="image/webp" /><img src="img/logo-krol-nuevo.png" alt="KROL Edificación Estructural" width="589" height="144" /></picture>
     </a>
 
     <nav class="nav" id="nav" aria-label="Principal">
       <a href="index.html" class="nav__link"><i>01</i>Inicio</a>
       <a href="nosotros.html" class="nav__link on" aria-current="page"><i>02</i>Nosotros</a>
-      <div class="nav__item">
-        <a href="servicios.html" class="nav__link"><i>03</i>Servicios</a>
-        <div class="sub"><div class="sub__in">
-          <a href="servicios.html">Todos los servicios</a>
-          <a href="obra-vertical.html">Obra vertical <span class="nuevo">Nueva</span></a>
-        </div></div>
-      </div>
+      <a href="servicios.html" class="nav__link"><i>03</i>Servicios</a>
       <a href="proyectos.html" class="nav__link"><i>04</i>Proyectos</a>
-      <a href="contacto.html" class="nav__link"><i>05</i>Contacto</a>
+      <a href="galeria.html" class="nav__link"><i>05</i>Galería</a>
+      <a href="contacto.html" class="nav__link"><i>06</i>Contacto</a>
     </nav>
 
     <a href="contacto.html" class="btn btn--solid header__cta">Solicitar presupuesto <span class="arrow" aria-hidden="true">→</span></a>
@@ -317,21 +312,20 @@
 <footer class="footer">
   <div class="shell footer__grid">
     <div class="footer__brand">
-      <picture><source srcset="img/logo-krol.avif" type="image/avif" /><img src="img/logo-krol.png" alt="KROL Edificación Estructural" /></picture>
+      <picture><source srcset="img/logo-krol-nuevo.avif" type="image/avif" /><source srcset="img/logo-krol-nuevo.webp" type="image/webp" /><img src="img/logo-krol-nuevo.png" alt="KROL Edificación Estructural" width="589" height="144" loading="lazy" /></picture>
       <p class="footer__slogan">¡Construyendo soluciones!</p>
       <p>Obra civil y estructuras de concreto para proyectos industriales, comerciales y habitacionales.</p>
     </div>
     <div class="footer__col">
       <h3>Navegación</h3>
       <a href="index.html">Inicio</a><a href="nosotros.html">Nosotros</a><a href="servicios.html">Servicios</a>
-      <a href="obra-vertical.html">Obra vertical</a>
-      <a href="proyectos.html">Proyectos</a><a href="contacto.html">Contacto</a>
+      <a href="proyectos.html">Proyectos</a><a href="galeria.html">Galería</a><a href="contacto.html">Contacto</a>
     </div>
     <div class="footer__col">
       <h3>Servicios</h3>
-      <a href="servicios.html">Cimentaciones</a><a href="servicios.html">Estructuras de concreto</a>
-      <a href="servicios.html">Muros de contención</a><a href="servicios.html">Concreto aparente</a>
-      <a href="servicios.html">Pisos industriales</a><a href="obra-vertical.html">Obra vertical</a>
+      <a href="servicios.html#gerencia-obra">Gerencia de obra</a><a href="servicios.html#obra-vertical">Obra vertical</a>
+      <a href="servicios.html#cimentaciones">Cimentaciones</a><a href="servicios.html#muros-contencion">Muros de contención</a>
+      <a href="servicios.html#estructuras-concreto">Estructuras de concreto</a><a href="servicios.html#concreto-aparente">Concreto aparente</a>
     </div>
     <div class="footer__col">
       <h3>Contacto</h3>
@@ -353,6 +347,6 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="js/main.js?v=20260902g"></script>
+<script src="js/main.js?v=20260928a"></script>
 </body>
 </html>
