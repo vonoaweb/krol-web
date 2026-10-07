@@ -782,7 +782,7 @@ Cómo está resuelto, por si hay que aplicarlo a otra ficha:
 
 ## El CSS y el JS van versionados
 
-`styles.css?v=20260928a` y `main.js?v=20260928a` en las seis páginas. **Al tocar
+`styles.css?v=20260928a` y `main.js?v=20261006a` en las seis páginas. **Al tocar
 CSS o JS hay que subir ese número**, o los navegadores se quedan con el archivo
 viejo.
 
@@ -791,6 +791,29 @@ ejecutando el anterior aun recargando a la fuerza, y el diagnóstico se fue por
 donde no era. Es el mismo problema que obligaba a pedirle a Héctor que abriera
 con `Ctrl + Shift + R`. Con la versión puesta, **eso ya no hace falta para CSS y
 JS** — para el HTML y las imágenes sí puede seguir haciendo falta.
+
+## Cada foto lleva gemela AVIF (6-oct)
+
+Desde el 6-oct cada JPG que muestran las páginas o el visor tiene al lado su
+`.avif` (calidad 55 con Pillow, `im.save(..., 'AVIF', quality=55, speed=4)`),
+que pesa ~40 % menos sin diferencia visible (36–38 dB contra la JPG).
+
+- **En las páginas** cada `<img>` va dentro de
+  `<picture><source srcset="img/X.avif" type="image/avif" />…</picture>`; el
+  `picture{display:contents}` del CSS hace que no cuente en el layout.
+- **La portada de cada página se precarga en AVIF** (`<link rel="preload" …
+  href="img/X.avif" type="image/avif">`). Si se precarga la JPG, la foto baja dos
+  veces.
+- **El visor de obras** pide `X.avif` en lugar de la JPG de `data-fotos` y, si
+  falla, regresa solo a la JPG. Una foto sin gemela se ve igual, sólo que pesada.
+- **Excepciones:** el `<img>` de respaldo dentro de un `<video>` se queda en JPG
+  (es el póster, ya está en caché), y el logo conserva sus AVIF/WebP de antes.
+
+**Foto nueva = generar su `.avif`** y envolverla como las demás.
+
+Subir mucho peso de un jalón (~15 MB o más) truena en este internet con *"the
+remote end hung up"*: se sube en tandas de ~2.5 MB con commits temporales a una
+rama `tmp-subida`, luego `main`, y se borra la rama.
 
 ## Las láminas de presentación no son fotos
 
