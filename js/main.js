@@ -77,7 +77,8 @@ function heroIntro() {
 
   // Sólo cuando el fondo es foto fija: el video del inicio ya se acerca solo.
   // Hijo directo: así no toma el <img> de respaldo que va dentro del <video>.
-  const fondo = $('.hero__media > img');
+  // El <picture> del respaldo AVIF cuenta como hijo directo también.
+  const fondo = $('.hero__media > img, .hero__media > picture > img');
   if (fondo) gsap.fromTo(fondo, { scale: 1.18 }, { scale: 1.06, duration: 2.6, ease: 'power2.out' });
 }
 function gsapless(el) { el.style.opacity = 1; el.style.transform = 'none'; }
@@ -454,6 +455,10 @@ let ultimoFoco = null;
 
 if (lb) {
 const lbImg = $('#lbImg'), lbVid = $('#lbVid'), lbPend = $('#lbPend');
+if (lbImg) lbImg.addEventListener('error', () => {
+  const jpg = lbImg.dataset.jpg;
+  if (jpg && !lbImg.src.endsWith(jpg.split('/').pop())) lbImg.src = jpg;
+});
 
 /* El video se suelta al salir de él, no sólo se pausa: si se queda cargado
    sigue corriendo detrás de la foto siguiente y mantiene el archivo en memoria
@@ -499,7 +504,10 @@ function verPieza([src, alt, poster, extra]) {
     if (!CALMA) lbVid.play().catch(() => {});
   } else {
     soltarVideo();
-    lbImg.src = src;
+    // Cada foto trae gemela .avif que pesa ~40 % menos; si el navegador no la
+    // entiende o falta, el error de abajo regresa a la JPG.
+    lbImg.dataset.jpg = src;
+    lbImg.src = src.replace(/\.jpe?g$/i, '.avif');
     lbImg.alt = alt || '';
     lbImg.hidden = false;
   }

@@ -21,7 +21,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;500;600;700;800&family=Michroma&family=Black+Ops+One&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="css/styles.css?v=20260928a" />
 <!-- Imagen LCP de la portada: se precarga con prioridad para que aparezca de inmediato -->
-<link rel="preload" as="image" href="img/hero-portada.jpg" fetchpriority="high" />
+<link rel="preload" as="image" href="img/hero-portada.avif" type="image/avif" fetchpriority="high" />
 <link rel="apple-touch-icon" href="img/icono-krol-180.png" />
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230D1117'/%3E%3Cpath transform='translate(4.104 26.284) scale(0.0155 -0.0155)' fill='%23F97316' d='M627 188V833L937 1327H1397ZM117 0V1327H559V0ZM940 0 790 309 1052 702 1418 0Z'/%3E%3C/svg%3E" />
 <script type="application/ld+json">
@@ -86,7 +86,7 @@
     <!-- Dos capas: la foto de portada como textura y el velo que la apaga.
          Es decorativa, el titular carga el significado. Antes iba un video de
          obra; KROL pidió esta foto fija en su lugar. -->
-    <img src="img/hero-portada.jpg" alt="" aria-hidden="true" fetchpriority="high" data-parallax />
+    <picture><source srcset="img/hero-portada.avif" type="image/avif" /><img src="img/hero-portada.jpg" alt="" aria-hidden="true" fetchpriority="high" data-parallax /></picture>
     <div class="hero__veil"></div>
   </div>
 
@@ -177,7 +177,7 @@
     <div class="servs">
 
         <article class="serv" id="gerencia-obra" data-serv="gerencia-obra">
-          <div class="serv__img pour"><img src="img/serv-gerencia-obra.jpg" alt="Revisión de planos y control de obra en gabinete" loading="lazy" /><span class="serv__n">01</span></div>
+          <div class="serv__img pour"><picture><source srcset="img/serv-gerencia-obra.avif" type="image/avif" /><img src="img/serv-gerencia-obra.jpg" alt="Revisión de planos y control de obra en gabinete" loading="lazy" /></picture><span class="serv__n">01</span></div>
           <h3>Gerencia de obra</h3>
           <p>Gestionamos cada proyecto de manera integral, coordinando recursos, personal, tiempos y procesos para asegurar una ejecución eficiente y ordenada. Supervisamos cada etapa con enfoque en calidad, costos y cumplimiento, convirtiendo la planeación en resultados concretos.</p>
           <div class="serv__acc">
@@ -187,7 +187,7 @@
         </article>
 
         <article class="serv" id="obra-vertical" data-serv="obra-vertical">
-          <div class="serv__img pour"><img src="img/torre-jonico.jpg" alt="Torre de departamentos terminada con estructura de concreto" loading="lazy" /><span class="serv__n">02</span></div>
+          <div class="serv__img pour"><picture><source srcset="img/torre-jonico.avif" type="image/avif" /><img src="img/torre-jonico.jpg" alt="Torre de departamentos terminada con estructura de concreto" loading="lazy" /></picture><span class="serv__n">02</span></div>
           <h3>Obra vertical</h3>
           <p>Desarrollamos y ejecutamos proyectos de obra vertical con una visión integral, desde la cimentación y estructura hasta los acabados. Combinamos planeación, experiencia técnica y una ejecución precisa para garantizar calidad, eficiencia y control en cada etapa del proyecto.</p>
           <div class="serv__acc">
@@ -207,7 +207,7 @@
         </article>
 
         <article class="serv" id="muros-contencion" data-serv="muros-contencion">
-          <div class="serv__img pour"><img src="img/muro-contencion.jpg" alt="Muro de contención armado junto a un talud excavado" loading="lazy" /><span class="serv__n">04</span></div>
+          <div class="serv__img pour"><picture><source srcset="img/muro-contencion.avif" type="image/avif" /><img src="img/muro-contencion.jpg" alt="Muro de contención armado junto a un talud excavado" loading="lazy" /></picture><span class="serv__n">04</span></div>
           <h3>Muros de contención</h3>
           <p>Diseño y ejecución de muros de contención para desniveles, taludes y excavaciones profundas.</p>
           <div class="serv__acc">
@@ -217,7 +217,7 @@
         </article>
 
         <article class="serv" id="estructuras-concreto" data-serv="estructuras-concreto">
-          <div class="serv__img pour"><img src="img/serv-estructuras-concreto.jpg" alt="Estructura de concreto de varios niveles con la cimbra del último nivel montada" loading="lazy" /><span class="serv__n">05</span></div>
+          <div class="serv__img pour"><picture><source srcset="img/serv-estructuras-concreto.avif" type="image/avif" /><img src="img/serv-estructuras-concreto.jpg" alt="Estructura de concreto de varios niveles con la cimbra del último nivel montada" loading="lazy" /></picture><span class="serv__n">05</span></div>
           <h3>Estructuras de concreto</h3>
           <p>Trabes, columnas, losas y entrepisos. Cimbra, armado y colado con control de calidad en cada etapa.</p>
           <div class="serv__acc">
@@ -237,7 +237,7 @@
         </article>
 
         <article class="serv" id="obra-civil" data-serv="obra-civil">
-          <div class="serv__img pour"><img src="img/serv-obra-civil.jpg" alt="Rampa y banqueta de concreto en el acceso de una agencia automotriz" loading="lazy" /><span class="serv__n">07</span></div>
+          <div class="serv__img pour"><picture><source srcset="img/serv-obra-civil.avif" type="image/avif" /><img src="img/serv-obra-civil.jpg" alt="Rampa y banqueta de concreto en el acceso de una agencia automotriz" loading="lazy" /></picture><span class="serv__n">07</span></div>
           <h3>Obra civil</h3>
           <p>Ejecutamos proyectos de obra civil con planeación y control, desde trabajos preliminares y movimientos de tierra hasta infraestructura y urbanización.</p>
           <div class="serv__acc">
@@ -257,7 +257,7 @@
         </article>
 
         <article class="serv" id="ejecucion-especializada" data-serv="ejecucion-especializada">
-          <div class="serv__img pour"><img src="img/helicoidal-portada.jpg" alt="Escalera helicoidal de concreto terminada en el vestíbulo de una casa" loading="lazy" /><span class="serv__n">09</span></div>
+          <div class="serv__img pour"><picture><source srcset="img/helicoidal-portada.avif" type="image/avif" /><img src="img/helicoidal-portada.jpg" alt="Escalera helicoidal de concreto terminada en el vestíbulo de una casa" loading="lazy" /></picture><span class="serv__n">09</span></div>
           <h3>Ejecución especializada</h3>
           <p>Planeamos, proyectamos y ejecutamos elementos de concreto especializados, desarrollando soluciones para geometrías complejas, formas irregulares y diseños de carácter arquitectónico.</p>
           <div class="serv__acc">
@@ -277,7 +277,7 @@
         </article>
 
         <article class="serv" id="concreto-lanzado" data-serv="concreto-lanzado">
-          <div class="serv__img pour"><img src="img/serv-concreto-lanzado.jpg" alt="Aplicación de concreto lanzado sobre el talud de una excavación" loading="lazy" /><span class="serv__n">11</span></div>
+          <div class="serv__img pour"><picture><source srcset="img/serv-concreto-lanzado.avif" type="image/avif" /><img src="img/serv-concreto-lanzado.jpg" alt="Aplicación de concreto lanzado sobre el talud de una excavación" loading="lazy" /></picture><span class="serv__n">11</span></div>
           <h3>Concreto lanzado</h3>
           <p>Ejecutamos soluciones de concreto lanzado para estabilización, protección y refuerzo de superficies y estructuras. Combinamos precisión, experiencia técnica y control de calidad para garantizar una aplicación eficiente y un resultado durable.</p>
           <div class="serv__acc">
@@ -287,7 +287,7 @@
         </article>
 
         <article class="serv" id="terracerias-excavacion" data-serv="terracerias-excavacion">
-          <div class="serv__img pour"><img src="img/serv-terracerias.jpg" alt="Terracería compactada y nivelada lista para cimentación" loading="lazy" /><span class="serv__n">12</span></div>
+          <div class="serv__img pour"><picture><source srcset="img/serv-terracerias.avif" type="image/avif" /><img src="img/serv-terracerias.jpg" alt="Terracería compactada y nivelada lista para cimentación" loading="lazy" /></picture><span class="serv__n">12</span></div>
           <h3>Terracerías y excavación</h3>
           <p>Preparación y adecuación con precisión para garantizar bases sólidas y condiciones óptimas para cada proyecto.</p>
           <div class="serv__acc">
@@ -314,12 +314,12 @@
 
     <div class="dest__grid">
       <a class="dest dest--ancha" href="proyectos.html" data-reveal>
-        <div class="dest__img pour"><img src="img/agencia-oreilly.jpg" alt="Tienda O&#39;Reilly de noche vista desde el dron" loading="lazy" /></div>
+        <div class="dest__img pour"><picture><source srcset="img/agencia-oreilly.avif" type="image/avif" /><img src="img/agencia-oreilly.jpg" alt="Tienda O&#39;Reilly de noche vista desde el dron" loading="lazy" /></picture></div>
         <div class="dest__meta"><span class="obra__cat">Comercial</span><h3>O&#39;Reilly · Tiendas y centros de distribución</h3><p>23 tiendas · 5 estados</p></div>
         <span class="obra__go" aria-hidden="true">↗</span>
       </a>
       <a class="dest" href="proyectos.html" data-reveal>
-        <div class="dest__img pour"><img src="img/agencia-renault-patria.jpg" alt="Agencia Renault Patria construida por KROL" loading="lazy" /></div>
+        <div class="dest__img pour"><picture><source srcset="img/agencia-renault-patria.avif" type="image/avif" /><img src="img/agencia-renault-patria.jpg" alt="Agencia Renault Patria construida por KROL" loading="lazy" /></picture></div>
         <div class="dest__meta"><span class="obra__cat">Comercial</span><h3>Agencias automotrices</h3><p>25 agencias · Jalisco</p></div>
         <span class="obra__go" aria-hidden="true">↗</span>
       </a>
@@ -425,6 +425,6 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="js/main.js?v=20260928a"></script>
+<script src="js/main.js?v=20261006a"></script>
 </body>
 </html>
