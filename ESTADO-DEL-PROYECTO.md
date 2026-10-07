@@ -439,6 +439,24 @@ la pestaña. Y la primera captura después de abrir un panel suele salir negra
 La entrada `krol-web` había desaparecido de `Vonoa web/.claude/launch.json`; se
 repuso el 28-sep.
 
+### Ajustes del 7-oct (sin costo, ya los aceptó Fernando)
+
+La ronda 4 se publicó el 6-oct y el ingeniero dijo que le encantó. Pidió dos
+cosas por WhatsApp (Héctor):
+
+1. **Miniatura de "Después de un año" con el logo.** El póster ya no es el
+   equipo saludando sino el cuadro del segundo 1.0 del video:
+   `img/despues-de-un-ano-logo.jpg` (y su `img/mini/`). Nombre nuevo para
+   romper la caché; el póster viejo se borró. Aplica en Inicio y en el visor de
+   la galería.
+   - **Abierto:** la portada de la tarjeta "Nosotros" en Galería
+     (`img/galeria-nosotros.jpg`) es ese mismo cuadro del equipo, y Héctor dijo
+     que "también aparece en la galería". No se cambió porque la tarjeta es
+     horizontal y el cuadro del logo vertical; está preguntado a Fernando.
+2. **"Cómo trabajamos" antes que los servicios** en `servicios.html`. Se
+   renumeró: 01 Cómo trabajamos, 02 Servicios, 03 Obra vertical. El carril
+   horizontal fijado no depende de su posición; se probó en escritorio y celular.
+
 ---
 
 ## Feedback v3 (3-sep): la ronda grande
