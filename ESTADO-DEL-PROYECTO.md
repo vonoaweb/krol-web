@@ -51,8 +51,12 @@ Páginas: `index` · `nosotros` · `servicios` · `proyectos` · `galeria` ·
 | Cambiar qué se ve en el dominio | `krol-dominio.sh sitio` / `construccion` / `estado` |
 
 **Ojo con los dominios.** `kroledificacion.com` y `vonoaweb.com` están los dos en
-el Cloudflare de Vonoa. Hoy el dominio del cliente muestra la página "en
-construcción" y el sitio real vive en la URL de GitHub.
+el Cloudflare de Vonoa. **Desde el 8-oct el dominio del cliente sirve el sitio
+completo** (lo aprobó el ingeniero tras los ajustes del 7-oct); la página "en
+construcción" quedó sin dominio en su repo, lista por si hubiera que volver.
+GitHub marca su certificado como `bad_authz` porque Cloudflare va en proxy
+delante: no afecta, el candado lo pone Cloudflare. `http://` no redirige a
+`https://` (la opción "Always Use HTTPS" de Cloudflare está apagada).
 
 **El DNS nunca se toca.** GitHub Pages permite que un dominio lo reclame un solo
 repo a la vez, así que para cambiar qué se publica basta con mover esa
